@@ -8,10 +8,19 @@ namespace FoodPoint_Seller.Api.Models.DomainModels
 {
     public class AccessToken
     {
-        public string sub { get; set; }
+        public string client_id;
+        public string scope;
+        public dynamic amr;
+        public dynamic iss;
+        public string auth_time;
+        public string role;
+        public string aud;
+        public string nbf;
+
+        public string sub;
         /// <summary>
         /// Time unix epoh
         /// </summary>
-        public int exp { get; set; }
+        public int exp;
     }
 }

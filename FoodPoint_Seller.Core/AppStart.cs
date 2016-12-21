@@ -1,4 +1,5 @@
-﻿using FoodPoint_Seller.Core.Services.Implementations;
+﻿using FoodPoint_Seller.Core.Services;
+using FoodPoint_Seller.Core.Services.Implementations;
 using FoodPoint_Seller.Core.ViewModels;
 using MvvmCross.Core.ViewModels;
 
@@ -13,9 +14,9 @@ namespace FoodPoint_Seller.Core
         /// <summary>
         /// The login service.
         /// </summary>
-        private readonly ILoginService _loginService;
+        private readonly ISellerAuthService _loginService;
 
-        public AppStart(ILoginService loginService)
+        public AppStart(ISellerAuthService loginService)
         {
             _loginService = loginService;
         }

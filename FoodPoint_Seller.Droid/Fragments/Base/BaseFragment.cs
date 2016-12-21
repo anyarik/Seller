@@ -67,6 +67,10 @@ namespace FoodPoint_Seller.Droid.Fragments
                 DrawerToggle?.OnConfigurationChanged(newConfig);
             }
         }
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
 
         public override void OnActivityCreated(Bundle savedInstanceState)
         {

@@ -2,6 +2,6 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <AndroidDesignerPreferredDevice>10.1in WXGA %28Tablet%29</AndroidDesignerPreferredDevice>
-    <SelectedDevice>7" KitKat %284.4%29 XHDPI Tablet</SelectedDevice>
+    <SelectedDevice> 7" KitKat %284.4%29 XHDPI Tablet</SelectedDevice>
   </PropertyGroup>
 </Project>

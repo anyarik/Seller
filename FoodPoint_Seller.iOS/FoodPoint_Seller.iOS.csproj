@@ -29,13 +29,26 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <MtouchLink>None</MtouchLink>
+    <MtouchLink>SdkOnly</MtouchLink>
     <MtouchArch>i386</MtouchArch>
     <ConsolePause>false</ConsolePause>
+    <MtouchSdkVersion>10.1</MtouchSdkVersion>
+    <MtouchDebug>False</MtouchDebug>
+    <MtouchProfiling>False</MtouchProfiling>
+    <MtouchFastDev>False</MtouchFastDev>
+    <MtouchUseLlvm>False</MtouchUseLlvm>
+    <MtouchUseThumb>False</MtouchUseThumb>
+    <MtouchEnableBitcode>False</MtouchEnableBitcode>
+    <MtouchUseSGen>False</MtouchUseSGen>
+    <MtouchUseRefCounting>False</MtouchUseRefCounting>
+    <OptimizePNGs>True</OptimizePNGs>
+    <MtouchTlsProvider>Default</MtouchTlsProvider>
+    <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
+    <MtouchFloat32>False</MtouchFloat32>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,12 +61,22 @@
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignKey>iPhone Developer</CodesignKey>
-    <MtouchDebug>true</MtouchDebug>
-    <CodesignProvision>
-    </CodesignProvision>
-    <CodesignExtraArgs>
-    </CodesignExtraArgs>
+    <CodesignKey>iPhone Developer: den.anpilov9595@gmail.com (9FJVZ5B63P)</CodesignKey>
+    <MtouchDebug>True</MtouchDebug>
+    <MtouchSdkVersion>10.1</MtouchSdkVersion>
+    <MtouchLink>None</MtouchLink>
+    <MtouchProfiling>False</MtouchProfiling>
+    <MtouchFastDev>False</MtouchFastDev>
+    <MtouchUseLlvm>False</MtouchUseLlvm>
+    <MtouchUseThumb>False</MtouchUseThumb>
+    <MtouchEnableBitcode>False</MtouchEnableBitcode>
+    <MtouchUseSGen>False</MtouchUseSGen>
+    <MtouchUseRefCounting>False</MtouchUseRefCounting>
+    <OptimizePNGs>True</OptimizePNGs>
+    <MtouchTlsProvider>Default</MtouchTlsProvider>
+    <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
+    <MtouchFloat32>False</MtouchFloat32>
+    <DeviceSpecificBuild>False</DeviceSpecificBuild>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -103,28 +126,20 @@
     <Compile Include="Setup.cs" />
     <Compile Include="Views\Base\BaseViewController.cs" />
     <Compile Include="Views\Help\HelpView.cs" />
-    <Compile Include="Views\Home\Cells\OrderCell.cs" />
-    <Compile Include="Views\Home\Cells\OrderCell.designer.cs">
-      <DependentUpon>OrderCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Home\Cells\TableSource.cs" />
-    <Compile Include="Views\Home\TestView.cs" />
-    <Compile Include="Views\Home\TestView.designer.cs">
-      <DependentUpon>TestView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Home\ThirdView.cs" />
-    <Compile Include="Views\Home\InfoView.cs" />
     <Compile Include="Views\Home\HomeView.cs" />
+    <Compile Include="Views\Home\HomeView.designer.cs">
+      <DependentUpon>HomeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\TestingView.cs" />
     <Compile Include="Views\Login\LoginView.cs" />
     <Compile Include="Views\Base\MainView.cs" />
     <Compile Include="Views\Menu\MenuView.cs" />
-    <Compile Include="Views\Settings\SettingsView.cs" />
+    <Compile Include="Views\Statistic\StatisticView.cs" />
     <None Include="app.config" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
-    <InterfaceDefinition Include="Views\Home\Cells\OrderCell.xib" />
-    <InterfaceDefinition Include="Views\Home\TestView.xib" />
+    <InterfaceDefinition Include="Views\Home\HomeView.xib" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />
@@ -202,6 +217,14 @@
       <HintPath>..\packages\Plugin.KeyChain.2.0.1\lib\Xamarin.iOS10\Plugin.KeyChain.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Plugin.SecureStorage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\sameerIOTApps.Plugin.SecureStorage.1.2.1\lib\Xamarin.iOS10\Plugin.SecureStorage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Plugin.SecureStorage.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\sameerIOTApps.Plugin.SecureStorage.1.2.1\lib\Xamarin.iOS10\Plugin.SecureStorage.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
@@ -238,4 +261,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>cd $(OutDir) 
+del *.mdb
+del *.pdb</PreBuildEvent>
+  </PropertyGroup>
 </Project>

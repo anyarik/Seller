@@ -11,11 +11,11 @@ namespace FoodPoint_Seller.Core.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        private readonly ILoginService _loginService;
+        private readonly ISellerAuthService _loginService;
 
         private readonly IDialogService _dialogService;
 
-        public LoginViewModel(ILoginService loginService, IDialogService dialogService)
+        public LoginViewModel(ISellerAuthService loginService, IDialogService dialogService)
         {
             _loginService = loginService;
             _dialogService = dialogService;
@@ -47,7 +47,7 @@ namespace FoodPoint_Seller.Core.ViewModels
                 }
             }
             
-	        catch (System.Exception)
+	        catch (System.Exception a)
 	        {
                 throw new Exception("Ошибка в авторизации");
             }

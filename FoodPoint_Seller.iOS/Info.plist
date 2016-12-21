@@ -31,7 +31,5 @@
 	<array>
 		<string>Default-568h@2x.png</string>
 	</array>
-	<key>NSMainNibFile~ipad</key>
-	<string>OrderCell</string>
 </dict>
 </plist>

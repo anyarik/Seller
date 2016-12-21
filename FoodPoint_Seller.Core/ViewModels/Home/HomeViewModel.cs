@@ -12,6 +12,7 @@ using MvvmCross.Platform;
 using System;
 using FoodPoint_Seller.Core.Models;
 using FoodPoint_Seller.Core.Services.Implementations;
+using FoodPoint_Seller.Core.Services;
 
 namespace FoodPoint_Seller.Core.ViewModels
 {
@@ -20,39 +21,35 @@ namespace FoodPoint_Seller.Core.ViewModels
         //TODO Необходимо:
         // Получать текущие активные заказы магазина на входе
         // Кешировать\сохранять\получать активные заказы заказы
-        // Разобраться с таймерами - сделано в выключении заказов
+        // Таймер для оплаченного заказа
         // Решить выносить ли логику с заказами в одтельный сервис
         // Реализовать кнопки в списке добавок полученного заказа
         // Выключать таймер когда заказ отправлен и запускать новый под новый этап.
+        // Просмотр полного заказа, при нажатии на него.
 
         private IOrderController _orderController;
-
+        private ISellerAuthService _loginService;
         private readonly IMvxMessenger _messenger;
   
         /// <summary>Gets the recycler.</summary>
         /// <value>The recycler.</value>
-        public RecyclerViewModel Recycler { get; private set; }
+        //public RecyclerViewModel Recycler { get; private set; }
 
         /// <summary> 
         /// Список заказов, который получены и согласованы
         /// </summary>
-        public INC<List<OrderItem>> ListOrderItem = new NC<List<OrderItem>>(new List<OrderItem>(), (e) => {
+        public INC<List<PayedOrder>> ListOrderItem = new NC<List<PayedOrder>>(new List<PayedOrder>(), (e) => {
         });
 
-        #region Переменые для статистики продовца
-        public INC<int> CountCancelOrder = new NC<int>(0, (e) =>
+        public INC<bool> IsClikedOrderDialogOpen = new NC<bool>(false, (e) =>
+        {
+        });
+
+        
+        public INC<int> CountStackOrder = new NC<int>(0, (e) =>
        {
        });
-
-        public INC<int> CountNotAnswerOrder = new NC<int>(0, (e) =>
-        {
-        });
-
-        public INC<int> CountDoneOrder = new NC<int>(0, (e) =>
-        {
-        }); 
-        #endregion
-
+        
         #region Переменые для окна согласования заказа
         /// <summary>
         /// Информация о полученом заказе, который в обработке продовцом
@@ -63,6 +60,7 @@ namespace FoodPoint_Seller.Core.ViewModels
         /// Очередь заказов, которые еще не обработаны.
         /// </summary>
         private List<RecivedOrder> _recivedStackOrders = new List<RecivedOrder>();
+      
         /// <summary>
         /// Список полученых текущих продуктов в пришедшем заказе
         /// </summary>
@@ -108,22 +106,33 @@ namespace FoodPoint_Seller.Core.ViewModels
         private MvxCommand<ProductForOrder> _productAcceptedCommand;
         private MvxCommand<ProductForOrder> _additiveAcceptedCommand;
 
-        public HomeViewModel(IOrderController orderController, IMvxMessenger messenger)
+        public HomeViewModel(IOrderController orderController, IMvxMessenger messenger, ISellerAuthService loginService)
         {
             this._orderController = orderController;
+            this._loginService = loginService;
 
-            _messenger = messenger;
+            this._messenger = messenger;
+        }
+        /// <summary>
+        /// Метод, который говорит нам о том, что наша ViewModel отобразилась на экране
+        /// </summary>
+        public override void Start()
+        {
+            base.Start();
 
-            _messenger.Subscribe<ProductAcceptedMessage>(message => {
+            _messenger.Subscribe<ProductAcceptedMessage>(message =>
+            {
                 ProductAcceptedCommand.Execute(message.Product);
             }, MvxReference.Strong);
 
-            _messenger.Subscribe<AddictiveAcceptedMessage>(message => {
+            _messenger.Subscribe<AddictiveAcceptedMessage>(message =>
+            {
                 AdditiveAcceptedCommand.Execute(message.Additive);
             }, MvxReference.Strong);
 
-            this.OpenNexStackOrder += HomeViewModel_OpenNexStackOrder; 
+            this.OpenNexStackOrder += HomeViewModel_OpenNexStackOrder;
             this.Init();
+            //this.ListOrderItem.Value = _orderService.GetOrders();
         }
 
         /// <summary>
@@ -136,9 +145,10 @@ namespace FoodPoint_Seller.Core.ViewModels
             {
                 var curerntOrder = this._recivedStackOrders.FirstOrDefault();
                 this.OpenDialogForOrderAgreement(curerntOrder);
+
+                this.CountStackOrder.Value--;
             }
         }
-
         public ICommand ProductAcceptedCommand
         {
             get
@@ -193,24 +203,25 @@ namespace FoodPoint_Seller.Core.ViewModels
                 this._sendOrder.StatusOrder = true;
         }
 
-        private async void Init()
+        private  async void Init()
         {
+            var user = await this._loginService.GetProfileSeller();
             //this._orders = await _orderController.GetActiveOrders();
-            this._orderController.HubConnection();
+            this._orderController.HubConnection(user.ID);
 
             this._orderController.OnReceiveOrder((customer, reciveOrder, time) =>
             {
                 var deserializeOrder = JsonConvert.DeserializeObject<OrderItem>(reciveOrder);
 
-                this.ListOrderItem.Value.Add(deserializeOrder);
-                var tempList = new List<OrderItem>();
+                //this.ListOrderItem.Value.Add(deserializeOrder);
+                //var tempList = new List<OrderItem>();
 
-                foreach (var item in this.ListOrderItem.Value)
-                {
-                    tempList.Add(item.Clone(item));
-                }
+                //foreach (var item in this.ListOrderItem.Value)
+                //{
+                //    tempList.Add(item.Clone(item));
+                //}
 
-                this.ListOrderItem.Value = tempList;
+                //this.ListOrderItem.Value = tempList;
 
                 var stackOrder = new RecivedOrder(customer.ToString(), time, deserializeOrder, (order) => {
                     order.CloseOrderTimer = new Timer(new TimeSpan(0, 0, 90), (_) =>
@@ -222,10 +233,11 @@ namespace FoodPoint_Seller.Core.ViewModels
 
                         if (order.CloseOrderTimer.WaitTime == TimeSpan.Zero)
                         {
-                            order.CloseOrderTimer.StopTimer(); 
+                            order.CloseOrderTimer.StopTimer();
+
                             this._recivedStackOrders.RemoveAll(o => o.Order.ID == order.Order.ID);
 
-                            if (this.IsOrderDialogOpen.Value) // Возможен косяк
+                            if (this.IsOrderDialogOpen.Value) 
                                 this.OpenNexStackOrder.Invoke(null, null);
                         }
                     });
@@ -234,6 +246,9 @@ namespace FoodPoint_Seller.Core.ViewModels
                 stackOrder.StartTimer();
 
                 this._recivedStackOrders.Add(stackOrder);
+
+                if (this._recivedStackOrders.Count > 1)
+                    this.CountStackOrder.Value = this._recivedStackOrders.Count;
 
                 if (this._recivedStackOrders.Count == 1)
                     this.OpenDialogForOrderAgreement(stackOrder);
@@ -258,7 +273,7 @@ namespace FoodPoint_Seller.Core.ViewModels
             currentOrder.IsAlive = true;
 
             this.RecivedOrderTime.Value = currentOrder.Time;
-            this.RecivedOrderNumber.Value = currentOrder.Order.ID.ToString();
+            this.RecivedOrderNumber.Value = currentOrder.Order.RowNumber;
 
             this.ListCurentOrderProductItem.Value = currentOrder.Order.OrderedFood;
            
@@ -269,29 +284,45 @@ namespace FoodPoint_Seller.Core.ViewModels
         /// <summary>
         ///отменить заказ
         /// </summary>
-        public void OnCancelOrder()
+        public async void OnCancelOrder()
         {
             this._orderController.CorrectOrder(this._sendOrder.CustomerName, false, "[]", null);
-            this.CountCancelOrder.Value += 1;
+
+            var user = await this._loginService.GetProfileSeller();
+
+            this._orderController.SetSellerOrder(this._sendOrder.Order.ID.ToString(), user.ID);
+            this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString(), "refused", false);
+
             this.OpenNexStackOrder.Invoke(null, this._sendOrder);
         }
 
         /// <summary>
         /// Согласовать заказ
         /// </summary>
-        public void OnApprove()
+        public async void OnApprove()
         {
             var recivedCorrectProduct = JsonConvert.SerializeObject(this._sendOrder.DelayProduct);
-            this._orderController.CorrectOrder(this._sendOrder.CustomerName, this._sendOrder.StatusOrder, this._sendOrder.DelayTime,
-                                                                                                         recivedCorrectProduct);
-            this.CountDoneOrder.Value += 1;
-            var doneOrder = this._sendOrder;
-            this.ListOrderItem.Value.Add(doneOrder.Order);
-            var tempList = new List<OrderItem>();
+            this._orderController.CorrectOrder(this._sendOrder.CustomerName, this._sendOrder.StatusOrder, recivedCorrectProduct,
+                                                                                             this._sendOrder.DelayTime);
+
+            var user = await this._loginService.GetProfileSeller();
+
+            this._orderController.SetSellerOrder(this._sendOrder.Order.ID.ToString(), user.ID);
+
+            var doneOrder = new PayedOrder(this._sendOrder.CustomerName, this._sendOrder.Order, TimeSpan.Parse(this._sendOrder.Time), (order) => {
+                order.CloseOrderTimer = new Timer(order.OrderTime, (_) =>
+                {
+                    order.CloseOrderTimer.WaitTime -= new TimeSpan(0, 0, 1);
+                });
+            });
+            doneOrder.StartTimer();
+
+            this.ListOrderItem.Value.Add(doneOrder);
+            var tempList = new List<PayedOrder>();
 
             foreach (var item in this.ListOrderItem.Value)
             {
-                tempList.Add(item.Clone(item));
+                tempList.Add(item);
             }
 
             this.ListOrderItem.Value = tempList;
@@ -305,7 +336,11 @@ namespace FoodPoint_Seller.Core.ViewModels
         private void ClearOrder(RecivedOrder deleteOrder)
         {
             if (deleteOrder != null)
+            {
+                this._recivedStackOrders.Find(o => o.Order.ID == deleteOrder.Order.ID).CloseOrderTimer.StopTimer();
+
                 this._recivedStackOrders.RemoveAll(o => o.Order.ID == deleteOrder.Order.ID);
+            }
 
             this.ListCurentOrderProductItem.Value = new List<ProductForOrder>();
             IsOrderDialogOpen.Value = false;
@@ -317,20 +352,18 @@ namespace FoodPoint_Seller.Core.ViewModels
             this._sendOrder.DelayTime = "5";
             this._sendOrder.StatusOrder = false;
         }
-         public void OndelayTen()
-        {
-            DelayTime.Value = "10:00";
-            this._sendOrder.DelayTime = "10";
-            this._sendOrder.StatusOrder = false;
-        }
         #endregion
-        /// <summary>
-        /// Метод, который говорит нам о том, что наша ViewModel отобразилась на экране
-        /// </summary>
-        public override void Start()
+
+        public void OrderClick(PayedOrder order)
         {
-            base.Start();
-            //this.ListOrderItem.Value = _orderService.GetOrders();
+            this.IsClikedOrderDialogOpen.Value = true;
+
+            this.RecivedOrderNumber.Value = order.Order.ID.ToString();
+            this.ListCurentOrderProductItem.Value = order.Order.OrderedFood;
         }
-    }
+        public void OnClose(PayedOrder order)
+        {
+            this.IsClikedOrderDialogOpen.Value = false;
+        }
+     }
 }

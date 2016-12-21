@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MvvmCross.Platform.Platform;
+using System;
+using System.Diagnostics;
 using UIKit;
 
 namespace FoodPoint_Seller.Touch
@@ -14,10 +16,10 @@ namespace FoodPoint_Seller.Touch
             {
                 UIApplication.Main(args, null, "AppDelegate");
             }
-            catch (System.Exception)
+            catch (System.Exception a)
             {
-
-                throw new Exception("Ошибка в загрузке приложения");
+                Debug.WriteLine("Error", "Ошибка", a.Message);
+                throw new Exception(a.Message);
             }
            
         }

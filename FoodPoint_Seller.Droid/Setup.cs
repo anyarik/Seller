@@ -12,6 +12,7 @@ using FoodPoint_Seller.Droid.Utilities;
 using MvvmCross.Platform.Droid.Platform;
 using FoodPoint_Seller.Core.Services.Implementations;
 using MvvmCross.Dialog.Droid;
+using FoodPoint_Seller.Core.Services;
 
 namespace FoodPoint_Seller.Droid
 {
@@ -25,7 +26,9 @@ namespace FoodPoint_Seller.Droid
         protected override IMvxApplication CreateApp()
         {
             return new Core.App();
+
         }
+
 
         protected override IEnumerable<Assembly> AndroidViewAssemblies => new List<Assembly>(base.AndroidViewAssemblies)
         {

@@ -9,11 +9,12 @@ using MvvmCross.Droid.Support.V7.AppCompat;
 using MvvmCross.Platform;
 using FoodPoint_Seller.Core.ViewModels;
 using FoodPoint_Seller.Api.Controllers;
+using FoodPoint_Seller.Api.Controllers.Implementations;
 
 namespace FoodPoint_Seller.Droid.Activities
 {
     [Activity(
-        Label = "Main Activity",
+        Label = "",
         Theme = "@style/AppTheme",
         LaunchMode = LaunchMode.SingleTop,
         ScreenOrientation = ScreenOrientation.Landscape
@@ -91,5 +92,20 @@ namespace FoodPoint_Seller.Droid.Activities
             base.OnDestroy();
             orderController.HubDisconnect();
         }
+        public override void Finish()
+        {
+            base.Finish();
+        }
+
+        protected override void OnPause()
+        {
+            base.OnPause();
+        }     
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+            OnDestroy();
+        }
     }
-    }
+}

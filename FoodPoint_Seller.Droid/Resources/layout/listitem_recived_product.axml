@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -33,12 +34,5 @@
         android:focusable="false"
         android:layout_toRightOf="@id/text_product_name"
         local:MvxBind="Click  CommandToMessage('FooodPoint_Seller.Core.Messeges.ProductAcceptedMessage', $parent)" />
-    <Mvx.MvxLinearLayout
-        android:id="@+id/inner_category_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:clickable="true"
-        local:MvxItemTemplate="@layout/listitem_recived_addictive"
-        local:MvxBind="ItemsSource PossibleAdditives" />
+
 </LinearLayout>

@@ -4,7 +4,15 @@
     {
         public void ShowMenu()
         {
-            ShowViewModel<HomeViewModel>();
+            try
+            {
+                ShowViewModel<HomeViewModel>();
+            }
+            catch (System.Exception a)
+            {
+
+                throw;
+            }
             ShowViewModel<MenuViewModel>();            
         }
 
@@ -31,5 +39,7 @@
         {
             //base.Start();
         }
+
+ 
     }
 }

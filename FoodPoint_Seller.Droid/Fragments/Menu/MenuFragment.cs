@@ -61,14 +61,14 @@ namespace FoodPoint_Seller.Droid.Fragments
                 case Resource.Id.nav_home:
                     ViewModel.ShowHomeCommand.Execute();
                     break;
-                case Resource.Id.nav_viewpager:
-                    ViewModel.ShowViewPagerCommand.Execute();
-                    break;
-                case Resource.Id.nav_recyclerview:
-                    ViewModel.ShowRecyclerCommand.Execute();
+                case Resource.Id.nav_statistic_owner:
+                    ViewModel.ShowStatisticOwnerCommand.Execute();
                     break;
                 case Resource.Id.nav_settings:
-                    ViewModel.ShowSettingCommand.Execute();
+                    ViewModel.ShowRecyclerCommand.Execute();
+                    break;
+                case Resource.Id.nav_statistic_seller:
+                    ViewModel.ShowStatisticSellerCommand.Execute();
                     break;
                 case Resource.Id.nav_helpfeedback:
                     ViewModel.ShowHelpCommand.Execute();

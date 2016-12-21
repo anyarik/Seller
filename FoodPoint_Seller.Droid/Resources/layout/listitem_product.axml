@@ -17,15 +17,15 @@
         android:id="@+id/text_product_name"
         android:gravity="fill_horizontal"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        local:MvxBind="Text ProductInfo.Name" />
-  <!--<Mvx.MvxImageView
+        local:MvxBind="Text Order.ProductInfo.Name" />
+<!--<Mvx.MvxImageView
     android:text="Нет в наличии"
  android:layout_width="match_parent"
    android:layout_height="wrap_content"
     android:layout_margin="10dp"
      android:layout_toRightOf="@id/text_product_name"
     local:MvxBind="Click ProductAcceptedCommand('HomeViewModel.Core.Messages.ProductAcceptedMessage', .)" />-->
-    <!--<Button
+<!--<Button
         android:text="Нет в наличии"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

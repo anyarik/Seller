@@ -8,7 +8,7 @@ namespace FoodPoint_Seller.Api.Services
 {
    public  interface IOrderHubService 
     {
-        void HubConnection();
+        void HubConnection(string id);
         void HubDisconnect();
         void CorrectOrder(string customerId, bool status, string corectOrder, string corectTime);
         event EventHandler<IDictionary<string,string>> receiveOrder;

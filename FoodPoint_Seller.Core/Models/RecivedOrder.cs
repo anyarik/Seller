@@ -42,6 +42,10 @@ namespace FoodPoint_Seller.Core.Models
             this.CloseOrderTimer.StartTimer();
         }
 
+        public void StopTimer()
+        {
+            this.CloseOrderTimer.StopTimer();
+        }
 
         ////Информация о полученом заказе, который в обработке продовцом
         //public static OrderItem _recivedOrder;

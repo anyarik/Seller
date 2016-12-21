@@ -11,5 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        local:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        local:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+      <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      android:layout_marginBottom="4dp"
+      android:id="@+id/text_count_stack_order"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      local:MvxBind="Text CountStackOrder" />
+
+      </android.support.v7.widget.Toolbar>
+  
 </android.support.design.widget.AppBarLayout>

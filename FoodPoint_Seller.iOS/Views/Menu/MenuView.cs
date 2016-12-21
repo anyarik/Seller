@@ -38,7 +38,7 @@ namespace FoodPoint_Seller.Touch.Views
             settingsButton.SetTitle("Settings", UIControlState.Normal);
             settingsButton.BackgroundColor = UIColor.White;
             settingsButton.SetTitleColor(UIColor.Black, UIControlState.Normal);
-            set.Bind(settingsButton).To(vm => vm.ShowSettingCommand);
+            set.Bind(settingsButton).To(vm => vm.ShowStatisticCommand);
 
             var helpButton = new UIButton(new CGRect(0, 100, 320, 40));
             helpButton.SetTitle("Help & Feedback", UIControlState.Normal);

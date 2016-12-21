@@ -8,6 +8,7 @@ using MvvmCross.iOS.Views.Presenters;
 using MvvmCross.iOS.Support.SidePanels;
 using MvvmCross.iOS.Support.JASidePanels;
 using FoodPoint_Seller.Core.Services.Implementations;
+using FoodPoint_Seller.Core.Services;
 
 namespace FoodPoint_Seller.Touch
 {

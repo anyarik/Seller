@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoodPoint_Seller.Api.Controllers
+namespace FoodPoint_Seller.Api.Controllers.Implementations
 {
     public class OrderController : IOrderController
     {
@@ -17,7 +17,7 @@ namespace FoodPoint_Seller.Api.Controllers
             this.orderHubService = orderHubService;
             this.orderService =orderService;
     }
-        public void HubConnection() => orderHubService.HubConnection();
+        public void HubConnection(string id) => orderHubService.HubConnection(id);
         public void CorrectOrder( string customerId, bool status, string order, string time) => orderHubService.CorrectOrder(customerId, status,order,time);
 
         public void OnCustomerAgreed(Action<object, bool> func)
@@ -31,6 +31,11 @@ namespace FoodPoint_Seller.Api.Controllers
         public void HubDisconnect() => orderHubService.HubDisconnect();
 
         public void SendOrder(string order) => orderService.SendOrder(order);
-       
+        public void ChangeStatusOrder(string id, string state, bool isActive) => orderService.ChangeStatusOrder(id, state, isActive);
+
+        public void SetOrderSeller(string id, string state, bool isActive) => orderService.ChangeStatusOrder(id, state, isActive);
+
+        public void SetSellerOrder(string orderId, string sellerID) =>  orderService.SetSellerOrder(orderId, sellerID);
+        
     }
 }

@@ -5,7 +5,11 @@ namespace FoodPoint_Seller.Api.Services
 {
     public interface IUserService
     {
-        Task<AccessTokenAuthorise> Authorization(UserModel user);
-        Task<UserModel> GetProfileUser(int id, string token);
+        Task<AccessTokenAuthorise> AuthorizationSeller(SellerAccountModel user);
+
+        Task<AccessTokenAuthorise> AuthorizationOwner(OwnerAccountModel user);
+        Task<SellerAccountModel> GetProfileSeller(string id, string token);
+
+        Task<OwnerAccountModel> GetProfileOwner(string id, string token);
     }
 }

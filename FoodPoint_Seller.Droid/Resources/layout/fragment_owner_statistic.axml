@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            local:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    </android.support.design.widget.AppBarLayout>
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/options_statistic_content"
+        android:layout_below="@id/appbar">
+        <Button
+            android:text="Статистика по продуктам"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_product_statistic"
+            local:MvxBind="Click OnProductStatistic" />
+        <Button
+            android:text="Статистика по продовцам"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_seller_statistic"
+            android:layout_toRightOf="@id/btn_product_statistic"
+            local:MvxBind="Click OnSellerStatistic" />
+        <Button
+            android:text="Статистика по выручке"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/btn_seller_statistic"
+            android:id="@+id/btn_order_statisric"
+            local:MvxBind="Click OnOrderStatistic" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/options_statistic_content"
+        local:MvxBind="Visibility Visibility(IsFoodStatisticOpen)">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Статистика товаров" />
+        <Mvx.MvxGridView
+            android:id="@+id/list_statistic_food"
+            android:layout_width="700dp"
+            android:layout_height="500dp"
+            android:layout_marginLeft="10dp"
+            local:MvxBind="ItemsSource FoodStatisticListItem"
+            local:MvxItemTemplate="@layout/listitem_statistic_seller" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/options_statistic_content"
+        local:MvxBind="Visibility Visibility(IsSellerStatisticOpen)">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Статистика продовцов" />
+        <Mvx.MvxGridView
+            android:id="@+id/list_statistic_seller"
+            android:layout_width="700dp"
+            android:layout_height="500dp"
+            android:layout_marginLeft="10dp"
+            local:MvxBind="ItemsSource SellerStatisticListItem"
+            local:MvxItemTemplate="@layout/listitem_statistic_seller" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/options_statistic_content"
+        local:MvxBind="Visibility Visibility(IsOrderStatisticOpen)">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Статистика выручки" />
+        <Mvx.MvxGridView
+            android:id="@+id/list_statistic_order"
+            android:layout_width="700dp"
+            android:layout_height="500dp"
+            android:layout_marginLeft="10dp"
+            local:MvxBind="ItemsSource OrderStatisticListItem"
+            local:MvxItemTemplate="@layout/listitem_statistic_seller" />
+    </RelativeLayout>
+</RelativeLayout>

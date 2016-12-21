@@ -1,83 +1,70 @@
-﻿//using Cirrious.FluentLayouts.Touch;
-//using Foundation;
-//using MvvmCross.Binding.BindingContext;
-//using UIKit;
-//using FoodPoint_Seller.Core.ViewModels;
-//using MvvmCross.iOS.Support.SidePanels;
-//using MvvmCross.Binding.iOS.Views;
-//using System.Collections.Generic;
-//using MvvmCross.iOS.Views;
-
-//namespace FoodPoint_Seller.Touch.Views
-//{
-//    [Register("HomeView")]
-//	[MvxPanelPresentation(MvxPanelEnum.Center, MvxPanelHintType.ResetRoot, true)]
-//    public class HomeView : BaseViewController<HomeViewModel>
-//    {
-//        public override void ViewDidLoad()
-//        {
-//            base.ViewDidLoad();
-//            var viewModel = this.ViewModel;
-
-//            var scrollView = new UIScrollView(View.Frame)
-//            {
-//                ShowsHorizontalScrollIndicator = false,
-//                AutoresizingMask = UIViewAutoresizing.FlexibleHeight
-//            };
+using FoodPoint_Seller.Core.ViewModels;
+using MvvmCross.Binding.BindingContext;
 
 
+using MvvmCross.iOS.Support.SidePanels;
+using Foundation;
+using MvvmCross.iOS.Views;
 
-//            //var source = new TableSource(TableView)
-//            //{
-//            //    UseAnimations = true,
-//            //    AddAnimation = UITableViewRowAnimation.Left,
-//            //    RemoveAnimation = UITableViewRowAnimation.Right
-//            //};
+namespace FoodPoint_Seller.Touch.Views
+{
+    [MvxPanelPresentation(MvxPanelEnum.Center, MvxPanelHintType.ActivePanel, true)]
+    public partial class HomeView : MvxViewController<HomeViewModel>
+    {
+        public HomeView() : base("HomeView", null)
+        {
+        }
 
-//            //this.AddBindings(new Dictionary<object, string>
-//            //    {
-//            //        {source, "ItemsSource ListOrderItem"}
-//            //    });
+        //public override void ViewWillAppear(bool animated)
+        //{
+        //    Title = "Home View";
+        //    base.ViewWillAppear(animated);
+        //}
+   
 
-//            //TableView.Source = source;
-//            //TableView.ReloadData();
+        public override void ViewDidUnload()
+        {
+            base.ViewDidUnload();
+
+            // Clear any references to subviews of the main view in order to
+            // allow the Garbage Collector to collect them sooner.
+            //
+            // e.g. myOutlet.Dispose (); myOutlet = null;
+
+            ReleaseDesignerOutlets();
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            //var viewModel = this.ViewModel;
+            ////var source= new TableSource(ListOrderItemTable);
+
+            ////this.AddBindings(new Dictionary<object, string>
+            ////    {
+            ////        {source, "ItemsSource ListOrderItem"}
+            ////    });
+
+            ////ListOrderItemTable.Source = source;
+            ////ListOrderItemTable.ReloadData();
 
 
-//            Add(scrollView);
 
-//            View.SubviewsDoNotTranslateAutoresizingMaskIntoConstraints();
+            this.CreateBinding(RecivedOrderNumberLabel).To((HomeViewModel vm) => vm.RecivedOrderNumber).Apply();
+            this.CreateBinding(RecivedOrderTimeLabel).To((HomeViewModel vm) => vm.RecivedOrderTime).Apply();
+            this.CreateBinding(RecivedOrderTimerLabel).To((HomeViewModel vm) => vm.RecivedOrderTimer).Apply();
 
-//            View.AddConstraints(
-//                scrollView.AtLeftOf(View),
-//                scrollView.AtTopOf(View),
-//                scrollView.WithSameWidth(View),
-//                scrollView.WithSameHeight(View));
-//            scrollView.SubviewsDoNotTranslateAutoresizingMaskIntoConstraints();
+            this.CreateBinding(CancelOrderButton).To("OnCancelOrder").Apply();
+            this.CreateBinding(CancelOrderButton).To("OnApprove").Apply();
+            
+            this.CreateBinding(DialogPanel).For("Visibility")
+           .To<HomeViewModel>(vm => vm.IsOrderDialogOpen)
+           .WithConversion("Visibility").Apply();
+     
 
-//            var set = this.CreateBindingSet<HomeView, HomeViewModel>();
-//            //set.Bind(TableView).To("ListOrderItem");
-//            ////set.Apply();
-
-//            //scrollView.AddConstraints(
-//            //    TableView.Below(scrollView).Plus(10),
-//            //    TableView.WithSameWidth(scrollView),
-//            //    TableView.WithSameLeft(scrollView)
-//            //    );
-
-//        }
-
-//        public override void ViewWillAppear(bool animated)
-//        {
-//            Title = "Home View";
-//            base.ViewWillAppear(animated);
-//        }
-//    }
-
-//    //public class TableSource : MvxSimpleTableViewSource
-//    //{
-//    //    public TableSource(UITableView tableView)
-//    //        : base(tableView, "OrderCell", "OrderCell")
-//    //    {
-//    //    }
-//    //}
-//}
+            this.CreateBinding(ListOrderItemTable.Source).To((HomeViewModel vm) => vm.ListOrderItem).Apply();
+            //this.CreateBinding(CurentOrderProductItemTable.Source).To((HomeViewModel vm) => vm.ListCurentOrderProductItem).Apply();
+            //// Perform any additional setup after loading the view, typically from a nib.
+        }
+    }
+}

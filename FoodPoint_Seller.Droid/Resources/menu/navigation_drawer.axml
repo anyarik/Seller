@@ -5,27 +5,27 @@ xmlns:local="http://schemas.android.com/apk/res-auto">
     <group android:id="@+id/nav_items">
         <item
             android:id="@+id/nav_home"
-            android:title="Home" />        
+            android:title="Экран заказов" />        
     </group>
 
-    <item android:title="Examples">
+    <item android:title="Статистика">
         <menu>
        		<item
-	            android:id="@+id/nav_viewpager"
-	            android:title="ViewPager" />
+	            android:id="@+id/nav_statistic_seller"
+	            android:title="Статистика продавца за день" />
             <item
-	            android:id="@+id/nav_recyclerview"
-	            android:title="Recyclerview" />
+	            android:id="@+id/nav_statistic_owner"
+	            android:title="Статистика для владельца" />
         </menu>
     </item>
 
 	<group android:id="@+id/nav_footer">
         <item
-            android:id="@+id/nav_settings"
-            android:title="Settings" />
-        <item
             android:id="@+id/nav_helpfeedback"
-            android:title="Help and Feedback" />
+            android:title="Помощь" />
+        <item
+            android:id="@+id/nav_settings"
+            android:title="Настройки" />
     </group>
 
 </menu>

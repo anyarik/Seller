@@ -1,4 +1,5 @@
 using Android.App;
+using FoodPoint_Seller.Core.Services;
 using FoodPoint_Seller.Core.Services.Implementations;
 using MvvmCross.Platform;
 using MvvmCross.Platform.Droid.Platform;

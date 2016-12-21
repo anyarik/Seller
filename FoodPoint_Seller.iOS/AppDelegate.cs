@@ -4,6 +4,8 @@ using MvvmCross.iOS.Platform;
 using MvvmCross.Platform;
 using MvvmCross.Core.ViewModels;
 using System;
+using MvvmCross.Platform.Platform;
+using System.Diagnostics;
 
 namespace FoodPoint_Seller.Touch
 {
@@ -15,7 +17,6 @@ namespace FoodPoint_Seller.Touch
     {
         // class-level declarations
         private UIWindow _window;
-
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -29,8 +30,7 @@ namespace FoodPoint_Seller.Touch
             try
             {
                 _window = new UIWindow(UIScreen.MainScreen.Bounds);
-
-          
+                 
                 var setup = new Setup(this, _window);
                 setup.Initialize();
 
@@ -39,12 +39,12 @@ namespace FoodPoint_Seller.Touch
 
                 // make the window visible
                 _window.MakeKeyAndVisible();
-
+ 
                 return true;
             }
-            catch (System.Exception)
+            catch (System.Exception a)
             {
-
+                Debug.WriteLine("Error", "Ошибка", a.Message);
                 throw new Exception("Ошибка в инициализации приложения");
             }
         }

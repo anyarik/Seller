@@ -1,5 +1,5 @@
 ﻿
-using FoodPoint_Seller.Core.Services.Implementations;
+using FoodPoint_Seller.Core.Services;
 
 namespace FoodPoint_Seller.Touch.Services
 {

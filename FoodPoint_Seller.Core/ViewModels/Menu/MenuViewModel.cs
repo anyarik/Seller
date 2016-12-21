@@ -1,6 +1,5 @@
 ﻿using MvvmCross.Core.ViewModels;
 
-
 namespace FoodPoint_Seller.Core.ViewModels
 {
 	public class MenuViewModel : BaseViewModel
@@ -17,14 +16,14 @@ namespace FoodPoint_Seller.Core.ViewModels
             ShowViewModel<HomeViewModel>();
         }
 
-        public IMvxCommand ShowSettingCommand
+        public IMvxCommand ShowStatisticSellerCommand
         {
-            get { return new MvxCommand(ShowSettingsExecuted); }
+            get { return new MvxCommand(ShowStatisticSellerExecuted); }
         }
 
-        private void ShowSettingsExecuted()
+        private void ShowStatisticSellerExecuted()
         {
-            ShowViewModel<SettingsViewModel>();
+            ShowViewModel<StatisticSellerViewModel>();
         }
 
         public IMvxCommand ShowHelpCommand
@@ -51,14 +50,22 @@ namespace FoodPoint_Seller.Core.ViewModels
             ShowViewModel<ExampleRecyclerViewModel>();
         }
 
-        public IMvxCommand ShowViewPagerCommand
+        public IMvxCommand ShowStatisticOwnerCommand
         {
-            get { return new MvxCommand(ShowViewPagerExecuted); }
+            get { return new MvxCommand(ShowStatisticOwnerExecuted); }
         }
 
-        private void ShowViewPagerExecuted()
+        private void ShowStatisticOwnerExecuted()
         {
-            ShowViewModel<ExampleViewPagerViewModel>();
+            try
+            {
+                ShowViewModel<LoginOwnerViewModel>();
+            }
+            catch (System.Exception exp)
+            {
+
+                throw;
+            }
         }
 
         #endregion

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoodPoint_Seller.Api.Services
+namespace FoodPoint_Seller.Api.Services.Implementations
 {
    public class OrderHubService: IOrderHubService
     {
@@ -44,26 +44,37 @@ namespace FoodPoint_Seller.Api.Services
             }
         }
 
-        public void HubConnection()
+        public void HubConnection(string id)
         {
 
             if (this._hub == null)
             {
                 string url = AppData.Host;
-                 connection = new HubConnection(url, new Dictionary<string, string>() { { "UserName", "1seller" }, { "IsSeller", "True" } });
+                 connection = new HubConnection(url, new Dictionary<string, string>() { { "UserName", id}, { "IsSeller", "True" } });
                 _hub = connection.CreateHubProxy("OrderHandlerHub");
             }
 
-            connection.Start().Wait();
+            connection.Start();
+
+            connection.Closed += Connection_Closed;
+
+            connection.ConnectionSlow += Connection_ConnectionSlow;
+
+            connection.Error += Connection_Error;
+
+            connection.Reconnected += Connection_Reconnected;
+
+            connection.Reconnecting += Connection_Reconnecting;
 
             _hub.On("OnСonnected", () => {
 
             });
 
-            //_hub.On("OnReconnected", () => { });
+            _hub.On("OnReconnected", () => {
+
+            });
 
             _hub.On("OnDisconnected", ()=> {
-
 
             });
 
@@ -83,8 +94,32 @@ namespace FoodPoint_Seller.Api.Services
             {
                 this.customerAgreedYAY.Invoke(null, agreed);
             });
+        }
 
+        private void Connection_Reconnecting()
+        {
 
+        }
+
+        private void Connection_Reconnected()
+        {
+
+        }
+
+        private void Connection_Error(Exception obj)
+        {
+            //connection.Stop();
+            //connection.Start();
+        }
+
+        private void Connection_ConnectionSlow()
+        {
+            
+        }
+
+        private void Connection_Closed()
+        {
+           
         }
 
         public void HubDisconnect()

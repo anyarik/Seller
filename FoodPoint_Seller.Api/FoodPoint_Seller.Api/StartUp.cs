@@ -1,5 +1,7 @@
 ﻿using FoodPoint_Seller.Api.Controllers;
+using FoodPoint_Seller.Api.Controllers.Implementations;
 using FoodPoint_Seller.Api.Services;
+using FoodPoint_Seller.Api.Services.Implementations;
 using MvvmCross.Platform;
 using MvvmCross.Platform.IoC;
 using System;

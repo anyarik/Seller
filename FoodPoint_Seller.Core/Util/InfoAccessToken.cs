@@ -24,8 +24,17 @@ namespace FoodPoint_Seller.Core.Util
             byte[] byt = System.Convert.FromBase64String(data[1]);
 
             var str = Encoding.UTF8.GetString(byt, 0, byt.Length);
+            try
+            {
 
-            return JsonConvert.DeserializeObject<AccessToken>(str);
+                return JsonConvert.DeserializeObject<AccessToken>(str);
+            }
+            catch (Exception a)
+            {
+                return null;
+            }
+
+       
         }
     }
 }

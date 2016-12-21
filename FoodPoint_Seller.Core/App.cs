@@ -1,6 +1,7 @@
 using FoodPoint_Seller.Api.Controllers;
+using FoodPoint_Seller.Api.Controllers.Implementations;
 using FoodPoint_Seller.Api.Services;
-
+using FoodPoint_Seller.Api.Services.Implementations;
 using FoodPoint_Seller.Core.Services;
 using FoodPoint_Seller.Core.Services.Implementations;
 using MvvmCross.Core.ViewModels;
@@ -28,14 +29,16 @@ namespace FoodPoint_Seller.Core
             //Mvx.RegisterSingleton<IOrderController>(() => new OrderController(Mvx.GetSingleton<Api.Services.IOrderHubService>(), 
             //                                                                  Mvx.GetSingleton<Api.Services.IOrderService>()));
 
-            Mvx.RegisterSingleton<Api.Services.IOrderService>(new Api.Services.OrderService());
+            Mvx.RegisterSingleton<Api.Services.IOrderService>(new Api.Services.Implementations.OrderService());
             Mvx.RegisterSingleton<IUserService>(new UserService());
+            Mvx.RegisterSingleton<IStatisticService>(new StatisticService());
             Mvx.RegisterSingleton<IOrderHubService>(new OrderHubService());
 
             //Mvx.RegisterSingleton<IMvxMessenger>(() => MvvmCross.Plugins.Messenger.C);
 
             Mvx.ConstructAndRegisterSingleton<IUserController, UserController>();
             Mvx.ConstructAndRegisterSingleton<IOrderController, OrderController>();
+            Mvx.ConstructAndRegisterSingleton<IStatisticController, StatisticControler>();
             //Mvx.RegisterSingleton<ILoginService>(() => new LoginService(
             //     Mvx.GetSingleton<IUserController>()
             //    , Mvx.GetSingleton<Plugin.KeyChain.Abstractions.IKeyChain>()

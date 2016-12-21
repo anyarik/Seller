@@ -6,7 +6,7 @@ using System.Net;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace FoodPoint_Seller.Api.Services
+namespace FoodPoint_Seller.Api.Services.Implementations
 {
     internal static class ConnectionService
     {
@@ -23,7 +23,7 @@ namespace FoodPoint_Seller.Api.Services
 
 
 
-        public static async Task<string> PostStatusAsync(string url, HttpContent postData, string errorMessage = null)
+        public static async Task<string> PostStatusAsync(string url, HttpContent postData, List<KeyValuePair<string, IEnumerable<string>>> headers = null, string errorMessage = null)
         {
             return await ProcessRequestStatusAsync(url, postData, errorMessage);
         }
@@ -54,18 +54,6 @@ namespace FoodPoint_Seller.Api.Services
                         }
                         string data = "";
 
-                        //if (url.StartsWith(AppData.Identity))
-                        //{
-                        //    httpClient.DefaultRequestHeaders.Add("Authorization", "Basic bW9iaWxlOnNlY3JldA==");
-                        //}
-                        //if (headers != null)
-                        //{
-                        //    foreach (KeyValuePair<string, IEnumerable<string>> header in headers)
-                        //    {
-                        //        message.Headers.Add(header.Key, header.Value);
-                        //    }
-                        //}
-
                         try
                         {
                             var response = await httpClient.SendAsync(message).ConfigureAwait(false);
@@ -93,7 +81,19 @@ namespace FoodPoint_Seller.Api.Services
                         }
 
                         if (!string.IsNullOrEmpty(data))
-                            return JsonConvert.DeserializeObject<T>(data);
+                        {
+                            try
+                            {
+                                return JsonConvert.DeserializeObject<T>(data);
+                            }
+                            catch (Exception a)
+                            {
+
+                                return default(T);
+                            }
+                        }
+
+                          
                         else
                             throw new Exception(errorMessage);
                     }
@@ -107,8 +107,8 @@ namespace FoodPoint_Seller.Api.Services
         {
             using (var handler = new HttpClientHandler())
             {
-                if (handler.SupportsAutomaticDecompression)
-                    handler.AutomaticDecompression = DecompressionMethods.Deflate;
+                //if (handler.SupportsAutomaticDecompression)
+                //    handler.AutomaticDecompression = DecompressionMethods.Deflate;
 
                 using (var httpClient = new HttpClient(handler))
                 {
@@ -173,8 +173,8 @@ namespace FoodPoint_Seller.Api.Services
         {
             using (var handler = new HttpClientHandler())
             {
-                if (handler.SupportsAutomaticDecompression)
-                    handler.AutomaticDecompression = DecompressionMethods.Deflate;
+                //if (handler.SupportsAutomaticDecompression)
+                //    handler.AutomaticDecompression = DecompressionMethods.Deflate;
 
                 using (var httpClient = new HttpClient(handler))
                 {
@@ -240,8 +240,8 @@ namespace FoodPoint_Seller.Api.Services
         {
             using (var handler = new HttpClientHandler())
             {
-                if (handler.SupportsAutomaticDecompression)
-                    handler.AutomaticDecompression = DecompressionMethods.Deflate;
+                //if (handler.SupportsAutomaticDecompression)
+                //    handler.AutomaticDecompression = DecompressionMethods.Deflate;
 
                 using (var httpClient = new HttpClient(handler))
                 {
