@@ -54,7 +54,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                 _hub = connection.CreateHubProxy("OrderHandlerHub");
             }
 
-            connection.Start();
+            connection.Start().Wait();
 
             connection.Closed += Connection_Closed;
 
@@ -98,28 +98,38 @@ namespace FoodPoint_Seller.Api.Services.Implementations
 
         private void Connection_Reconnecting()
         {
-
+            connection.Start().Wait();
+            
         }
 
         private void Connection_Reconnected()
         {
-
+            connection.Start().Wait();
         }
 
         private void Connection_Error(Exception obj)
         {
-            //connection.Stop();
-            //connection.Start();
+             connection.Start().ContinueWith(task =>
+            {
+                if (task.IsFaulted)
+                {
+                    
+                }
+                else
+                {
+         
+                }
+            });
         }
 
         private void Connection_ConnectionSlow()
         {
-            
+            connection.Start().Wait();
         }
 
         private void Connection_Closed()
         {
-           
+            connection.Start().Wait();
         }
 
         public void HubDisconnect()

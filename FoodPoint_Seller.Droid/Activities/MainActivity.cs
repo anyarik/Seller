@@ -10,6 +10,8 @@ using MvvmCross.Platform;
 using FoodPoint_Seller.Core.ViewModels;
 using FoodPoint_Seller.Api.Controllers;
 using FoodPoint_Seller.Api.Controllers.Implementations;
+using CrossUI.Droid.Dialog.Elements;
+using MvvmCross.Binding.BindingContext;
 
 namespace FoodPoint_Seller.Droid.Activities
 {
@@ -36,8 +38,8 @@ namespace FoodPoint_Seller.Droid.Activities
 
             if (bundle == null)
                 ViewModel.ShowMenu();
-
         }
+    
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
@@ -90,7 +92,7 @@ namespace FoodPoint_Seller.Droid.Activities
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            orderController.HubDisconnect();
+            //orderController.HubDisconnect();
         }
         public override void Finish()
         {
@@ -105,7 +107,6 @@ namespace FoodPoint_Seller.Droid.Activities
         protected override void OnStop()
         {
             base.OnStop();
-            OnDestroy();
         }
     }
 }

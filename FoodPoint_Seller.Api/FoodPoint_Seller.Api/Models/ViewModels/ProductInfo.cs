@@ -13,6 +13,7 @@ namespace FoodPoint_Seller.Api.Models.ViewModels
         public CategoryProductModel Category { get; set; }
         public decimal Price { get; set; }
         public List<AdditiveForProduct> OrderedAdditives { get; set; }
+        public bool IsActive = true;
 
     }
 }

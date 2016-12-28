@@ -22,7 +22,7 @@ namespace FoodPoint_Seller.Core.ViewModels
         // Получать текущие активные заказы магазина на входе
         // Кешировать\сохранять\получать активные заказы заказы
         // Таймер для оплаченного заказа
-        // Решить выносить ли логику с заказами в одтельный сервис
+        // Решить выносить ли логику с заказами в отдельный сервис - надо
         // Реализовать кнопки в списке добавок полученного заказа
         // Выключать таймер когда заказ отправлен и запускать новый под новый этап.
         // Просмотр полного заказа, при нажатии на него.
@@ -44,12 +44,15 @@ namespace FoodPoint_Seller.Core.ViewModels
         public INC<bool> IsClikedOrderDialogOpen = new NC<bool>(false, (e) =>
         {
         });
-
         
-        public INC<int> CountStackOrder = new NC<int>(0, (e) =>
+        public INC<string> CountStackOrder = new NC<string>("", (e) =>
        {
        });
-        
+
+        public INC<string> TextActiveSeller = new NC<string>("Выйти", (e) =>
+        {
+        });
+  
         #region Переменые для окна согласования заказа
         /// <summary>
         /// Информация о полученом заказе, который в обработке продовцом
@@ -68,6 +71,10 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
         });
 
+        public INC<bool> IsActive = new NC<bool>(false, (e) =>
+        {
+        });
+        
         /// <summary>
         /// Переменная для открытия окна пришедшего заказа
         /// </summary>
@@ -146,7 +153,7 @@ namespace FoodPoint_Seller.Core.ViewModels
                 var curerntOrder = this._recivedStackOrders.FirstOrDefault();
                 this.OpenDialogForOrderAgreement(curerntOrder);
 
-                this.CountStackOrder.Value--;
+                this.CountStackOrder.Value = (this._recivedStackOrders.Count - 1).ToString();
             }
         }
         public ICommand ProductAcceptedCommand
@@ -157,6 +164,7 @@ namespace FoodPoint_Seller.Core.ViewModels
                 {
                    if (this._sendOrder.DelayProduct.Find(p=>p.ID == product.ID) == null)
                     {
+                        product.ProductInfo.IsActive = false;
                         var tempProduct = product;
                         tempProduct.PossibleAdditives = null;
                         this._sendOrder.DelayProduct.Add(tempProduct);
@@ -164,12 +172,11 @@ namespace FoodPoint_Seller.Core.ViewModels
 
                     else
                     {
+                        product.ProductInfo.IsActive = true;
                         var tempProduct = product;
                         tempProduct.PossibleAdditives = null;
                         this._sendOrder.DelayProduct.Remove(tempProduct);
                     }
-
-                    this.SetStatusOrder();
                 });
                 return _productAcceptedCommand;
             }
@@ -181,26 +188,18 @@ namespace FoodPoint_Seller.Core.ViewModels
             {
                 _additiveAcceptedCommand = _additiveAcceptedCommand ?? new MvxCommand<ProductForOrder>(additive =>
                 {
-                    //if (this._recivedOrder.DelayProduct.Find(p => p.ID == product.ID) != null)
-                    //{
-                    //}
+                    if (this._sendOrder.DelayProduct.Find(p => p.ID == additive.ID) != null)
+                    {
+                    }
 
-                    //else
-                    //{
-                    //}
+                    else
+                    {
+                    }
 
-                    //this.SetStatusOrder();
+
                 });
                 return _additiveAcceptedCommand;
             }
-        }
-
-        private void SetStatusOrder()
-        {
-            if (this._sendOrder.DelayProduct.Count > 0 && this._sendOrder.DelayTime == null)
-                this._sendOrder.StatusOrder = false;
-            else
-                this._sendOrder.StatusOrder = true;
         }
 
         private  async void Init()
@@ -211,6 +210,9 @@ namespace FoodPoint_Seller.Core.ViewModels
 
             this._orderController.OnReceiveOrder((customer, reciveOrder, time) =>
             {
+                //this._sendOrder.CustomerName = customer.ToString();
+                //OnApprove();
+
                 var deserializeOrder = JsonConvert.DeserializeObject<OrderItem>(reciveOrder);
 
                 //this.ListOrderItem.Value.Add(deserializeOrder);
@@ -223,12 +225,13 @@ namespace FoodPoint_Seller.Core.ViewModels
 
                 //this.ListOrderItem.Value = tempList;
 
-                var stackOrder = new RecivedOrder(customer.ToString(), time, deserializeOrder, (order) => {
+                var stackOrder = new RecivedOrder(customer.ToString(), time, deserializeOrder, (order) =>
+                {
                     order.CloseOrderTimer = new Timer(new TimeSpan(0, 0, 90), (_) =>
                     {
                         order.CloseOrderTimer.WaitTime -= new TimeSpan(0, 0, 1);
-                        
-                        if(order.IsAlive)
+
+                        if (order.IsAlive)
                             this.RecivedOrderTimer.Value = order.CloseOrderTimer.WaitTime.ToString();
 
                         if (order.CloseOrderTimer.WaitTime == TimeSpan.Zero)
@@ -237,18 +240,18 @@ namespace FoodPoint_Seller.Core.ViewModels
 
                             this._recivedStackOrders.RemoveAll(o => o.Order.ID == order.Order.ID);
 
-                            if (this.IsOrderDialogOpen.Value) 
+                            if (this.IsOrderDialogOpen.Value)
                                 this.OpenNexStackOrder.Invoke(null, null);
                         }
                     });
                 });
-                
+
                 stackOrder.StartTimer();
 
                 this._recivedStackOrders.Add(stackOrder);
 
                 if (this._recivedStackOrders.Count > 1)
-                    this.CountStackOrder.Value = this._recivedStackOrders.Count;
+                    this.CountStackOrder.Value = (this._recivedStackOrders.Count - 1).ToString();
 
                 if (this._recivedStackOrders.Count == 1)
                     this.OpenDialogForOrderAgreement(stackOrder);
@@ -302,7 +305,7 @@ namespace FoodPoint_Seller.Core.ViewModels
         public async void OnApprove()
         {
             var recivedCorrectProduct = JsonConvert.SerializeObject(this._sendOrder.DelayProduct);
-            this._orderController.CorrectOrder(this._sendOrder.CustomerName, this._sendOrder.StatusOrder, recivedCorrectProduct,
+            this._orderController.CorrectOrder(this._sendOrder.CustomerName, true, recivedCorrectProduct,
                                                                                              this._sendOrder.DelayTime);
 
             var user = await this._loginService.GetProfileSeller();
@@ -364,6 +367,10 @@ namespace FoodPoint_Seller.Core.ViewModels
         public void OnClose(PayedOrder order)
         {
             this.IsClikedOrderDialogOpen.Value = false;
+        }
+        public void onClickOffline()
+        {
+
         }
      }
 }

@@ -12,6 +12,8 @@ using Android.Views;
 using Android.Widget;
 using MvvmCross.Droid.Shared.Attributes;
 using FoodPoint_Seller.Core.ViewModels;
+using CrossUI.Droid.Dialog.Elements;
+using MvvmCross.Binding.BindingContext;
 
 namespace FoodPoint_Seller.Droid.Fragments
 {
@@ -23,6 +25,9 @@ namespace FoodPoint_Seller.Droid.Fragments
         {
             ShowHamburgerMenu = true;
             return base.OnCreateView(inflater, container, savedInstanceState);
+
+            //new DateElement("The Date", DateTime.Today).Bind(this, "Value EndDateValue");
+            //new DateElement("The Date", DateTime.Today).Bind(this, "Value StartDateValue");
         }
 
         protected override int FragmentId => Resource.Layout.fragment_owner_statistic;

@@ -25,7 +25,17 @@
     android:layout_margin="10dp"
      android:layout_toRightOf="@id/text_product_name"
     local:MvxBind="Click ProductAcceptedCommand('HomeViewModel.Core.Messages.ProductAcceptedMessage', .)" />-->
-    <Button
+  <Switch
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:focusable="false"
+    android:clickable="false"
+    android:layout_alignParentRight="true"
+    android:layout_toRightOf="@id/text_product_name"
+    android:id="@+id/activatedSwitch"
+    local:MvxBind="Checked ProductInfo.IsActive; Click  CommandToMessage('FooodPoint_Seller.Core.Messeges.ProductAcceptedMessage', .)" />
+  
+    <!--<Button
         android:text="Нет в наличии"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,6 +43,6 @@
         android:clickable="true"
         android:focusable="false"
         android:layout_toRightOf="@id/text_product_name"
-        local:MvxBind="Click  CommandToMessage('FooodPoint_Seller.Core.Messeges.ProductAcceptedMessage', $parent)" />
+        local:MvxBind="Click  CommandToMessage('FooodPoint_Seller.Core.Messeges.ProductAcceptedMessage', .)" />-->
 
 </LinearLayout>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.design.widget.AppBarLayout
@@ -17,9 +16,8 @@
             local:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     </android.support.design.widget.AppBarLayout>
     <RelativeLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/options_statistic_content"
         android:layout_below="@id/appbar">
         <Button
@@ -40,26 +38,88 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/btn_seller_statistic"
-            android:id="@+id/btn_order_statisric"
+            android:id="@+id/btn_order_statistic"
             local:MvxBind="Click OnOrderStatistic" />
+      <TextView
+          android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_toRightOf="@id/btn_order_statistic"
+            android:id="@+id/start_date_picker"
+            local:MvxBind="Text StartDateValue" />
+      <TextView
+          android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/end_date_picker"
+            android:layout_toRightOf="@id/start_date_picker"
+            android:textSize="20dp"
+            local:MvxBind="Text EndDateValue" />
     </RelativeLayout>
-    <RelativeLayout
+ 
+  <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/options_statistic_content"
         local:MvxBind="Visibility Visibility(IsFoodStatisticOpen)">
+
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/texts_statistic_food">
+        <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/text_name_food"
+           android:text="Наименование товара" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Статистика товаров" />
-        <Mvx.MvxGridView
+            android:id="@+id/text_count_sub_food"
+            android:layout_toRightOf="@id/text_name_food"
+            android:text="Количество продаж подписок" />
+        <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/text_revenue_sub_food"
+           android:layout_toRightOf="@id/text_count_sub_food"
+           android:text="Выручка с подисок" />
+        <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/text_without_count_sub_food"
+           android:layout_toRightOf="@id/text_revenue_sub_food"
+           android:text="Количество продаж предзаказов" />
+        <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+            android:id="@+id/text_revenue_nosubs_food"
+            android:layout_toRightOf="@id/text_without_count_sub_food"
+           android:text="Выручка с предзаказов" />
+        <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/text_common_sellingamount_food"
+           android:layout_toRightOf="@id/text_revenue_nosubs_food"
+           android:text="Общее количество продаж" />
+        <!--<TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Общая выручка с продаж - нет" />-->
+      </RelativeLayout>
+
+      <Mvx.MvxTableLayout
             android:id="@+id/list_statistic_food"
-            android:layout_width="700dp"
-            android:layout_height="500dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
+            android:shrinkColumns="*"
+            android:stretchColumns="*"
+            android:layout_below="@id/texts_statistic_food"
             local:MvxBind="ItemsSource FoodStatisticListItem"
-            local:MvxItemTemplate="@layout/listitem_statistic_seller" />
+            local:MvxItemTemplate="@layout/listitem_statistic_food"/>
+      
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,9 +137,10 @@
             local:MvxBind="ItemsSource SellerStatisticListItem"
             local:MvxItemTemplate="@layout/listitem_statistic_seller" />
     </RelativeLayout>
+ 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/options_statistic_content"
         local:MvxBind="Visibility Visibility(IsOrderStatisticOpen)">
         <TextView
@@ -92,6 +153,7 @@
             android:layout_height="500dp"
             android:layout_marginLeft="10dp"
             local:MvxBind="ItemsSource OrderStatisticListItem"
-            local:MvxItemTemplate="@layout/listitem_statistic_seller" />
+            local:MvxItemTemplate="@layout/listitem_statistic_order" />
     </RelativeLayout>
+
 </RelativeLayout>

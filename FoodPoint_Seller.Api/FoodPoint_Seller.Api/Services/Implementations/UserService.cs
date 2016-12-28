@@ -40,7 +40,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
             new KeyValuePair<string, IEnumerable<string>>(
                                                             "Authorization",
                                                             new List<string>() {
-                                                                                    "Basic c2VsbGVyOnNlY3JldA=="
+                                                                                    "Basic Y2hpZWY6c2VjcmV0"
                                                                                 }
                                                             )
                 );

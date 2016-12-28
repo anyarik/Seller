@@ -51,8 +51,8 @@ namespace FoodPoint_Seller.Core.Services.Implementations
             {
                 IsAuthenticated = true;
 
-                return IsAuthenticated;
-                //return await Login(username, password);
+                //return IsAuthenticated;
+                return await Login(username, password);
             }
             else
             {
@@ -71,8 +71,8 @@ namespace FoodPoint_Seller.Core.Services.Implementations
         {
             try
             {
-                var user = new SellerAccountModel(username, password);
-                _tokenAuth = await this._userController.AuthorizationSeller(user);
+                var user = new OwnerAccountModel(username, password);
+                _tokenAuth = await this._userController.AuthorizationOwner(user);
                  
                 if (_tokenAuth != null)
                 {

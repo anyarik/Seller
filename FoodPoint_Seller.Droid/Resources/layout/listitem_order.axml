@@ -8,12 +8,18 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        local:MvxBind="Text Order.ID" />
+        local:MvxBind="Text Order.RowNumber" />
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        local:MvxBind="Text Order.TimeOrder" />
+        local:MvxBind="Text TimeOrder" />
+    <!--<Button
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:textSize="20dp"
+      local:MvxBind="Click TimeOrder" />-->
+  
     <Mvx.MvxLinearLayout
         android:id="@+id/inner_category_list"
         android:layout_width="match_parent"
@@ -21,5 +27,5 @@
         android:orientation="vertical"
         android:clickable="true"
         local:MvxItemTemplate="@layout/listitem_product"
-        local:MvxBind="ItemsSource Order.cOrderedFood" />
+        local:MvxBind="ItemsSource Order.OrderedFood" />
 </LinearLayout>
