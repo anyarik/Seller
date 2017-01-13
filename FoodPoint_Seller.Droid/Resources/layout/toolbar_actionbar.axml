@@ -40,29 +40,28 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <Button
-                android:id="@+id/image2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/circle_button"
-                android:layout_alignParentEnd="true"
-                local:MvxBind="Text CountStackOrder"
-                />
-            <Button
+               <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/text_button_disconect"
-                android:layout_toLeftOf="@id/image2"
-                local:MvxBind="Text TextActiveSeller; Click onClickOffline"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                local:MvxBind="Text TextActiveSeller; Click onClickOffline; Visibility Visibility(IsButtonOfflineVisible)"
                  />
-
-          <!--<TextView
+            <TextView
+                android:id="@+id/statusUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/text_count_stack_order"
+                android:textColor="@color/black"
                 android:textSize="20dp"
-                android:text="1111111"
-                android:layout_toRightOf="@id/text_button_disconect" />-->
+                android:textStyle="bold"
+                android:layout_toLeftOf="@id/text_button_disconect"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                local:MvxBind="Text TextStatusSeller"
+                />
+          <!--android:background="@drawable/circle_button"-->
+       
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 </android.support.design.widget.AppBarLayout>

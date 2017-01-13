@@ -27,11 +27,13 @@ namespace FoodPoint_Seller.Api.Models.DomainModels
         public string ID;
 
         public string Name;
-
         public string EMail;
-
         public int shopID;
         public string Password;
+
+        public bool IsBusy;
+
+
     }
 }
 // "{\"ID\":\"72ad55f3-7cef-41ae-8091-3806e19a5053\",\"Name\":\"name\",\"EMail\":\"test@test.ru\",\"shopID\":1}"

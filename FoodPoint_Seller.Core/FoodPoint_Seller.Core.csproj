@@ -53,6 +53,7 @@
     <Compile Include="Services\Implementations\SellerAuthService.cs" />
     <Compile Include="Services\Implementations\OrderService.cs" />
     <Compile Include="Util\InfoAccessToken.cs" />
+    <Compile Include="Models\NotificaiosModel.cs" />
     <Compile Include="ViewModels\Android\ExampleRecyclerViewModel.cs" />
     <Compile Include="ViewModels\Android\ExampleViewPagerViewModel.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.cs" />

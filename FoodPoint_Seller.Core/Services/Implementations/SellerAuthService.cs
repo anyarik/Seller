@@ -77,17 +77,14 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                     _keyChain.SetKey(SellerAuthService.KEY_PASSWORD, password);
                     //CrossSecureStorage.Current.SetValue(LoginService.KEY_LOGIN, username);
                     //CrossSecureStorage.Current.SetValue(LoginService.KEY_PASSWORD, password);
-                    var user1 =  new SellerAccountModel("11","1","1",2);
-                    var ser = JsonConvert.SerializeObject(user1);
 
-                   var isUpdate = await  this.UpdateProfile();
+                    var isUpdate = await  this.UpdateProfile();
 
+                    IsAuthenticated = true;
                     if (isUpdate)
                     {
-                        IsAuthenticated = true;
+                     
                     }
-
-                    
                 }
              
                 //_mvxMessenger.Publish(new AuthorizationMessage(this));
@@ -131,6 +128,11 @@ namespace FoodPoint_Seller.Core.Services.Implementations
             //_mvxMessenger.Publish(new UpdateProfileMessage(this));
             if (_profileUser != null)
             {
+                return true;
+            }
+            else
+            {
+                _profileUser = new SellerAccountModel(id, null, null,0);
                 return true;
             }
             return false;

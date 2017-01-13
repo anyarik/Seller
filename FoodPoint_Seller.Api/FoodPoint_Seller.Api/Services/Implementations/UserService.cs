@@ -92,5 +92,27 @@ namespace FoodPoint_Seller.Api.Services.Implementations
 
             return result; 
         }
+
+        public async Task<string> Set_Busyness(string id, bool busyness, string token)
+        {
+            var url = $"{AppData.Host}/api/set_busyness?seller={id}Name&busyness={busyness}";
+
+            //List<KeyValuePair<string, IEnumerable<string>>> headers = new List<KeyValuePair<string, IEnumerable<string>>>();
+
+            //токен авторизации и другие headers.Add("")
+            //headers.Add(
+            //    new KeyValuePair<string, IEnumerable<string>>(
+            //                                                    "Authorization",
+            //                                                    new List<string>() {
+            //                                                                        "Bearer "
+            //                                                                        +token
+            //                                                                        }
+            //                                                    )
+            //        );
+
+            var result = await ConnectionService.PostStatusAsync(url, null, null, "Не удалось получить профиль");
+
+            return result;
+        }
     }
 }

@@ -45,6 +45,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
 
                         if (postData != null)
                             message.Content = postData;
+
                         if (headers != null)
                         {
                             foreach (KeyValuePair<string, IEnumerable<string>> header in headers)
@@ -52,6 +53,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                                 message.Headers.Add(header.Key, header.Value);
                             }
                         }
+
                         string data = "";
 
                         try
@@ -75,7 +77,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                                 throw new Exception(errorMessage);
                             }
                         }
-                        catch (Exception e)
+                        catch (Exception exp)
                         {
                             return default(T);
                         }

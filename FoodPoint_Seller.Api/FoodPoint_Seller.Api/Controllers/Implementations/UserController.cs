@@ -21,5 +21,7 @@ namespace FoodPoint_Seller.Api.Controllers.Implementations
         public async Task<OwnerAccountModel> GetProfileOwner(string id, string token) => await _userService.GetProfileOwner(id, token);
         public async Task<SellerAccountModel> GetProfileSeller(string id, string token) => await _userService.GetProfileSeller(id, token);
 
+        public async Task<string> Set_Busyness(string id, bool busyness, string token) => await _userService.Set_Busyness(id,busyness,token);
+      
     }
 }

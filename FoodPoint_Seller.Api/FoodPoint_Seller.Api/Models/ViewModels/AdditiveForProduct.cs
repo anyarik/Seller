@@ -14,6 +14,7 @@ namespace FoodPoint_Seller.Api.Models.ViewModels
         public int IDAdditive { get; set; }
         public string AdditiveName { get; set; }
         public decimal AdditivePrice { get; set; }
+        public bool IsActive = true;
 
 
         public AdditiveForProduct()

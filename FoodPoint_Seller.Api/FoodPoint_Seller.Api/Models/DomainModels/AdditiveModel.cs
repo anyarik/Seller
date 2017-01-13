@@ -11,5 +11,6 @@ namespace FoodPoint_Seller.Api.Models.DomainModels
         public int ID { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
+
     }
 }

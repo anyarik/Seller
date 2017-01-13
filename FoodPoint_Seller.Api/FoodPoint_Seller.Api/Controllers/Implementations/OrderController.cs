@@ -36,6 +36,10 @@ namespace FoodPoint_Seller.Api.Controllers.Implementations
         public void SetOrderSeller(string id, string state, bool isActive) => orderService.ChangeStatusOrder(id, state, isActive);
 
         public void SetSellerOrder(string orderId, string sellerID) =>  orderService.SetSellerOrder(orderId, sellerID);
-        
+
+        public void OnChangeStatusSeller(Action<object, string> func)
+        {
+            this.orderHubService.setStatusSeller += (_, statusSeller) => { func.Invoke(null, statusSeller); };
+        }
     }
 }

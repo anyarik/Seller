@@ -14,5 +14,7 @@ namespace FoodPoint_Seller.Api.Services
         event EventHandler<IDictionary<string,string>> receiveOrder;
         event EventHandler<bool> customerAgreedYAY;
 
+        event EventHandler<string> setStatusSeller;
+
     }
 }

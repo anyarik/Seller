@@ -13,10 +13,10 @@ namespace FooodPoint_Seller.Core.Messeges
         public AddictiveAcceptedMessage(object sender,  object item)
             : base(sender)
         {
-            Additive = (ProductForOrder)item;
+            Additive = (AdditiveForProduct)item;
         }
 
-        public ProductForOrder Additive { get; set; }
+        public AdditiveForProduct Additive { get; set; }
     
     }
 }

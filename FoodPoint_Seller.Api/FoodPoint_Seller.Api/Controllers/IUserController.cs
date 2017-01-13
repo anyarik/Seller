@@ -13,5 +13,6 @@ namespace FoodPoint_Seller.Api.Controllers
         Task<AccessTokenAuthorise> AuthorizationOwner(OwnerAccountModel user);
         Task<SellerAccountModel> GetProfileSeller(string id, string token);
         Task<OwnerAccountModel> GetProfileOwner(string id, string token);
+        Task<string> Set_Busyness(string id, bool busyness, string token);
     }
 }

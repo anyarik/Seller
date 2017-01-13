@@ -31,6 +31,23 @@ namespace FoodPoint_Seller.Core.Models
             this.Order = order;
             this.func = func;
         }
+
+
+        public RecivedOrder Clone(RecivedOrder order)
+        {
+            return new RecivedOrder()
+            {
+                Order = order.Order,
+                CustomerName = order.CustomerName,
+                Time = order.Time,
+                StatusOrder = order.StatusOrder,
+                DelayTime = order.DelayTime,
+                DelayProduct = order.DelayProduct,
+                CloseOrderTimer = order.CloseOrderTimer,
+                func = order.func,
+                IsAlive = order.IsAlive
+            };
+        }
         public RecivedOrder()
         {
 

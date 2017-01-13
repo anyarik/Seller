@@ -195,6 +195,7 @@
     <Compile Include="Fragments\Menu\MenuFragment.cs" />
     <Compile Include="Fragments\Statistic\StatisticOwnerFragment.cs" />
     <Compile Include="Fragments\Statistic\StatisticSellerFragment.cs" />
+    <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DialogService.cs" />
@@ -206,7 +207,9 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <AndroidResource Include="Resources\layout\activity_login.axml" />
+    <AndroidResource Include="Resources\layout\activity_login.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_main.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -215,8 +218,12 @@
     <AndroidResource Include="Resources\layout\fragment_home.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\fragment_navigation.axml" />
-    <AndroidResource Include="Resources\layout\fragment_navigation_header.axml" />
+    <AndroidResource Include="Resources\layout\fragment_navigation.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_navigation_header.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\fragment_recyclerview.axml" />
     <AndroidResource Include="Resources\layout\fragment_seller_statistic.axml">
       <SubType>Designer</SubType>
@@ -267,6 +274,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\listitem_statistic_food.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\listitem_stack_order.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\listitem_curent_order.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -2,9 +2,10 @@
 <resources>
 
     <!-- General colors -->
-    <color name="colorPrimary">#85E76E</color>
-    <color name="colorPrimaryDark">#6CBD5C</color>
-    <color name="colorAccent">#C2EF66</color>
+    <color name="colorPrimary">#fc5062</color>
+    <color name="colorPrimaryDark">#fc5062</color>
+    <color name="colorAccent">#fc5062</color>
+    <color name="colorTextLight">#b1b1b1</color>
 
     <!-- White to Black -->
     <color name="white">#FFFFFF</color>

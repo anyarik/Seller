@@ -26,7 +26,7 @@
         android:layout_marginLeft="@dimen/element_margin_medium"
         android:layout_marginRight="@dimen/element_margin_medium"
         android:layout_marginBottom="@dimen/element_margin_medium"
-        android:text="Login on demo app"
+        android:text="Приложения продовца FoodPoint"
         android:textColor="@color/white"
         android:gravity="center" />
     <android.support.design.widget.TextInputLayout
