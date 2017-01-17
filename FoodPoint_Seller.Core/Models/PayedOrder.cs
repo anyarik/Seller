@@ -16,6 +16,7 @@ namespace FoodPoint_Seller.Core.Models
         public TimeSpan OrderTime;
 
         public Timer CloseOrderTimer;
+        public bool IsOrderFisihed = false;
 
         public Action<PayedOrder> func;
 

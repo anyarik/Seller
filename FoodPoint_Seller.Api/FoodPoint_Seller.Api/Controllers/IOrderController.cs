@@ -15,8 +15,11 @@ namespace FoodPoint_Seller.Api.Controllers
         void SetSellerOrder(string orderId, string sellerID);
         void OnReceiveOrder(Action<object, string, string> func);
         void OnCustomerAgreed(Action<object, bool> func);
+        void OnGettingPurchasedOrders(Action<object, string> func);
+
 
         void OnChangeStatusSeller(Action<object, string> func);
+
         void HubDisconnect();
     }
 }

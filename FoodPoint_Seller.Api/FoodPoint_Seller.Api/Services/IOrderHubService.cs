@@ -13,6 +13,7 @@ namespace FoodPoint_Seller.Api.Services
         void CorrectOrder(string customerId, bool status, string corectOrder, string corectTime);
         event EventHandler<IDictionary<string,string>> receiveOrder;
         event EventHandler<bool> customerAgreedYAY;
+        event EventHandler<string> gettingPurchasedOrders;
 
         event EventHandler<string> setStatusSeller;
 

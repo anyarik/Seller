@@ -19,6 +19,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
 
         private event EventHandler<IDictionary<string,string>> receiveOrder;
         private event EventHandler<bool> customerAgreedYAY;
+        private event EventHandler<string> gettingPurchasedOrders;
 
         private event EventHandler<string> setStatusSeller;
 
@@ -58,6 +59,19 @@ namespace FoodPoint_Seller.Api.Services.Implementations
             remove
             {
                 this.setStatusSeller -= value;
+            }
+        }
+
+        event EventHandler<string> IOrderHubService.gettingPurchasedOrders
+        {
+            add
+            {
+                this.gettingPurchasedOrders += value;
+            }
+
+            remove
+            {
+                this.gettingPurchasedOrders -= value;
             }
         }
 
@@ -104,6 +118,11 @@ namespace FoodPoint_Seller.Api.Services.Implementations
             _hub.On<string, bool>("CustomerAgreedYAY", (customer, agreed) =>
             {
                 this.customerAgreedYAY.Invoke(null, agreed);
+            });
+
+            _hub.On<string, string>("GettingPurchasedOrders", (customer, order) =>
+            {
+                this.gettingPurchasedOrders.Invoke(null, order);
             });
         }
 

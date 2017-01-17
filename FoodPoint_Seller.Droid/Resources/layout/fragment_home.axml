@@ -11,14 +11,14 @@
         android:id="@+id/toolbar_actionbar" />
     <RelativeLayout
         android:id="@+id/order_list_content"
-        android:layout_width="800dp"
+        android:layout_width="500dp"
         android:layout_margin="1dp"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar_actionbar"
         android:descendantFocusability="blocksDescendants">
         <Mvx.MvxListView
-            android:layout_width="800dp"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/orders_list"
             android:descendantFocusability="blocksDescendants"
             local:MvxBind="ItemsSource ListOrderItem; ItemClick OrderClick"
@@ -38,10 +38,6 @@
             local:MvxBind="ItemsSource ListOrderItem; ItemClick OrderClick"
             local:MvxItemTemplate="@layout/listitem_small_order" />
     </RelativeLayout>
-    <!--<include
-            android:layout_alignParentRight="true"
-        layout="@layout/fragment_recived_order"
-        android:id="@+id/fragment_recived_order" />-->
 <!--<include
         layout="@layout/fragment_recived_clicked_order"
         android:id="@+id/fragment_recived_clicked_order" />-->
