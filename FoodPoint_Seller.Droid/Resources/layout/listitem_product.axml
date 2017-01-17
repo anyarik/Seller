@@ -17,8 +17,10 @@
         android:id="@+id/text_product_name"
         android:gravity="fill_horizontal"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        local:MvxBind="Text ProductInfo.Name" />
-
+        local:MvxBind="Text ProductInfo.Name"
+        android:textColor="#aeaeae"
+        android:textSize="20dp"
+        />
     <Mvx.MvxLinearLayout
         android:id="@+id/inner_category_list"
         android:layout_width="match_parent"
