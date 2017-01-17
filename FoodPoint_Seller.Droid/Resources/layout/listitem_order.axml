@@ -46,6 +46,7 @@
 
         android:layout_height="wrap_content"
         android:layout_below="@id/down_line"
+        android:divider="@android:color/transparent"
         android:clickable="true"
         local:MvxItemTemplate="@layout/listitem_product"
         local:MvxBind="ItemsSource Order.OrderedFood" />
