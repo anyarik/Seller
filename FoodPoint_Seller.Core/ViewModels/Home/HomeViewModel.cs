@@ -41,7 +41,7 @@ namespace FoodPoint_Seller.Core.ViewModels
         /// <summary> 
         /// Список заказов, который получены и согласованы
         /// </summary>
-        public INC<List<PayedOrder>> ListOrderItem = new NC<List<PayedOrder>>(new List<PayedOrder>(), (e) =>
+        public INC<List<PayedOrder>> ListOrderItem = new NC<List<PayedOrder>>(new List<PayedOrder>() { new PayedOrder("1", new OrderItem(null, new List<ProductForOrder>()) , TimeSpan.Zero, null) }, (e) =>
         {
         });
 
