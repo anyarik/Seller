@@ -70,7 +70,7 @@ namespace FoodPoint_Seller.Droid.Activities
                 .SetContentTitle($"Пришел заказ №{notification.rowNumber}")      // Set its title
                 .SetNumber(1)                       // Display the count in the Content Info
                 .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Notification))
-                .SetVibrate(new long[] { 1000, 1000 })
+                .SetVibrate(new long[] { 500, 500 })
                 .SetSmallIcon(Resource.Drawable.abc_ab_share_pack_mtrl_alpha)  // Display this icon
                 .SetContentText($"Необходимо приготовить его за {notification.orderTimer}"); // The message to display.
 

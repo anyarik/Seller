@@ -29,11 +29,7 @@
         android:id="@+id/down_line"
         android:layout_below="@id/number_active_order"
         android:background="#dddddd"/>
-    <!--<Button
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:textSize="20dp"
-      local:MvxBind="Click TimeOrder" />-->
+
   
     <Mvx.MvxLinearLayout
         android:id="@+id/inner_category_list"
@@ -43,4 +39,14 @@
         android:clickable="true"
         local:MvxItemTemplate="@layout/listitem_product"
         local:MvxBind="ItemsSource Order.OrderedFood" />
+
+    <Button
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="20dp"
+      android:layout_alignParentRight="true"
+      android:layout_margin="10dp"
+      android:text="Завершить заказ"
+      local:MvxBind="Click OnFinishOrder(.); Visibility Visibility(IsOrderFisihed) " />
+
 </RelativeLayout>

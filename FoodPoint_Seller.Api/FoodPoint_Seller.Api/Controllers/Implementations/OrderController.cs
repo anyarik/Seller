@@ -41,5 +41,10 @@ namespace FoodPoint_Seller.Api.Controllers.Implementations
         {
             this.orderHubService.setStatusSeller += (_, statusSeller) => { func.Invoke(null, statusSeller); };
         }
+
+        public void OnGettingPurchasedOrders(Action<object, string> func)
+        {
+            this.orderHubService.gettingPurchasedOrders += (_, order) => { func.Invoke(null, order); };
+        }
     }
 }

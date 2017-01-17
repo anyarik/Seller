@@ -21,8 +21,7 @@ namespace FoodPoint_Seller.Core.ViewModels
     {
         //TODO Необходимо:
         // Получать текущие активные заказы магазина на входе
-        // Кешировать\сохранять\получать активные заказы заказы
-        // Таймер для оплаченного заказа
+         // Таймер для оплаченного заказа
         // Выключать таймер когда заказ отправлен и запускать новый под новый этап.
         // Просмотр полного заказа, при нажатии на него.
 
@@ -68,6 +67,36 @@ namespace FoodPoint_Seller.Core.ViewModels
             {
                 TextStatusSeller.Value = status;
             });
+
+            this._orderController.OnGettingPurchasedOrders((custormer, order) =>
+            {
+                var reciveOrder = JsonConvert.DeserializeObject<OrderItem>(order);
+
+                var showingOrder = new PayedOrder(custormer.ToString(), reciveOrder, reciveOrder.orderTimer, (orderInProcess) =>
+                {
+                    orderInProcess.CloseOrderTimer = new Timer(orderInProcess.OrderTime, (_) =>
+                    {
+                        orderInProcess.CloseOrderTimer.WaitTime -= new TimeSpan(0, 0, 1);
+
+                        if (orderInProcess.CloseOrderTimer.WaitTime == TimeSpan.Zero)
+                        {
+                            orderInProcess.IsOrderFisihed = true;
+                        }
+                    });
+
+                });
+
+
+                //this.ListOrderItem.Value.Add(showingOrder);
+                //var tempList = new List<PayedOrder>();
+                //foreach (var item in this.ListOrderItem.Value)
+                //{
+                //    tempList.Add(item.Clone(item));
+                //}
+                //this.ListOrderItem.Value = tempList;
+
+                TextActiveSeller.Value = "Перестать принимать заказы";
+            });
         }
         /// <summary>
         /// Метод, который говорит нам о том, что наша ViewModel отобразилась на экране
@@ -103,5 +132,17 @@ namespace FoodPoint_Seller.Core.ViewModels
             }
            
         }
-     }
+
+        public void OnFinishOrder(PayedOrder deleteOrder)
+        {
+            //this.ListOrderItem.Value.RemoveAll(o => o.Order.ID == deleteOrder.Order.ID);
+
+            //var tempList = new List<PayedOrder>();
+            //foreach (var item in this.ListOrderItem.Value)
+            //{
+            //    tempList.Add(item.Clone(item));
+            //}
+            //this.ListOrderItem.Value = tempList;
+        }
+    }
 }

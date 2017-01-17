@@ -38,10 +38,6 @@
             local:MvxBind="ItemsSource ListOrderItem; ItemClick OrderClick"
             local:MvxItemTemplate="@layout/listitem_small_order" />
     </RelativeLayout>
-    <!--<include
-            android:layout_alignParentRight="true"
-        layout="@layout/fragment_recived_order"
-        android:id="@+id/fragment_recived_order" />-->
 <!--<include
         layout="@layout/fragment_recived_clicked_order"
         android:id="@+id/fragment_recived_clicked_order" />-->

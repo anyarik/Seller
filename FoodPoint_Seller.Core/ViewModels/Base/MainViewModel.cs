@@ -204,6 +204,7 @@ namespace FoodPoint_Seller.Core.ViewModels
             if (this.RecivedStackOrders.Value.Where(o => o.Order.ID == _sendOrder.Order.ID).FirstOrDefault() != null)
             {
                 this.RecivedStackOrders.Value.RemoveAll(o => o.Order.ID == _sendOrder.Order.ID);
+
                 var tempList = new List<RecivedOrder>();
                 foreach (var item in this.RecivedStackOrders.Value)
                 {
@@ -244,14 +245,14 @@ namespace FoodPoint_Seller.Core.ViewModels
         public async void OnApprove()
         {
             var recivedCorrectOrder = JsonConvert.SerializeObject(this._sendOrder.Order);
-            this._orderController.CorrectOrder(this._sendOrder.CustomerName, true, recivedCorrectOrder,
-                                                                                             this._sendOrder.DelayTime);
+            this._orderController.CorrectOrder(this._sendOrder.CustomerName, true, recivedCorrectOrder, IsDelayFive.Value.ToString());
 
             var user = await this._loginService.GetProfileSeller();
 
             this._orderController.SetSellerOrder(this._sendOrder.Order.ID.ToString(), user.ID);
 
-            var doneOrder = new PayedOrder(this._sendOrder.CustomerName, this._sendOrder.Order, TimeSpan.Parse(this._sendOrder.Time), (order) => {
+            var doneOrder = new PayedOrder(this._sendOrder.CustomerName, this._sendOrder.Order, TimeSpan.Parse(this._sendOrder.Time), (order) =>
+            {
                 order.CloseOrderTimer = new Timer(order.OrderTime, (_) =>
                 {
                     order.CloseOrderTimer.WaitTime -= new TimeSpan(0, 0, 1);
