@@ -14,6 +14,7 @@ using FoodPoint_Seller.Core.Models;
 using FoodPoint_Seller.Core.Services.Implementations;
 using FoodPoint_Seller.Core.Services;
 using FoodPoint_Seller.Api.Models.DomainModels;
+using System.Collections.ObjectModel;
 
 namespace FoodPoint_Seller.Core.ViewModels
 {
@@ -41,7 +42,7 @@ namespace FoodPoint_Seller.Core.ViewModels
         /// <summary> 
         /// Список заказов, который получены и согласованы
         /// </summary>
-        public INC<List<PayedOrder>> ListOrderItem = new NC<List<PayedOrder>>(new List<PayedOrder>() { new PayedOrder("1", new OrderItem(null, new List<ProductForOrder>()) , TimeSpan.Zero, null) }, (e) =>
+        public INC<ObservableCollection<PayedOrder>> ListOrderItem = new NC<ObservableCollection<PayedOrder>>(new ObservableCollection<PayedOrder>() { new PayedOrder("1", new OrderItem(null, new List<ProductForOrder>()) , TimeSpan.Zero, null) }, (e) =>
         {
         });
 
@@ -119,15 +120,19 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
             this.IsClikedOrderDialogOpen.Value = false;
         }
-        public void onClickOffline()
+        public void OnClickOffline()
         {
             if (ListOrderItem.Value.Count == 0)
             {
                 this._orderController.HubDisconnect();
+                this._loginService.Logout();
                 ShowViewModel<LoginViewModel>();
             }
             else
             {
+                this._orderController.HubDisconnect();
+                this._loginService.Logout();
+                ShowViewModel<LoginViewModel>();
                 //this._userController.Set_Busyness();
             }
            

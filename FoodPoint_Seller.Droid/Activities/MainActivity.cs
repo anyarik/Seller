@@ -100,6 +100,8 @@ namespace FoodPoint_Seller.Droid.Activities
             if (bundle == null)
                 ViewModel.ShowMenu();
 
+ 
+
          }
     
 

@@ -7,6 +7,7 @@ using MvvmCross.Plugins.Messenger;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace FoodPoint_Seller.Core.ViewModels
@@ -17,6 +18,7 @@ namespace FoodPoint_Seller.Core.ViewModels
         private ISellerAuthService _loginService;
 
         private readonly IDialogService _dialogService;
+        private int indexFood = 0;
        
         //public INC<string> TextActiveSeller = new NC<string>("offline", (e) =>
         //{
@@ -67,7 +69,7 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
         });
 
-        public INC<string> RecivedOrderTimer = new NC<string>("", (e) =>
+        public INC<TimeSpan> RecivedOrderTimer = new NC<TimeSpan>(TimeSpan.Zero, (e) =>
         {
         });
 
@@ -149,8 +151,10 @@ namespace FoodPoint_Seller.Core.ViewModels
                     {
                         order.CloseOrderTimer.WaitTime -= new TimeSpan(0, 0, 1);
 
+                        UpdateStackOrderList();
+
                         if (order.IsAlive)
-                            this.RecivedOrderTimer.Value = order.CloseOrderTimer.WaitTime.ToString();
+                            this.RecivedOrderTimer.Value = order.CloseOrderTimer.WaitTime;
 
                         if (order.CloseOrderTimer.WaitTime == TimeSpan.Zero)
                         {
@@ -171,16 +175,9 @@ namespace FoodPoint_Seller.Core.ViewModels
                 if (this._recivedStackOrders.Count > 1)
                 {
                     this.RecivedStackOrders.Value.Add(stackOrder);
-                    var tempList = new List<RecivedOrder>();
-                    foreach (var item in this.RecivedStackOrders.Value)
-                    {
-                        tempList.Add(item.Clone(item));
-                    }
-                    this.RecivedStackOrders.Value = tempList;
+                    UpdateStackOrderList();
                 }
-            
-
-
+      
                 if (this._recivedStackOrders.Count == 1)
                     this.OpenDialogForOrderAgreement(stackOrder);
             });
@@ -194,6 +191,16 @@ namespace FoodPoint_Seller.Core.ViewModels
             });
         }
 
+        private void UpdateStackOrderList()
+        {
+            var tempList = new List<RecivedOrder>();
+            foreach (var item in this.RecivedStackOrders.Value)
+            {
+                tempList.Add(item.Clone(item));
+            }
+            this.RecivedStackOrders.Value = tempList;
+        }
+
         /// <summary>
         /// Откритытие окна согласования заказа
         /// </summary>
@@ -205,18 +212,21 @@ namespace FoodPoint_Seller.Core.ViewModels
             {
                 this.RecivedStackOrders.Value.RemoveAll(o => o.Order.ID == _sendOrder.Order.ID);
 
-                var tempList = new List<RecivedOrder>();
-                foreach (var item in this.RecivedStackOrders.Value)
-                {
-                    tempList.Add(item.Clone(item));
-                }
-                this.RecivedStackOrders.Value = tempList;
+                UpdateStackOrderList();
             }
 
             currentOrder.IsAlive = true;
 
             this.RecivedOrderTime.Value = currentOrder.Time;
             this.RecivedOrderNumber.Value = currentOrder.Order.RowNumber;
+
+            foreach (var item in currentOrder.Order.OrderedFood)
+            {
+                indexFood++;
+                item.index = indexFood;
+            }
+
+            indexFood = 0;
 
             this.ListCurentOrderProductItem.Value = currentOrder.Order.OrderedFood;
 

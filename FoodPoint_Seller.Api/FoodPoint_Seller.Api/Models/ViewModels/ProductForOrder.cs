@@ -13,7 +13,8 @@ namespace FoodPoint_Seller.Api.Models.ViewModels
         public Guid ID { get; set; }
         public ProductInfo ProductInfo { get; set; }
         public List<AdditiveModel> PossibleAdditives { get; set; }
-
+        public int index;
+       
         public ProductForOrder()
         {
 

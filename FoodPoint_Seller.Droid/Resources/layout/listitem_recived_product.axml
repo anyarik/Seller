@@ -12,7 +12,7 @@
       android:id="@+id/text_product_name"
       android:layout_alignParentLeft="true"
       android:text="test"
-      local:MvxBind="Text ProductInfo.Name"
+      local:MvxBind="Text Format('{0}) {1}', index, ProductInfo.Name)"
  />
 
   <Switch

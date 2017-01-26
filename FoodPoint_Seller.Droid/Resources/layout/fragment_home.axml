@@ -11,7 +11,7 @@
         android:id="@+id/toolbar_actionbar" />
     <RelativeLayout
         android:id="@+id/order_list_content"
-        android:layout_width="500dp"
+        android:layout_width="400dp"
         android:layout_margin="1dp"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar_actionbar"
@@ -36,6 +36,7 @@
             android:layout_height="match_parent"
             android:id="@+id/orders_list"
             android:divider="@android:color/transparent"
+            android:layout_alignParentRight="true"
             android:descendantFocusability="blocksDescendants"
             local:MvxBind="ItemsSource ListOrderItem; ItemClick OrderClick"
             local:MvxItemTemplate="@layout/listitem_small_order" />

@@ -20,8 +20,8 @@ namespace FoodPoint_Seller.Core.ViewModels
             _loginService = loginService;
             _dialogService = dialogService;
 
-            Username.Value = "test@test.ru";
-            Password.Value = "pp";
+            //Username.Value = "test@test.ru";
+            //Password.Value = "pp";
             IsLoading.Value = false;
         }
 

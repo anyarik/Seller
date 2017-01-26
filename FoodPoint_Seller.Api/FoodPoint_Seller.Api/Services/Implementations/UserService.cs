@@ -51,7 +51,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
 
         public async Task<OwnerAccountModel> GetProfileOwner(string id, string token)
         {
-            var url = $"{AppData.Host}/api/get_sellers_info?sellerID={id}";
+            var url = $"{AppData.Host}/api/get_seller_info?sellerID={id}";
 
             //List<KeyValuePair<string, IEnumerable<string>>> headers = new List<KeyValuePair<string, IEnumerable<string>>>();
 
@@ -73,7 +73,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
 
         public async Task<SellerAccountModel> GetProfileSeller(string id, string token)
         {
-            var url = $"{AppData.Host}/api/get_sellers_info?sellerID={id}";
+            var url = $"{AppData.Host}/api/get_seller_info?sellerID={id}";
 
             //List<KeyValuePair<string, IEnumerable<string>>> headers = new List<KeyValuePair<string, IEnumerable<string>>>();
 

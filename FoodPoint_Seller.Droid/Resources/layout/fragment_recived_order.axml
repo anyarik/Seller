@@ -21,16 +21,8 @@
             android:background="@android:color/background_light"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="30dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_number_order"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:layout_marginLeft="10dp"
-                android:text="№" />
+            android:layout_margin="30dp"
+            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,30 +30,33 @@
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:layout_toRightOf="@id/text_number_order"
-                local:MvxBind="Text RecivedOrderNumber" />
+                local:MvxBind="Text Format('№ {0}', RecivedOrderNumber)" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/timer_order_text"
-                android:textSize="20dp"
+                android:id="@+id/available_product_text"
+                android:layout_alignEnd="@id/list_recived_order"
                 android:textColor="@color/black"
-                android:layout_below="@id/text_number_order"
-                android:layout_above="@id/list_recived_order"
+                android:textSize="10dp"
+                android:layout_below="@id/number_order"
                 android:text="Нет в наличии" />
             <Mvx.MvxListView
                 android:id="@+id/list_recived_order"
                 android:layout_width="200dp"
+                android:divider="@android:color/transparent"
                 android:layout_height="100dp"
                 android:layout_marginLeft="10dp"
                 local:MvxBind="ItemsSource ListCurentOrderProductItem"
                 local:MvxItemTemplate="@layout/listitem_recived_product"
-                android:layout_below="@+id/text_number_order"
-                 />
+                android:layout_below="@+id/available_product_text"
+                />
+
+
             <RelativeLayout
                 android:id="@+id/orders_panel"
                 android:background="@android:color/background_light"
-                android:layout_width="100dp"
+                android:layout_width="200dp"
+
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:backgroundTintMode="src_atop">
@@ -84,13 +79,14 @@
                         android:id="@+id/stack_orders_text"
                         android:text="Заказы на очереди:"
                         android:textColor="@color/colorTextLight"
-                         android:gravity="center_horizontal" />
+                         android:layout_centerHorizontal="true" />
                 <Mvx.MvxListView
                     android:id="@+id/list_stack_order"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     local:MvxBind="ItemsSource RecivedStackOrders"
                     local:MvxItemTemplate="@layout/listitem_stack_order"
+                    android:divider="@android:color/transparent"
                     android:layout_below="@id/stack_orders_text" />
 
                 </RelativeLayout>
@@ -115,7 +111,7 @@
                       android:id="@+id/curent_orders_text"
                       android:text="Принятые заказы:"
                       android:textColor="@color/colorTextLight"
-                      android:gravity="center_horizontal"
+                      android:layout_centerHorizontal="true"
                        />
 
                     <Mvx.MvxListView
@@ -130,6 +126,16 @@
                           local:MvxItemTemplate="@layout/listitem_stack_order"-->
                 </RelativeLayout>
             </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/timer_order_text"
+                android:textColor="@color/colorTextLight"
+                android:layout_marginRight="10dp"
+                android:text="Время ожидания клиента"
+
+                android:layout_alignEnd="@+id/btn_approve"
+                android:textSize="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -139,19 +145,22 @@
                 android:layout_marginRight="30dp"
                 android:textColor="@color/colorTextLight"
                 android:textStyle="bold"
+                android:text="text"
                 android:layout_toLeftOf="@id/orders_panel"
                 android:layout_below="@id/timer_order_text"
-                local:MvxBind="Text RecivedOrderTimer" />
+                local:MvxBind="Text Format('{0:00}:{1:00}', 
+                    RecivedOrderTimer.Minutes, 
+                   RecivedOrderTimer.Seconds)" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/delay_text"
-                android:textSize="20dp"
+                android:id="@+id/order_time_text"
 
                 android:textColor="@color/colorTextLight"
                 android:layout_below="@id/list_recived_order"
                 android:layout_marginLeft="10dp"
                 android:text="Время приготовления заказа:" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -160,7 +169,7 @@
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:layout_below="@id/delay_text"
+                android:layout_below="@id/order_time_text"
                 local:MvxBind="Text RecivedOrderTime" />
             <Button
                 android:text="Согласовать"
@@ -194,7 +203,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/delay_text"
-                    android:textSize="20dp"
                     android:layout_gravity="bottom"
                     android:textColor="@color/colorTextLight"
                     android:text="Отложить заказ на 5 мин." />
@@ -207,16 +215,6 @@
                     android:theme="@style/SCBSwitch" />
             </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/timer_order_text"
-                android:textSize="@dimen/text_medium"
-                android:textColor="@color/colorTextLight"
-                android:layout_marginRight="10dp"
-                android:text="Время ожидания клиента"
-                android:layout_alignBottom="@+id/timer_order_text"
-                android:layout_alignEnd="@+id/btn_approve" />
 
         </RelativeLayout>
     </RelativeLayout>

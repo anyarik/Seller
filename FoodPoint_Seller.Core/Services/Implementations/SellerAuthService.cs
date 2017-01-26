@@ -17,7 +17,6 @@ namespace FoodPoint_Seller.Core.Services.Implementations
         private IUserController _userController;
         private readonly IKeyChain _keyChain;
 
-
         public const string KEY_LOGIN = "login";
         public const string KEY_PASSWORD = "password";
 
@@ -40,7 +39,6 @@ namespace FoodPoint_Seller.Core.Services.Implementations
 
         public async Task<bool> Login()
         {
-            
             //var username = CrossSecureStorage.Current.GetValue(LoginService.KEY_LOGIN); 
             //var password = CrossSecureStorage.Current.GetValue(LoginService.KEY_PASSWORD);
 
@@ -79,17 +77,12 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                     //CrossSecureStorage.Current.SetValue(LoginService.KEY_PASSWORD, password);
 
                     var isUpdate = await  this.UpdateProfile();
-
-                    IsAuthenticated = true;
+                    
                     if (isUpdate)
                     {
-                     
+                        IsAuthenticated = true;
                     }
                 }
-             
-                //_mvxMessenger.Publish(new AuthorizationMessage(this));
-
-                //await UpdateProfile();
 
                 return IsAuthenticated;
                 //IsAuthenticated = _apiClient.ExchangeUserCredentialsForTokens(userName, password, scope);
@@ -104,7 +97,6 @@ namespace FoodPoint_Seller.Core.Services.Implementations
         }
         public async Task<string> GetToken()
         {
-
             var accessToken = Util.InfoAccessToken.GetInfoFromToken(_tokenAuth.access_token);
 
             if (new DateTime(START_UNIX_EPOH.Ticks).AddSeconds(accessToken.exp) - DateTime.Now.ToUniversalTime() < new TimeSpan(0, 0, 5))
@@ -152,7 +144,6 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                     return _profileUser;
             }
             return _profileUser;
-
         }
 
         public void Logout()

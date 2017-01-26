@@ -42,6 +42,7 @@
     <Compile Include="Models\PayedOrder.cs" />
     <Compile Include="Models\Timer.cs" />
     <Compile Include="Models\RecivedOrder.cs" />
+    <Compile Include="Services\IUpdatingService.cs" />
     <Compile Include="Services\IDialogService.cs" />
     <Compile Include="Services\Implementations\OwnerAuthService.cs" />
     <Compile Include="Services\IOwnerAuthService.cs" />
