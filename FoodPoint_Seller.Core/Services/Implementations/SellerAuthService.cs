@@ -41,8 +41,8 @@ namespace FoodPoint_Seller.Core.Services.Implementations
         {
             //var username = CrossSecureStorage.Current.GetValue(LoginService.KEY_LOGIN); 
             ////var password = CrossSecureStorage.Current.GetValue(LoginService.KEY_PASSWORD);
-            _keyChain.DeleteKey(SellerAuthService.KEY_LOGIN);
-            _keyChain.DeleteKey(SellerAuthService.KEY_PASSWORD);
+            //_keyChain.DeleteKey(SellerAuthService.KEY_LOGIN);
+            //_keyChain.DeleteKey(SellerAuthService.KEY_PASSWORD);
 
             var username = _keyChain.GetKey(SellerAuthService.KEY_LOGIN);
             var password = _keyChain.GetKey(SellerAuthService.KEY_PASSWORD); 
