@@ -40,7 +40,9 @@ namespace FoodPoint_Seller.Core.Services.Implementations
         public async Task<bool> Login()
         {
             //var username = CrossSecureStorage.Current.GetValue(LoginService.KEY_LOGIN); 
-            //var password = CrossSecureStorage.Current.GetValue(LoginService.KEY_PASSWORD);
+            ////var password = CrossSecureStorage.Current.GetValue(LoginService.KEY_PASSWORD);
+            _keyChain.DeleteKey(SellerAuthService.KEY_LOGIN);
+            _keyChain.DeleteKey(SellerAuthService.KEY_PASSWORD);
 
             var username = _keyChain.GetKey(SellerAuthService.KEY_LOGIN);
             var password = _keyChain.GetKey(SellerAuthService.KEY_PASSWORD); 
@@ -64,6 +66,7 @@ namespace FoodPoint_Seller.Core.Services.Implementations
         /// <returns>The <see cref="bool"/>. </returns>
         public async Task<bool> Login(string username, string password)
         {
+
             try
             {
                 var user = new SellerAccountModel(username, password);
@@ -113,9 +116,9 @@ namespace FoodPoint_Seller.Core.Services.Implementations
              var id = Util.InfoAccessToken.GetInfoFromToken(_tokenAuth.access_token).sub.Replace(".seller", "");
 
 
-            _profileUser = await  _userController.GetProfileSeller(
-               id, _tokenAuth.access_token
-                );
+            //_profileUser = await  _userController.GetProfileSeller(
+            //   id, _tokenAuth.access_token
+            //    );
 
             //_mvxMessenger.Publish(new UpdateProfileMessage(this));
             if (_profileUser != null)
@@ -148,8 +151,8 @@ namespace FoodPoint_Seller.Core.Services.Implementations
 
         public void Logout()
         {
-            _keyChain.DeleteKey(OwnerAuthService.KEY_LOGIN);
-            _keyChain.DeleteKey(OwnerAuthService.KEY_PASSWORD);
+            _keyChain.DeleteKey(SellerAuthService.KEY_LOGIN);
+            _keyChain.DeleteKey(SellerAuthService.KEY_PASSWORD);
         }
     }
 }

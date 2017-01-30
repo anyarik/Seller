@@ -26,9 +26,10 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                                                                                 }
                                                             )
                 );
+            var seller = await ConnectionService.PostAsync<AccessTokenAuthorise>(url, new StringContent(data, Encoding.UTF8, "application/x-www-form-urlencoded"), headers, "Не удалось авторизоваться");
 
-            return await ConnectionService.PostAsync<AccessTokenAuthorise>(url, new StringContent(data, Encoding.UTF8,  "application/x-www-form-urlencoded"), headers, "Не удалось авторизоваться");
-        }
+            return seller;
+                }
 
         public async Task<AccessTokenAuthorise> AuthorizationOwner(OwnerAccountModel user)
         {
@@ -44,9 +45,10 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                                                                                 }
                                                             )
                 );
+            var seller = await ConnectionService.PostAsync<AccessTokenAuthorise>(url, new StringContent(data, Encoding.UTF8, "application/x-www-form-urlencoded"), headers, "Не удалось авторизоваться");
 
-            return await ConnectionService.PostAsync<AccessTokenAuthorise>(url, new StringContent(data, Encoding.UTF8, "application/x-www-form-urlencoded"), headers, "Не удалось авторизоваться");
-        }
+            return seller;
+                }
 
 
         public async Task<OwnerAccountModel> GetProfileOwner(string id, string token)
@@ -75,20 +77,19 @@ namespace FoodPoint_Seller.Api.Services.Implementations
         {
             var url = $"{AppData.Host}/api/get_seller_info?sellerID={id}";
 
-            //List<KeyValuePair<string, IEnumerable<string>>> headers = new List<KeyValuePair<string, IEnumerable<string>>>();
+            List<KeyValuePair<string, IEnumerable<string>>> headers = new List<KeyValuePair<string, IEnumerable<string>>>();
 
-            //токен авторизации и другие headers.Add("")
-            //headers.Add(
-            //    new KeyValuePair<string, IEnumerable<string>>(
-            //                                                    "Authorization",
-            //                                                    new List<string>() {
-            //                                                                        "Bearer "
-            //                                                                        +token
-            //                                                                        }
-            //                                                    )
-            //        );
+            headers.Add(
+                new KeyValuePair<string, IEnumerable<string>>(
+                                                                "Authorization",
+                                                                new List<string>() {
+                                                                                    "Bearer "
+                                                                                    +token
+                                                                                    }
+                                                                )
+                    );
 
-            var result = await ConnectionService.GetAsync<SellerAccountModel>(url, null, "Не удалось получить профиль");
+            var result = await ConnectionService.GetAsync<SellerAccountModel>(url, headers, "Не удалось получить профиль");
 
             return result; 
         }
