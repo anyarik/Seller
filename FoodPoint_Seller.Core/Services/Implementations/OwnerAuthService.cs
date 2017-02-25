@@ -125,15 +125,20 @@ namespace FoodPoint_Seller.Core.Services.Implementations
              var id = Util.InfoAccessToken.GetInfoFromToken(_tokenAuth.access_token).sub.Replace(".seller", "");
 
 
-            _profileUser = await  _userController.GetProfileOwner(
-               id, _tokenAuth.access_token
-                );
+            //_profileUser = await  _userController.GetProfileOwner(
+            //   id, _tokenAuth.access_token
+            //    );
 
             //_mvxMessenger.Publish(new UpdateProfileMessage(this));
             if (_profileUser != null)
             {
                 return true;
             }
+            else
+            {
+                return true;
+            }
+
             return false;
         }
 

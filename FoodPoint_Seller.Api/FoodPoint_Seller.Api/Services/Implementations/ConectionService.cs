@@ -44,7 +44,9 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                         message.Method = postData == null ? HttpMethod.Get : HttpMethod.Post;
 
                         if (postData != null)
-                            message.Content = postData;
+                            if (postData.ReadAsStringAsync().Result != "")
+                                message.Content = postData;
+
 
                         if (headers != null)
                         {

@@ -1,6 +1,9 @@
+using Acr.UserDialogs;
 using Android.App;
 using Android.Content.PM;
 using MvvmCross.Droid.Views;
+using MvvmCross.Platform;
+using MvvmCross.Platform.Droid.Platform;
 
 namespace FoodPoint_Seller.Droid
 {
@@ -15,6 +18,7 @@ namespace FoodPoint_Seller.Droid
     {
         public SplashScreen() : base(Resource.Layout.splash_screen)
         {
+            UserDialogs.Init(() => Mvx.Resolve<IMvxAndroidCurrentTopActivity>().Activity);
         }
     }
 }

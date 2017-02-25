@@ -9,9 +9,9 @@ namespace FoodPoint_Seller.Api.Controllers
 {
     public  interface IStatisticController
     {
-        Task<List<SellerDayInfo>> GetSellerStatisticForDay(string id, string beginDate, string endDate);
-        Task<List<FoodDayInfo>> GetFoodStatisticForDay(string id, string beginDate, string endDate);
-        Task<List<RevenueDayInfo>> GetRevenueStatisticForDay(string id, string beginDate, string endDate);
-        Task<List<AdditivesDayInfo>> GetAdditivesStatisticForDay(string id, string beginDate, string endDate);
+        Task<List<SellerDayInfo>> GetSellerStatisticForDay(string id, string beginDate, string endDate, string token);
+        Task<List<FoodDayInfo>> GetFoodStatisticForDay(string id, string beginDate, string endDate, string token);
+        Task<List<RevenueDayInfo>> GetRevenueStatisticForDay(string id, string beginDate, string endDate, string token);
+        Task<List<AdditivesDayInfo>> GetAdditivesStatisticForDay(string id, string beginDate, string endDate, string token);
     }
 }

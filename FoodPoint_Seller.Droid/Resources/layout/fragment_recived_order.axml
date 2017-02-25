@@ -42,9 +42,9 @@
                 android:text="Нет в наличии" />
             <Mvx.MvxListView
                 android:id="@+id/list_recived_order"
-                android:layout_width="200dp"
+                android:layout_width="250dp"
                 android:divider="@android:color/transparent"
-                android:layout_height="100dp"
+                android:layout_height="300dp"
                 android:layout_marginLeft="10dp"
                 local:MvxBind="ItemsSource ListCurentOrderProductItem"
                 local:MvxItemTemplate="@layout/listitem_recived_product"
@@ -80,10 +80,15 @@
                         android:text="Заказы на очереди:"
                         android:textColor="@color/colorTextLight"
                          android:layout_centerHorizontal="true" />
-                <Mvx.MvxListView
+                <Mvx.MvxGridView
                     android:id="@+id/list_stack_order"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:columnWidth="50dp"
+                    android:numColumns="auto_fit"
+                    android:verticalSpacing="10dp"
+                    android:horizontalSpacing="10dp"
+                    android:stretchMode="columnWidth"
                     local:MvxBind="ItemsSource RecivedStackOrders"
                     local:MvxItemTemplate="@layout/listitem_stack_order"
                     android:divider="@android:color/transparent"
@@ -118,12 +123,12 @@
                         android:id="@+id/list_curent_order"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-
+                        local:MvxBind="ItemsSource CurentPayedOrders"
+                        local:MvxItemTemplate="@layout/listitem_stack_order"
                         android:layout_below="@id/curent_orders_text" />
 
 
-                    <!--local:MvxBind="ItemsSource ListCurentOrders"
-                          local:MvxItemTemplate="@layout/listitem_stack_order"-->
+
                 </RelativeLayout>
             </RelativeLayout>
             <TextView
@@ -179,7 +184,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_toLeftOf="@id/orders_panel"
                 local:MvxBind="Click OnApprove"
-                android:background="#ff474f"
+                android:background="@drawable/circle_button"
                 android:layout_margin="10dp"
                 android:textColor="@color/white" />
             <Button
@@ -191,7 +196,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_margin="10dp"
                 local:MvxBind="Click OnCancelOrder"
-                android:background="#aeaeae"
+                android:background="@drawable/circle_button"
                 android:textColor="@color/white" />
             <RelativeLayout
                 android:id="@+id/approve_area"

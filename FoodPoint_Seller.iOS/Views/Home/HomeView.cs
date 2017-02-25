@@ -50,16 +50,16 @@ namespace FoodPoint_Seller.Touch.Views
 
 
 
-            this.CreateBinding(RecivedOrderNumberLabel).To((HomeViewModel vm) => vm.RecivedOrderNumber).Apply();
-            this.CreateBinding(RecivedOrderTimeLabel).To((HomeViewModel vm) => vm.RecivedOrderTime).Apply();
-            this.CreateBinding(RecivedOrderTimerLabel).To((HomeViewModel vm) => vm.RecivedOrderTimer).Apply();
+           // this.CreateBinding(RecivedOrderNumberLabel).To((HomeViewModel vm) => vm.RecivedOrderNumber).Apply();
+           // this.CreateBinding(RecivedOrderTimeLabel).To((HomeViewModel vm) => vm.RecivedOrderTime).Apply();
+           // this.CreateBinding(RecivedOrderTimerLabel).To((HomeViewModel vm) => vm.RecivedOrderTimer).Apply();
 
-            this.CreateBinding(CancelOrderButton).To("OnCancelOrder").Apply();
-            this.CreateBinding(CancelOrderButton).To("OnApprove").Apply();
+           // this.CreateBinding(CancelOrderButton).To("OnCancelOrder").Apply();
+           // this.CreateBinding(CancelOrderButton).To("OnApprove").Apply();
             
-            this.CreateBinding(DialogPanel).For("Visibility")
-           .To<HomeViewModel>(vm => vm.IsOrderDialogOpen)
-           .WithConversion("Visibility").Apply();
+           // this.CreateBinding(DialogPanel).For("Visibility")
+           //.To<HomeViewModel>(vm => vm.IsOrderDialogOpen)
+           //.WithConversion("Visibility").Apply();
      
 
             this.CreateBinding(ListOrderItemTable.Source).To((HomeViewModel vm) => vm.ListOrderItem).Apply();

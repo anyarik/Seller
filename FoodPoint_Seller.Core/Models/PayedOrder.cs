@@ -20,6 +20,8 @@ namespace FoodPoint_Seller.Core.Models
 
         public Action<PayedOrder> func;
 
+        public PayedOrder() { }
+
         public PayedOrder(string customerName, OrderItem order, TimeSpan Time, Action<PayedOrder> func)
         {
             this.CustomerName = customerName;
@@ -28,6 +30,18 @@ namespace FoodPoint_Seller.Core.Models
             this.func = func;
         }
 
+        public PayedOrder Clone(PayedOrder order)
+        {
+            return new PayedOrder()
+            {
+                Order = order.Order,
+                CustomerName = order.CustomerName,
+                OrderTime = order.OrderTime,
+                IsOrderFisihed = order.IsOrderFisihed,
+                CloseOrderTimer = order.CloseOrderTimer,
+                func = order.func,
+            };
+        }
 
         internal void StartTimer()
         {
@@ -38,8 +52,6 @@ namespace FoodPoint_Seller.Core.Models
         public void StopTimer()
         {
             this.CloseOrderTimer.StopTimer();
-
         }
-
     }
 }

@@ -21,9 +21,11 @@ namespace FoodPoint_Seller.Core.ViewModels
     public class HomeViewModel : BaseViewModel
     {
         //TODO Необходимо:
-        // Получать текущие активные заказы магазина на входе
-         // Таймер для оплаченного заказа
-        // Выключать таймер когда заказ отправлен и запускать новый под новый этап.
+        // Групировать товары
+        // Верстка
+        // Диалоговые окна для дат
+        // Занятость продавца
+        // Таймер для оплаченного заказа
         // Просмотр полного заказа, при нажатии на него.
 
         public INC<string> TextActiveSeller = new NC<string>("Выйти", (e) =>
@@ -33,16 +35,22 @@ namespace FoodPoint_Seller.Core.ViewModels
         public INC<string> TextStatusSeller = new NC<string>("offline", (e) =>
         {
         });
-        
+
+        public INC<string> OpenOrderNumber = new NC<string>("", (e) =>
+        {
+        });
+
+
         private IOrderController _orderController;
         private IUserController _userController;
+        private ISellerOrderService _sellerOrderService;
 
         private ISellerAuthService _loginService;
         
         /// <summary> 
         /// Список заказов, который получены и согласованы
         /// </summary>
-        public INC<ObservableCollection<PayedOrder>> ListOrderItem = new NC<ObservableCollection<PayedOrder>>(new ObservableCollection<PayedOrder>() { new PayedOrder("1", new OrderItem(null, new List<ProductForOrder>()) , TimeSpan.Zero, null) }, (e) =>
+        public INC<List<PayedOrder>> ListOrderItem = new NC<List<PayedOrder>>(new List<PayedOrder>() { }, (e) =>
         {
         });
 
@@ -57,47 +65,19 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
         });
 
-        public HomeViewModel(IOrderController orderController, IUserController userControler, ISellerAuthService loginService)
+        public HomeViewModel(IOrderController orderController, IUserController userControler, ISellerAuthService loginService, ISellerOrderService sellerOrderService)
         {
             this._orderController = orderController;
             this._userController = userControler;
 
             this._loginService = loginService;
+            this._sellerOrderService = sellerOrderService; 
 
             this._orderController.OnChangeStatusSeller((_, status) =>
             {
                 TextStatusSeller.Value = status;
             });
 
-            this._orderController.OnGettingPurchasedOrders((custormer, order) =>
-            {
-                var reciveOrder = JsonConvert.DeserializeObject<OrderItem>(order);
-
-                var showingOrder = new PayedOrder(custormer.ToString(), reciveOrder, reciveOrder.orderTimer, (orderInProcess) =>
-                {
-                    orderInProcess.CloseOrderTimer = new Timer(orderInProcess.OrderTime, (_) =>
-                    {
-                        orderInProcess.CloseOrderTimer.WaitTime -= new TimeSpan(0, 0, 1);
-
-                        if (orderInProcess.CloseOrderTimer.WaitTime == TimeSpan.Zero)
-                        {
-                            orderInProcess.IsOrderFisihed = true;
-                        }
-                    });
-
-                });
-
-
-                //this.ListOrderItem.Value.Add(showingOrder);
-                //var tempList = new List<PayedOrder>();
-                //foreach (var item in this.ListOrderItem.Value)
-                //{
-                //    tempList.Add(item.Clone(item));
-                //}
-                //this.ListOrderItem.Value = tempList;
-
-                TextActiveSeller.Value = "Перестать принимать заказы";
-            });
         }
         /// <summary>
         /// Метод, который говорит нам о том, что наша ViewModel отобразилась на экране
@@ -105,22 +85,39 @@ namespace FoodPoint_Seller.Core.ViewModels
         public override void Start()
         {
             base.Start();
-           //this.ListOrderItem.Value = _orderService.GetOrders();
+            this.ListOrderItem.Value =  _sellerOrderService.GetOrders();
+
+            this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder;
         }
 
+        private void _sellerOrderService_OnNewPayedOrder(object sender, PayedOrder e)
+        {
+            this.ListOrderItem.Value.Add(e);
+            UpdatePayedOrderList();
+        }
+
+        private void UpdatePayedOrderList()
+        {
+            var tempList = new List<PayedOrder>();
+            foreach (var item in this.ListOrderItem.Value)
+            {
+                tempList.Add(item.Clone(item));
+            }
+            this.ListOrderItem.Value = tempList;
+        }
 
         public void OrderClick(PayedOrder order)
         {
             this.IsClikedOrderDialogOpen.Value = true;
 
-            //this.RecivedOrderNumber.Value = order.Order.ID.ToString();
+            this.OpenOrderNumber.Value = order.Order.ID.ToString();
             this.ListCurentOrderProductItem.Value = order.Order.OrderedFood;
         }
         public void OnClose(PayedOrder order)
         {
             this.IsClikedOrderDialogOpen.Value = false;
         }
-        public void OnClickOffline()
+        public async void OnClickOffline()
         {
             if (ListOrderItem.Value.Count == 0)
             {
@@ -130,24 +127,17 @@ namespace FoodPoint_Seller.Core.ViewModels
             }
             else
             {
-                this._orderController.HubDisconnect();
-                this._loginService.Logout();
-                ShowViewModel<LoginViewModel>();
-                //this._userController.Set_Busyness();
+                 this._loginService.ChangeStatusSeler();
+                 TextActiveSeller.Value = "Больше закаты не принимаются";
             }
-           
         }
 
         public void OnFinishOrder(PayedOrder deleteOrder)
         {
-            //this.ListOrderItem.Value.RemoveAll(o => o.Order.ID == deleteOrder.Order.ID);
+            this.ListOrderItem.Value.RemoveAll(o => o.Order.ID == deleteOrder.Order.ID);
 
-            //var tempList = new List<PayedOrder>();
-            //foreach (var item in this.ListOrderItem.Value)
-            //{
-            //    tempList.Add(item.Clone(item));
-            //}
-            //this.ListOrderItem.Value = tempList;
+            UpdatePayedOrderList();
+            _sellerOrderService.DeletOrder(deleteOrder);
         }
     }
 }

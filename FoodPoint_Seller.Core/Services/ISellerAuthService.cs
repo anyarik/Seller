@@ -22,6 +22,7 @@ namespace FoodPoint_Seller.Core.Services
         Task<bool> Login(string username, string password);
 
         Task<string> GetToken();
+        void ChangeStatusSeler();
 
         Task<SellerAccountModel> GetProfileSeller();
         void Logout();

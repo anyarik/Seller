@@ -1,3 +1,4 @@
+using Acr.UserDialogs;
 using FoodPoint_Seller.Api.Controllers;
 using FoodPoint_Seller.Api.Controllers.Implementations;
 using FoodPoint_Seller.Api.Services;
@@ -39,6 +40,8 @@ namespace FoodPoint_Seller.Core
             Mvx.ConstructAndRegisterSingleton<IUserController, UserController>();
             Mvx.ConstructAndRegisterSingleton<IOrderController, OrderController>();
             Mvx.ConstructAndRegisterSingleton<IStatisticController, StatisticControler>();
+
+            Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
             //Mvx.RegisterSingleton<ILoginService>(() => new LoginService(
             //     Mvx.GetSingleton<IUserController>()
             //    , Mvx.GetSingleton<Plugin.KeyChain.Abstractions.IKeyChain>()

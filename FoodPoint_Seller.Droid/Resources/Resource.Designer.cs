@@ -26,6 +26,43 @@ namespace FoodPoint_Seller.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::AndroidHUD.Resource.Attribute.ahBarColor = global::FoodPoint_Seller.Droid.Resource.Attribute.ahBarColor;
+			global::AndroidHUD.Resource.Attribute.ahBarLength = global::FoodPoint_Seller.Droid.Resource.Attribute.ahBarLength;
+			global::AndroidHUD.Resource.Attribute.ahBarWidth = global::FoodPoint_Seller.Droid.Resource.Attribute.ahBarWidth;
+			global::AndroidHUD.Resource.Attribute.ahCircleColor = global::FoodPoint_Seller.Droid.Resource.Attribute.ahCircleColor;
+			global::AndroidHUD.Resource.Attribute.ahDelayMillis = global::FoodPoint_Seller.Droid.Resource.Attribute.ahDelayMillis;
+			global::AndroidHUD.Resource.Attribute.ahRadius = global::FoodPoint_Seller.Droid.Resource.Attribute.ahRadius;
+			global::AndroidHUD.Resource.Attribute.ahRimColor = global::FoodPoint_Seller.Droid.Resource.Attribute.ahRimColor;
+			global::AndroidHUD.Resource.Attribute.ahRimWidth = global::FoodPoint_Seller.Droid.Resource.Attribute.ahRimWidth;
+			global::AndroidHUD.Resource.Attribute.ahSpinSpeed = global::FoodPoint_Seller.Droid.Resource.Attribute.ahSpinSpeed;
+			global::AndroidHUD.Resource.Attribute.ahText = global::FoodPoint_Seller.Droid.Resource.Attribute.ahText;
+			global::AndroidHUD.Resource.Attribute.ahTextColor = global::FoodPoint_Seller.Droid.Resource.Attribute.ahTextColor;
+			global::AndroidHUD.Resource.Attribute.ahTextSize = global::FoodPoint_Seller.Droid.Resource.Attribute.ahTextSize;
+			global::AndroidHUD.Resource.Drawable.ic_errorstatus = global::FoodPoint_Seller.Droid.Resource.Drawable.ic_errorstatus;
+			global::AndroidHUD.Resource.Drawable.ic_successstatus = global::FoodPoint_Seller.Droid.Resource.Drawable.ic_successstatus;
+			global::AndroidHUD.Resource.Drawable.roundedbg = global::FoodPoint_Seller.Droid.Resource.Drawable.roundedbg;
+			global::AndroidHUD.Resource.Drawable.roundedbgdark = global::FoodPoint_Seller.Droid.Resource.Drawable.roundedbgdark;
+			global::AndroidHUD.Resource.Id.loadingImage = global::FoodPoint_Seller.Droid.Resource.Id.loadingImage;
+			global::AndroidHUD.Resource.Id.loadingProgressBar = global::FoodPoint_Seller.Droid.Resource.Id.loadingProgressBar;
+			global::AndroidHUD.Resource.Id.loadingProgressWheel = global::FoodPoint_Seller.Droid.Resource.Id.loadingProgressWheel;
+			global::AndroidHUD.Resource.Id.textViewStatus = global::FoodPoint_Seller.Droid.Resource.Id.textViewStatus;
+			global::AndroidHUD.Resource.Layout.loading = global::FoodPoint_Seller.Droid.Resource.Layout.loading;
+			global::AndroidHUD.Resource.Layout.loadingimage = global::FoodPoint_Seller.Droid.Resource.Layout.loadingimage;
+			global::AndroidHUD.Resource.Layout.loadingprogress = global::FoodPoint_Seller.Droid.Resource.Layout.loadingprogress;
+			global::AndroidHUD.Resource.String.library_name = global::FoodPoint_Seller.Droid.Resource.String.library_name;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel = global::FoodPoint_Seller.Droid.Resource.Styleable.ProgressWheel;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahBarColor = global::FoodPoint_Seller.Droid.Resource.Styleable.ProgressWheel_ahBarColor;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahBarLength = global::FoodPoint_Seller.Droid.Resource.Styleable.ProgressWheel_ahBarLength;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahBarWidth = global::FoodPoint_Seller.Droid.Resource.Styleable.ProgressWheel_ahBarWidth;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahCircleColor = global::FoodPoint_Seller.Droid.Resource.Styleable.ProgressWheel_ahCircleColor;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahDelayMillis = global::FoodPoint_Seller.Droid.Resource.Styleable.ProgressWheel_ahDelayMillis;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahRadius = global::FoodPoint_Seller.Droid.Resource.Styleable.ProgressWheel_ahRadius;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahRimColor = global::FoodPoint_Seller.Droid.Resource.Styleable.ProgressWheel_ahRimColor;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahRimWidth = global::FoodPoint_Seller.Droid.Resource.Styleable.ProgressWheel_ahRimWidth;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahSpinSpeed = global::FoodPoint_Seller.Droid.Resource.Styleable.ProgressWheel_ahSpinSpeed;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahText = global::FoodPoint_Seller.Droid.Resource.Styleable.ProgressWheel_ahText;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextColor = global::FoodPoint_Seller.Droid.Resource.Styleable.ProgressWheel_ahTextColor;
+			global::AndroidHUD.Resource.Styleable.ProgressWheel_ahTextSize = global::FoodPoint_Seller.Droid.Resource.Styleable.ProgressWheel_ahTextSize;
 			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxBind = global::FoodPoint_Seller.Droid.Resource.Attribute.MvxBind;
 			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxDropDownItemTemplate = global::FoodPoint_Seller.Droid.Resource.Attribute.MvxDropDownItemTemplate;
 			global::MvvmCross.Binding.Droid.Resource.Attribute.MvxGroupItemTemplate = global::FoodPoint_Seller.Droid.Resource.Attribute.MvxGroupItemTemplate;
@@ -148,6 +185,7 @@ namespace FoodPoint_Seller.Droid
 			global::MvvmCross.Droid.Support.V7.RecyclerView.Resource.Styleable.RecyclerView_reverseLayout = global::FoodPoint_Seller.Droid.Resource.Styleable.RecyclerView_reverseLayout;
 			global::MvvmCross.Droid.Support.V7.RecyclerView.Resource.Styleable.RecyclerView_spanCount = global::FoodPoint_Seller.Droid.Resource.Styleable.RecyclerView_spanCount;
 			global::MvvmCross.Droid.Support.V7.RecyclerView.Resource.Styleable.RecyclerView_stackFromEnd = global::FoodPoint_Seller.Droid.Resource.Styleable.RecyclerView_stackFromEnd;
+			global::Splat.Resource.String.library_name = global::FoodPoint_Seller.Droid.Resource.String.library_name;
 		}
 		
 		public partial class Animation
@@ -339,6 +377,42 @@ namespace FoodPoint_Seller.Droid
 			
 			// aapt resource value: 0x7f010061
 			public const int activityChooserViewStyle = 2130772065;
+			
+			// aapt resource value: 0x7f010125
+			public const int ahBarColor = 2130772261;
+			
+			// aapt resource value: 0x7f01012d
+			public const int ahBarLength = 2130772269;
+			
+			// aapt resource value: 0x7f01012c
+			public const int ahBarWidth = 2130772268;
+			
+			// aapt resource value: 0x7f01012a
+			public const int ahCircleColor = 2130772266;
+			
+			// aapt resource value: 0x7f010129
+			public const int ahDelayMillis = 2130772265;
+			
+			// aapt resource value: 0x7f01012b
+			public const int ahRadius = 2130772267;
+			
+			// aapt resource value: 0x7f010126
+			public const int ahRimColor = 2130772262;
+			
+			// aapt resource value: 0x7f010127
+			public const int ahRimWidth = 2130772263;
+			
+			// aapt resource value: 0x7f010128
+			public const int ahSpinSpeed = 2130772264;
+			
+			// aapt resource value: 0x7f010122
+			public const int ahText = 2130772258;
+			
+			// aapt resource value: 0x7f010123
+			public const int ahTextColor = 2130772259;
+			
+			// aapt resource value: 0x7f010124
+			public const int ahTextSize = 2130772260;
 			
 			// aapt resource value: 0x7f010084
 			public const int alertDialogButtonGroupStyle = 2130772100;
@@ -2067,22 +2141,52 @@ namespace FoodPoint_Seller.Droid
 			public const int dialog_spinner_default_holo_light = 2130837586;
 			
 			// aapt resource value: 0x7f020053
-			public const int Icon = 2130837587;
+			public const int ic_errorstatus = 2130837587;
 			
 			// aapt resource value: 0x7f020054
-			public const int listitem_order_butback = 2130837588;
+			public const int ic_successstatus = 2130837588;
 			
 			// aapt resource value: 0x7f020055
-			public const int listorder_back = 2130837589;
+			public const int Icon = 2130837589;
 			
 			// aapt resource value: 0x7f020056
-			public const int listorder_backnew = 2130837590;
+			public const int listitem_order_butback = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public const int MvvmCrossLogo = 2130837591;
+			public const int listorder_back = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public const int notification_template_icon_bg = 2130837592;
+			public const int listorder_backnew = 2130837592;
+			
+			// aapt resource value: 0x7f020059
+			public const int MvvmCrossLogo = 2130837593;
+			
+			// aapt resource value: 0x7f020062
+			public const int notification_template_icon_bg = 2130837602;
+			
+			// aapt resource value: 0x7f02005a
+			public const int roundedbg = 2130837594;
+			
+			// aapt resource value: 0x7f02005b
+			public const int roundedbgdark = 2130837595;
+			
+			// aapt resource value: 0x7f02005c
+			public const int toggle_image = 2130837596;
+			
+			// aapt resource value: 0x7f02005d
+			public const int toggle_off = 2130837597;
+			
+			// aapt resource value: 0x7f02005e
+			public const int toggle_on = 2130837598;
+			
+			// aapt resource value: 0x7f02005f
+			public const int toggle_track = 2130837599;
+			
+			// aapt resource value: 0x7f020060
+			public const int track_bg_off = 2130837600;
+			
+			// aapt resource value: 0x7f020061
+			public const int track_bg_on = 2130837601;
 			
 			static Drawable()
 			{
@@ -2118,8 +2222,8 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f06009c
 			public const int TbxUsernameOwner = 2131099804;
 			
-			// aapt resource value: 0x7f0600ed
-			public const int action0 = 2131099885;
+			// aapt resource value: 0x7f0600f3
+			public const int action0 = 2131099891;
 			
 			// aapt resource value: 0x7f06005c
 			public const int action_bar = 2131099740;
@@ -2145,8 +2249,8 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f06005d
 			public const int action_context_bar = 2131099741;
 			
-			// aapt resource value: 0x7f0600f1
-			public const int action_divider = 2131099889;
+			// aapt resource value: 0x7f0600f7
+			public const int action_divider = 2131099895;
 			
 			// aapt resource value: 0x7f060003
 			public const int action_menu_divider = 2131099651;
@@ -2163,8 +2267,8 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f06003e
 			public const int action_mode_close_button = 2131099710;
 			
-			// aapt resource value: 0x7f0600dd
-			public const int activatedSwitch = 2131099869;
+			// aapt resource value: 0x7f0600df
+			public const int activatedSwitch = 2131099871;
 			
 			// aapt resource value: 0x7f06003f
 			public const int activity_chooser_view_content = 2131099711;
@@ -2208,8 +2312,8 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f060046
 			public const int buttonPanel = 2131099718;
 			
-			// aapt resource value: 0x7f0600ee
-			public const int cancel_action = 2131099886;
+			// aapt resource value: 0x7f0600f4
+			public const int cancel_action = 2131099892;
 			
 			// aapt resource value: 0x7f06002d
 			public const int center = 2131099693;
@@ -2223,8 +2327,8 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f060054
 			public const int checkbox = 2131099732;
 			
-			// aapt resource value: 0x7f0600f4
-			public const int chronometer = 2131099892;
+			// aapt resource value: 0x7f0600fa
+			public const int chronometer = 2131099898;
 			
 			// aapt resource value: 0x7f060035
 			public const int clip_horizontal = 2131099701;
@@ -2235,11 +2339,11 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f060021
 			public const int collapseActionView = 2131099681;
 			
-			// aapt resource value: 0x7f0600e8
-			public const int common = 2131099880;
+			// aapt resource value: 0x7f0600ea
+			public const int common = 2131099882;
 			
-			// aapt resource value: 0x7f0600e6
-			public const int commonSellingAmount = 2131099878;
+			// aapt resource value: 0x7f0600e8
+			public const int commonSellingAmount = 2131099880;
 			
 			// aapt resource value: 0x7f06004c
 			public const int contentPanel = 2131099724;
@@ -2262,8 +2366,8 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f060051
 			public const int customPanel = 2131099729;
 			
-			// aapt resource value: 0x7f0600e7
-			public const int date = 2131099879;
+			// aapt resource value: 0x7f0600e9
+			public const int date = 2131099881;
 			
 			// aapt resource value: 0x7f0600cc
 			public const int date_text = 2131099852;
@@ -2343,8 +2447,8 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f060010
 			public const int disableHome = 2131099664;
 			
-			// aapt resource value: 0x7f0600d8
-			public const int down_line = 2131099864;
+			// aapt resource value: 0x7f0600da
+			public const int down_line = 2131099866;
 			
 			// aapt resource value: 0x7f0600c0
 			public const int down_line_panel = 2131099840;
@@ -2361,8 +2465,8 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f0600a8
 			public const int end_date_picker = 2131099816;
 			
-			// aapt resource value: 0x7f0600f9
-			public const int end_padder = 2131099897;
+			// aapt resource value: 0x7f0600ff
+			public const int end_padder = 2131099903;
 			
 			// aapt resource value: 0x7f060025
 			public const int enterAlways = 2131099685;
@@ -2427,17 +2531,17 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f0600a0
 			public const int image_view_row_icon = 2131099808;
 			
-			// aapt resource value: 0x7f0600f8
-			public const int info = 2131099896;
+			// aapt resource value: 0x7f0600fe
+			public const int info = 2131099902;
 			
-			// aapt resource value: 0x7f0600df
-			public const int innerText = 2131099871;
+			// aapt resource value: 0x7f0600e1
+			public const int innerText = 2131099873;
+			
+			// aapt resource value: 0x7f0600dd
+			public const int inner_category_list = 2131099869;
 			
 			// aapt resource value: 0x7f0600db
-			public const int inner_category_list = 2131099867;
-			
-			// aapt resource value: 0x7f0600d9
-			public const int inner_product_list = 2131099865;
+			public const int inner_product_list = 2131099867;
 			
 			// aapt resource value: 0x7f060000
 			public const int item_touch_helper_previous_elevation = 2131099648;
@@ -2448,14 +2552,14 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f060031
 			public const int left = 2131099697;
 			
-			// aapt resource value: 0x7f0600f2
-			public const int line1 = 2131099890;
+			// aapt resource value: 0x7f0600f8
+			public const int line1 = 2131099896;
 			
-			// aapt resource value: 0x7f0600f6
-			public const int line3 = 2131099894;
+			// aapt resource value: 0x7f0600fc
+			public const int line3 = 2131099900;
 			
-			// aapt resource value: 0x7f0600d5
-			public const int linearLayout2 = 2131099861;
+			// aapt resource value: 0x7f0600d7
+			public const int linearLayout2 = 2131099863;
 			
 			// aapt resource value: 0x7f06000d
 			public const int listMode = 2131099661;
@@ -2484,14 +2588,23 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f0600b1
 			public const int list_statistic_seller = 2131099825;
 			
+			// aapt resource value: 0x7f0600f1
+			public const int loadingImage = 2131099889;
+			
+			// aapt resource value: 0x7f0600ef
+			public const int loadingProgressBar = 2131099887;
+			
+			// aapt resource value: 0x7f0600f2
+			public const int loadingProgressWheel = 2131099890;
+			
 			// aapt resource value: 0x7f060091
 			public const int main_content = 2131099793;
 			
 			// aapt resource value: 0x7f060072
 			public const int main_frame = 2131099762;
 			
-			// aapt resource value: 0x7f0600f0
-			public const int media_actions = 2131099888;
+			// aapt resource value: 0x7f0600f6
+			public const int media_actions = 2131099894;
 			
 			// aapt resource value: 0x7f06001f
 			public const int middle = 2131099679;
@@ -2505,29 +2618,29 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f06008f
 			public const int my_recycler_view = 2131099791;
 			
-			// aapt resource value: 0x7f0600e1
-			public const int name = 2131099873;
+			// aapt resource value: 0x7f0600e3
+			public const int name = 2131099875;
 			
-			// aapt resource value: 0x7f060100
-			public const int nav_footer = 2131099904;
+			// aapt resource value: 0x7f060106
+			public const int nav_footer = 2131099910;
 			
-			// aapt resource value: 0x7f060101
-			public const int nav_helpfeedback = 2131099905;
+			// aapt resource value: 0x7f060107
+			public const int nav_helpfeedback = 2131099911;
 			
-			// aapt resource value: 0x7f0600fd
-			public const int nav_home = 2131099901;
-			
-			// aapt resource value: 0x7f0600fc
-			public const int nav_items = 2131099900;
+			// aapt resource value: 0x7f060103
+			public const int nav_home = 2131099907;
 			
 			// aapt resource value: 0x7f060102
-			public const int nav_settings = 2131099906;
+			public const int nav_items = 2131099906;
 			
-			// aapt resource value: 0x7f0600ff
-			public const int nav_statistic_owner = 2131099903;
+			// aapt resource value: 0x7f060108
+			public const int nav_settings = 2131099912;
 			
-			// aapt resource value: 0x7f0600fe
-			public const int nav_statistic_seller = 2131099902;
+			// aapt resource value: 0x7f060105
+			public const int nav_statistic_owner = 2131099909;
+			
+			// aapt resource value: 0x7f060104
+			public const int nav_statistic_seller = 2131099908;
 			
 			// aapt resource value: 0x7f060074
 			public const int navigation_frame = 2131099764;
@@ -2541,8 +2654,8 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f060023
 			public const int never = 2131099683;
 			
-			// aapt resource value: 0x7f0600ea
-			public const int nonanweredOrders = 2131099882;
+			// aapt resource value: 0x7f0600ec
+			public const int nonanweredOrders = 2131099884;
 			
 			// aapt resource value: 0x7f0600ce
 			public const int nonanweredOrders_text = 2131099854;
@@ -2553,8 +2666,8 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f06000e
 			public const int normal = 2131099662;
 			
-			// aapt resource value: 0x7f0600d6
-			public const int number_active_order = 2131099862;
+			// aapt resource value: 0x7f0600d8
+			public const int number_active_order = 2131099864;
 			
 			// aapt resource value: 0x7f0600b6
 			public const int number_order = 2131099830;
@@ -2568,8 +2681,8 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f0600c5
 			public const int order_time_text = 2131099845;
 			
-			// aapt resource value: 0x7f0600e0
-			public const int order_timer = 2131099872;
+			// aapt resource value: 0x7f0600e2
+			public const int order_timer = 2131099874;
 			
 			// aapt resource value: 0x7f060098
 			public const int orders_list = 2131099800;
@@ -2577,8 +2690,8 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f0600ba
 			public const int orders_panel = 2131099834;
 			
-			// aapt resource value: 0x7f0600eb
-			public const int overedOrders = 2131099883;
+			// aapt resource value: 0x7f0600ed
+			public const int overedOrders = 2131099885;
 			
 			// aapt resource value: 0x7f0600cf
 			public const int overedOrders_text = 2131099855;
@@ -2607,32 +2720,32 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f060056
 			public const int radio = 2131099734;
 			
-			// aapt resource value: 0x7f0600de
-			public const int recived_addictive_list = 2131099870;
+			// aapt resource value: 0x7f0600e0
+			public const int recived_addictive_list = 2131099872;
 			
 			// aapt resource value: 0x7f06008e
 			public const int refresher = 2131099790;
 			
-			// aapt resource value: 0x7f0600e9
-			public const int refusedOrders = 2131099881;
+			// aapt resource value: 0x7f0600eb
+			public const int refusedOrders = 2131099883;
 			
 			// aapt resource value: 0x7f0600cd
 			public const int refusedOrders_text = 2131099853;
 			
-			// aapt resource value: 0x7f0600d2
-			public const int relativeLayout1 = 2131099858;
+			// aapt resource value: 0x7f0600d4
+			public const int relativeLayout1 = 2131099860;
 			
-			// aapt resource value: 0x7f0600d3
-			public const int relativeLayout2 = 2131099859;
+			// aapt resource value: 0x7f0600d5
+			public const int relativeLayout2 = 2131099861;
 			
-			// aapt resource value: 0x7f0600ec
-			public const int revenue = 2131099884;
+			// aapt resource value: 0x7f0600ee
+			public const int revenue = 2131099886;
+			
+			// aapt resource value: 0x7f0600e7
+			public const int revenueNoSubs = 2131099879;
 			
 			// aapt resource value: 0x7f0600e5
-			public const int revenueNoSubs = 2131099877;
-			
-			// aapt resource value: 0x7f0600e3
-			public const int revenueSubs = 2131099875;
+			public const int revenueSubs = 2131099877;
 			
 			// aapt resource value: 0x7f0600d0
 			public const int revenue_text = 2131099856;
@@ -2745,11 +2858,11 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f0600a7
 			public const int start_date_picker = 2131099815;
 			
-			// aapt resource value: 0x7f0600fb
-			public const int statusUser = 2131099899;
+			// aapt resource value: 0x7f060101
+			public const int statusUser = 2131099905;
 			
-			// aapt resource value: 0x7f0600ef
-			public const int status_bar_latest_event_content = 2131099887;
+			// aapt resource value: 0x7f0600f5
+			public const int status_bar_latest_event_content = 2131099893;
 			
 			// aapt resource value: 0x7f060067
 			public const int submit_area = 2131099751;
@@ -2760,11 +2873,11 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f060094
 			public const int tabs = 2131099796;
 			
-			// aapt resource value: 0x7f0600f7
-			public const int text = 2131099895;
+			// aapt resource value: 0x7f0600fd
+			public const int text = 2131099901;
 			
-			// aapt resource value: 0x7f0600f5
-			public const int text2 = 2131099893;
+			// aapt resource value: 0x7f0600fb
+			public const int text2 = 2131099899;
 			
 			// aapt resource value: 0x7f06004f
 			public const int textSpacerNoButtons = 2131099727;
@@ -2772,17 +2885,20 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f06006c
 			public const int textView1 = 2131099756;
 			
-			// aapt resource value: 0x7f0600d4
-			public const int textView2 = 2131099860;
+			// aapt resource value: 0x7f0600d6
+			public const int textView2 = 2131099862;
 			
 			// aapt resource value: 0x7f06009b
 			public const int textViewLogo = 2131099803;
 			
-			// aapt resource value: 0x7f0600dc
-			public const int text_addictive_name = 2131099868;
+			// aapt resource value: 0x7f0600f0
+			public const int textViewStatus = 2131099888;
 			
-			// aapt resource value: 0x7f0600fa
-			public const int text_button_disconect = 2131099898;
+			// aapt resource value: 0x7f0600de
+			public const int text_addictive_name = 2131099870;
+			
+			// aapt resource value: 0x7f060100
+			public const int text_button_disconect = 2131099904;
 			
 			// aapt resource value: 0x7f0600af
 			public const int text_common_sellingamount_food = 2131099823;
@@ -2793,14 +2909,20 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f0600ab
 			public const int text_count_sub_food = 2131099819;
 			
+			// aapt resource value: 0x7f0600d3
+			public const int text_inputEndDate = 2131099859;
+			
+			// aapt resource value: 0x7f0600d2
+			public const int text_inputStartDate = 2131099858;
+			
 			// aapt resource value: 0x7f0600aa
 			public const int text_name_food = 2131099818;
 			
 			// aapt resource value: 0x7f0600b5
 			public const int text_number_order = 2131099829;
 			
-			// aapt resource value: 0x7f0600da
-			public const int text_product_name = 2131099866;
+			// aapt resource value: 0x7f0600dc
+			public const int text_product_name = 2131099868;
 			
 			// aapt resource value: 0x7f0600ae
 			public const int text_revenue_nosubs_food = 2131099822;
@@ -2817,11 +2939,11 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f0600a9
 			public const int texts_statistic_food = 2131099817;
 			
-			// aapt resource value: 0x7f0600f3
-			public const int time = 2131099891;
+			// aapt resource value: 0x7f0600f9
+			public const int time = 2131099897;
 			
-			// aapt resource value: 0x7f0600d7
-			public const int timer_number_order = 2131099863;
+			// aapt resource value: 0x7f0600d9
+			public const int timer_number_order = 2131099865;
 			
 			// aapt resource value: 0x7f0600c4
 			public const int timer_order = 2131099844;
@@ -2862,14 +2984,14 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f060095
 			public const int viewpager = 2131099797;
 			
-			// aapt resource value: 0x7f0600e2
-			public const int withSubs = 2131099874;
+			// aapt resource value: 0x7f0600e4
+			public const int withSubs = 2131099876;
 			
 			// aapt resource value: 0x7f060024
 			public const int withText = 2131099684;
 			
-			// aapt resource value: 0x7f0600e4
-			public const int withoutSubs = 2131099876;
+			// aapt resource value: 0x7f0600e6
+			public const int withoutSubs = 2131099878;
 			
 			// aapt resource value: 0x7f060017
 			public const int wrap_content = 2131099671;
@@ -3138,88 +3260,106 @@ namespace FoodPoint_Seller.Droid
 			public const int fragment_seller_statistic = 2130903111;
 			
 			// aapt resource value: 0x7f030048
-			public const int layout1 = 2130903112;
+			public const int fragment_statistic_food = 2130903112;
 			
 			// aapt resource value: 0x7f030049
-			public const int listitem_addictive = 2130903113;
+			public const int fragment_statistic_orders = 2130903113;
 			
 			// aapt resource value: 0x7f03004a
-			public const int listitem_curent_order = 2130903114;
+			public const int fragment_statistic_sellers = 2130903114;
 			
 			// aapt resource value: 0x7f03004b
-			public const int listitem_order = 2130903115;
+			public const int layout1 = 2130903115;
 			
 			// aapt resource value: 0x7f03004c
-			public const int listitem_product = 2130903116;
+			public const int listitem_addictive = 2130903116;
 			
 			// aapt resource value: 0x7f03004d
-			public const int listitem_recived_addictive = 2130903117;
+			public const int listitem_curent_order = 2130903117;
 			
 			// aapt resource value: 0x7f03004e
-			public const int listitem_recived_group_addictive = 2130903118;
+			public const int listitem_order = 2130903118;
 			
 			// aapt resource value: 0x7f03004f
-			public const int listitem_recived_product = 2130903119;
+			public const int listitem_product = 2130903119;
 			
 			// aapt resource value: 0x7f030050
-			public const int listitem_recyclerviewexample = 2130903120;
+			public const int listitem_recived_addictive = 2130903120;
 			
 			// aapt resource value: 0x7f030051
-			public const int listitem_small_order = 2130903121;
+			public const int listitem_recived_group_addictive = 2130903121;
 			
 			// aapt resource value: 0x7f030052
-			public const int listitem_stack_order = 2130903122;
+			public const int listitem_recived_product = 2130903122;
 			
 			// aapt resource value: 0x7f030053
-			public const int listitem_statistic_food = 2130903123;
+			public const int listitem_recyclerviewexample = 2130903123;
 			
 			// aapt resource value: 0x7f030054
-			public const int listitem_statistic_order = 2130903124;
+			public const int listitem_small_order = 2130903124;
 			
 			// aapt resource value: 0x7f030055
-			public const int listitem_statistic_seller = 2130903125;
+			public const int listitem_stack_order = 2130903125;
 			
 			// aapt resource value: 0x7f030056
-			public const int notification_media_action = 2130903126;
+			public const int listitem_statistic_food = 2130903126;
 			
 			// aapt resource value: 0x7f030057
-			public const int notification_media_cancel_action = 2130903127;
+			public const int listitem_statistic_order = 2130903127;
 			
 			// aapt resource value: 0x7f030058
-			public const int notification_template_big_media = 2130903128;
+			public const int listitem_statistic_seller = 2130903128;
 			
 			// aapt resource value: 0x7f030059
-			public const int notification_template_big_media_narrow = 2130903129;
+			public const int loading = 2130903129;
 			
 			// aapt resource value: 0x7f03005a
-			public const int notification_template_lines = 2130903130;
+			public const int loadingimage = 2130903130;
 			
 			// aapt resource value: 0x7f03005b
-			public const int notification_template_media = 2130903131;
+			public const int loadingprogress = 2130903131;
 			
 			// aapt resource value: 0x7f03005c
-			public const int notification_template_part_chronometer = 2130903132;
+			public const int notification_media_action = 2130903132;
 			
 			// aapt resource value: 0x7f03005d
-			public const int notification_template_part_time = 2130903133;
+			public const int notification_media_cancel_action = 2130903133;
 			
 			// aapt resource value: 0x7f03005e
-			public const int select_dialog_item_material = 2130903134;
+			public const int notification_template_big_media = 2130903134;
 			
 			// aapt resource value: 0x7f03005f
-			public const int select_dialog_multichoice_material = 2130903135;
+			public const int notification_template_big_media_narrow = 2130903135;
 			
 			// aapt resource value: 0x7f030060
-			public const int select_dialog_singlechoice_material = 2130903136;
+			public const int notification_template_lines = 2130903136;
 			
 			// aapt resource value: 0x7f030061
-			public const int splash_screen = 2130903137;
+			public const int notification_template_media = 2130903137;
 			
 			// aapt resource value: 0x7f030062
-			public const int support_simple_spinner_dropdown_item = 2130903138;
+			public const int notification_template_part_chronometer = 2130903138;
 			
 			// aapt resource value: 0x7f030063
-			public const int toolbar_actionbar = 2130903139;
+			public const int notification_template_part_time = 2130903139;
+			
+			// aapt resource value: 0x7f030064
+			public const int select_dialog_item_material = 2130903140;
+			
+			// aapt resource value: 0x7f030065
+			public const int select_dialog_multichoice_material = 2130903141;
+			
+			// aapt resource value: 0x7f030066
+			public const int select_dialog_singlechoice_material = 2130903142;
+			
+			// aapt resource value: 0x7f030067
+			public const int splash_screen = 2130903143;
+			
+			// aapt resource value: 0x7f030068
+			public const int support_simple_spinner_dropdown_item = 2130903144;
+			
+			// aapt resource value: 0x7f030069
+			public const int toolbar_actionbar = 2130903145;
 			
 			static Layout()
 			{
@@ -3307,8 +3447,8 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f070012
 			public const int abc_toolbar_collapse_description = 2131165202;
 			
-			// aapt resource value: 0x7f070018
-			public const int app_name = 2131165208;
+			// aapt resource value: 0x7f070019
+			public const int app_name = 2131165209;
 			
 			// aapt resource value: 0x7f070014
 			public const int appbar_scrolling_view_behavior = 2131165204;
@@ -3319,14 +3459,17 @@ namespace FoodPoint_Seller.Droid
 			// aapt resource value: 0x7f070016
 			public const int character_counter_pattern = 2131165206;
 			
-			// aapt resource value: 0x7f07001a
-			public const int drawer_close = 2131165210;
+			// aapt resource value: 0x7f07001b
+			public const int drawer_close = 2131165211;
 			
-			// aapt resource value: 0x7f070019
-			public const int drawer_open = 2131165209;
+			// aapt resource value: 0x7f07001a
+			public const int drawer_open = 2131165210;
+			
+			// aapt resource value: 0x7f070018
+			public const int hello = 2131165208;
 			
 			// aapt resource value: 0x7f070017
-			public const int hello = 2131165207;
+			public const int library_name = 2131165207;
 			
 			// aapt resource value: 0x7f070013
 			public const int status_bar_notification_info_overflow = 2131165203;
@@ -5607,6 +5750,56 @@ namespace FoodPoint_Seller.Droid
 			
 			// aapt resource value: 0
 			public const int PopupWindowBackgroundState_state_above_anchor = 0;
+			
+			public static int[] ProgressWheel = new int[] {
+					2130772258,
+					2130772259,
+					2130772260,
+					2130772261,
+					2130772262,
+					2130772263,
+					2130772264,
+					2130772265,
+					2130772266,
+					2130772267,
+					2130772268,
+					2130772269};
+			
+			// aapt resource value: 3
+			public const int ProgressWheel_ahBarColor = 3;
+			
+			// aapt resource value: 11
+			public const int ProgressWheel_ahBarLength = 11;
+			
+			// aapt resource value: 10
+			public const int ProgressWheel_ahBarWidth = 10;
+			
+			// aapt resource value: 8
+			public const int ProgressWheel_ahCircleColor = 8;
+			
+			// aapt resource value: 7
+			public const int ProgressWheel_ahDelayMillis = 7;
+			
+			// aapt resource value: 9
+			public const int ProgressWheel_ahRadius = 9;
+			
+			// aapt resource value: 4
+			public const int ProgressWheel_ahRimColor = 4;
+			
+			// aapt resource value: 5
+			public const int ProgressWheel_ahRimWidth = 5;
+			
+			// aapt resource value: 6
+			public const int ProgressWheel_ahSpinSpeed = 6;
+			
+			// aapt resource value: 0
+			public const int ProgressWheel_ahText = 0;
+			
+			// aapt resource value: 1
+			public const int ProgressWheel_ahTextColor = 1;
+			
+			// aapt resource value: 2
+			public const int ProgressWheel_ahTextSize = 2;
 			
 			public static int[] RecyclerView = new int[] {
 					16842948,

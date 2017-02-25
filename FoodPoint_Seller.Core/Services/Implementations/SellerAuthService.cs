@@ -59,11 +59,7 @@ namespace FoodPoint_Seller.Core.Services.Implementations
             }
         }
 
-        /// <summary>The login method to retrieve OAuth2 access tokens from an API. </summary>
-        /// <param name="userName">The user Name (email address) </param>
-        /// <param name="password">The users <paramref name="password"/>. </param>
-        /// <param name="scope">The required scopes. </param>
-        /// <returns>The <see cref="bool"/>. </returns>
+
         public async Task<bool> Login(string username, string password)
         {
 
@@ -116,20 +112,20 @@ namespace FoodPoint_Seller.Core.Services.Implementations
              var id = Util.InfoAccessToken.GetInfoFromToken(_tokenAuth.access_token).sub.Replace(".seller", "");
 
 
-            //_profileUser = await  _userController.GetProfileSeller(
-            //   id, _tokenAuth.access_token
-            //    );
+            _profileUser = await _userController.GetProfileSeller(
+               id, _tokenAuth.access_token
+                );
 
             //_mvxMessenger.Publish(new UpdateProfileMessage(this));
             if (_profileUser != null)
             {
                 return true;
             }
-            else
-            {
-                _profileUser = new SellerAccountModel(id, null, null,0);
-                return true;
-            }
+            //else
+            //{
+            //    _profileUser = new SellerAccountModel(id, null, null,0);
+            //    return true;
+            //}
             return false;
         }
 
@@ -147,6 +143,11 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                     return _profileUser;
             }
             return _profileUser;
+        }
+
+        public async void ChangeStatusSeler()
+        {
+            _userController.Set_Busyness(_profileUser.ID, !_profileUser.IsBusy, _tokenAuth.access_token);
         }
 
         public void Logout()

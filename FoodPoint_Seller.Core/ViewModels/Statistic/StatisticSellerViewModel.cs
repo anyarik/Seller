@@ -39,8 +39,9 @@ namespace FoodPoint_Seller.Core.ViewModels
         private async void Init()
         {
             var seller = await _sellerAuthService.GetProfileSeller();
+            var token = await _sellerAuthService.GetToken();
             var statisticInfo = await _statisticController.GetSellerStatisticForDay(seller.ID.ToString(), "2016-10-30 00:00:00", 
-                                                                                                                    "2016-12-20 00:00:00");
+                                                                                                                    "2016-12-20 00:00:00", token);
             //var a = this.SellerStatisticListItem.Value;
             if (statisticInfo != null)
             {

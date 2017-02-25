@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/options_statistic_content"
+        local:MvxBind="Visibility Visibility(IsFoodStatisticOpen)">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/texts_statistic_food">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_name_food"
+                android:text="Наименование товара" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_count_sub_food"
+                android:layout_toRightOf="@id/text_name_food"
+                android:text="Количество продаж подписок" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_revenue_sub_food"
+                android:layout_toRightOf="@id/text_count_sub_food"
+                android:text="Выручка с подисок" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_without_count_sub_food"
+                android:layout_toRightOf="@id/text_revenue_sub_food"
+                android:text="Количество продаж предзаказов" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_revenue_nosubs_food"
+                android:layout_toRightOf="@id/text_without_count_sub_food"
+                android:text="Выручка с предзаказов" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_common_sellingamount_food"
+                android:layout_toRightOf="@id/text_revenue_nosubs_food"
+                android:text="Общее количество продаж" />
+        <!--<TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Общая выручка с продаж - нет" />-->
+        </RelativeLayout>
+        <Mvx.MvxTableLayout
+            android:id="@+id/list_statistic_food"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:shrinkColumns="*"
+            android:stretchColumns="*"
+            android:layout_below="@id/texts_statistic_food"
+            local:MvxBind="ItemsSource FoodStatisticListItem"
+            local:MvxItemTemplate="@layout/listitem_statistic_food" />
+    </RelativeLayout>
+</LinearLayout>

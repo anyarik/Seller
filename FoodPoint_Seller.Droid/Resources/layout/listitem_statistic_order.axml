@@ -4,6 +4,10 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
 >
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="2dp"
+      android:background="#FF909090"/>
   <TextView
       android:id="@+id/date"
       android:layout_width="wrap_content"
@@ -36,5 +40,9 @@
       android:layout_marginLeft="20dp"
       android:layout_toRightOf="@id/revenueSubs"
       local:MvxBind="Text revenueNoSubs" />
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="2dp"
+      android:background="#FF909090"/>
 
 </LinearLayout>

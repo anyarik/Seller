@@ -35,8 +35,9 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
             try
             {
-                var isLogin = await _loginService.Login(Username.Value, Password.Value);
                 IsLoading.Value = true;
+                var isLogin = await _loginService.Login(Username.Value, Password.Value);
+                
                 if (isLogin)
                     ShowViewModel<MainViewModel>();
 

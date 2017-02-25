@@ -29,7 +29,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
             var seller = await ConnectionService.PostAsync<AccessTokenAuthorise>(url, new StringContent(data, Encoding.UTF8, "application/x-www-form-urlencoded"), headers, "Не удалось авторизоваться");
 
             return seller;
-                }
+        }
 
         public async Task<AccessTokenAuthorise> AuthorizationOwner(OwnerAccountModel user)
         {
@@ -45,32 +45,31 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                                                                                 }
                                                             )
                 );
-            var seller = await ConnectionService.PostAsync<AccessTokenAuthorise>(url, new StringContent(data, Encoding.UTF8, "application/x-www-form-urlencoded"), headers, "Не удалось авторизоваться");
+            var owner = await ConnectionService.PostAsync<AccessTokenAuthorise>(url, new StringContent(data, Encoding.UTF8, "application/x-www-form-urlencoded"), headers, "Не удалось авторизоваться");
 
-            return seller;
-                }
-
+            return owner;
+       }
 
         public async Task<OwnerAccountModel> GetProfileOwner(string id, string token)
         {
             var url = $"{AppData.Host}/api/get_seller_info?sellerID={id}";
 
-            //List<KeyValuePair<string, IEnumerable<string>>> headers = new List<KeyValuePair<string, IEnumerable<string>>>();
+            List<KeyValuePair<string, IEnumerable<string>>> headers = new List<KeyValuePair<string, IEnumerable<string>>>();
 
             //токен авторизации и другие headers.Add("")
-            //headers.Add(
-            //    new KeyValuePair<string, IEnumerable<string>>(
-            //                                                    "Authorization",
-            //                                                    new List<string>() {
-            //                                                                        "Bearer "
-            //                                                                        +token
-            //                                                                        }
-            //                                                    )
-            //        );
+            headers.Add(
+                new KeyValuePair<string, IEnumerable<string>>(
+                                                                "Authorization",
+                                                                new List<string>() {
+                                                                                    "Bearer "
+                                                                                    +token
+                                                                                    }
+                                                                )
+                    );
 
-            var result = await ConnectionService.GetAsync<OwnerAccountModel>(url, null, "Не удалось получить профиль");
+            var profile = await ConnectionService.GetAsync<OwnerAccountModel>(url, null, "Не удалось получить профиль");
 
-            return result;
+            return profile;
         }
 
         public async Task<SellerAccountModel> GetProfileSeller(string id, string token)
@@ -83,33 +82,33 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                 new KeyValuePair<string, IEnumerable<string>>(
                                                                 "Authorization",
                                                                 new List<string>() {
-                                                                                    "Bearer "
-                                                                                    +token
+                                                                                    $"Bearer {token}"
+                                                                                    
                                                                                     }
                                                                 )
                     );
 
-            var result = await ConnectionService.GetAsync<SellerAccountModel>(url, headers, "Не удалось получить профиль");
+            var profile = await ConnectionService.GetAsync<SellerAccountModel>(url, headers, "Не удалось получить профиль");
 
-            return result; 
+            return profile; 
         }
 
         public async Task<string> Set_Busyness(string id, bool busyness, string token)
         {
             var url = $"{AppData.Host}/api/set_busyness?seller={id}Name&busyness={busyness}";
 
-            //List<KeyValuePair<string, IEnumerable<string>>> headers = new List<KeyValuePair<string, IEnumerable<string>>>();
+            List<KeyValuePair<string, IEnumerable<string>>> headers = new List<KeyValuePair<string, IEnumerable<string>>>();
 
-            //токен авторизации и другие headers.Add("")
-            //headers.Add(
-            //    new KeyValuePair<string, IEnumerable<string>>(
-            //                                                    "Authorization",
-            //                                                    new List<string>() {
-            //                                                                        "Bearer "
-            //                                                                        +token
-            //                                                                        }
-            //                                                    )
-            //        );
+           
+            headers.Add(
+                new KeyValuePair<string, IEnumerable<string>>(
+                                                                "Authorization",
+                                                                new List<string>() {
+                                                                                    "Bearer "
+                                                                                    +token
+                                                                                    }
+                                                                )
+                    );
 
             var result = await ConnectionService.PostStatusAsync(url, null, null, "Не удалось получить профиль");
 

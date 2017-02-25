@@ -16,7 +16,8 @@ namespace FoodPoint_Seller.Api.Models.ViewModels
         public decimal Summ { get; set; }
         public string RowNumber { get; set; }
         public string WhoSold { get; set; }
-        public TimeSpan orderTimer { get; set; }
+        //public TimeSpan Timer { get; set; }
+        public TimeSpan Timer { get; set; }
         public ShopModel Establishment { get; set; }
         public List<ProductForOrder> OrderedFood { get; set; }
          

@@ -17,16 +17,16 @@ namespace FoodPoint_Seller.Api.Controllers.Implementations
             this._statisticService = statisticService;
         }
 
-        public Task<List<SellerDayInfo>> GetSellerStatisticForDay(string id, string beginDate, string endDate) =>
-                                                     this._statisticService.GetSellerStatisticForDay(id, beginDate, endDate);
+        public Task<List<SellerDayInfo>> GetSellerStatisticForDay(string id, string beginDate, string endDate, string token) =>
+                                                     this._statisticService.GetSellerStatisticForDay(id, beginDate, endDate, token);
 
-        public Task<List<AdditivesDayInfo>> GetAdditivesStatisticForDay(string id, string beginDate, string endDate) =>
-                                                     this._statisticService.GetAdditivesStatisticForDay(id, beginDate, endDate);
+        public Task<List<AdditivesDayInfo>> GetAdditivesStatisticForDay(string id, string beginDate, string endDate, string token) =>
+                                                     this._statisticService.GetAdditivesStatisticForDay(id, beginDate, endDate, token);
 
-        public Task<List<FoodDayInfo>> GetFoodStatisticForDay(string id, string beginDate, string endDate) =>
-                                                     this._statisticService.GetFoodStatisticForDay(id, beginDate, endDate);
+        public Task<List<FoodDayInfo>> GetFoodStatisticForDay(string id, string beginDate, string endDate, string token) =>
+                                                     this._statisticService.GetFoodStatisticForDay(id, beginDate, endDate, token);
 
-        public Task<List<RevenueDayInfo>> GetRevenueStatisticForDay(string id, string beginDate, string endDate) =>
-                                                     this._statisticService.GetRevenueStatisticForDay(id, beginDate, endDate);
+        public Task<List<RevenueDayInfo>> GetRevenueStatisticForDay(string id, string beginDate, string endDate, string token) =>
+                                                     this._statisticService.GetRevenueStatisticForDay(id, beginDate, endDate, token);
     }
 }

@@ -78,7 +78,6 @@ namespace FoodPoint_Seller.Droid.Activities
             NotificationManager notificationManager =
                 (NotificationManager)GetSystemService(Context.NotificationService);
             notificationManager.Notify(ButtonClickNotificationId, builder.Build());
-
         }
 
         protected override void OnCreate(Bundle bundle)
@@ -99,10 +98,7 @@ namespace FoodPoint_Seller.Droid.Activities
 
             if (bundle == null)
                 ViewModel.ShowMenu();
-
- 
-
-         }
+        }
     
 
         public override bool OnOptionsItemSelected(IMenuItem item)
