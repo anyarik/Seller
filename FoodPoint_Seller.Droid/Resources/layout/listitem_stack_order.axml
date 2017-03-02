@@ -18,4 +18,5 @@
                     CloseOrderTimer.WaitTime.Minutes,
                    CloseOrderTimer.WaitTime.Seconds)"/>
 
+
 </RelativeLayout>

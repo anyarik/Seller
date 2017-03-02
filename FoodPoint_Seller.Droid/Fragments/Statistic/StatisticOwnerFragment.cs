@@ -36,12 +36,16 @@ namespace FoodPoint_Seller.Droid.Fragments
             {
                 var fragments = new List<MvxFragmentPagerAdapter.FragmentInfo>
                 {
-                    new MvxFragmentPagerAdapter.FragmentInfo("Статистика выручки", typeof (OrdersStatisticFragment),
+                    new MvxFragmentPagerAdapter.FragmentInfo("Выручка", typeof (OrdersStatisticFragment),
                         typeof (OrdersStatisticViewModel)),
-                    new MvxFragmentPagerAdapter.FragmentInfo("Статистика продуктов", typeof (ProductStatisticFragment),
+                    new MvxFragmentPagerAdapter.FragmentInfo("Продукты", typeof (ProductStatisticFragment),
                         typeof (ProductStatisticViewModel)),
-                    new MvxFragmentPagerAdapter.FragmentInfo("Статистика продавцов", typeof (SellersStatisticFragment),
+                    new MvxFragmentPagerAdapter.FragmentInfo("Продавцы", typeof (SellersStatisticFragment),
                         typeof (SellersStatisticViewModel)),
+                     new MvxFragmentPagerAdapter.FragmentInfo("Работа продавцов", typeof (OnlineSellersStatisticFragment),
+                        typeof (OnlineSellersStatisticViewModel)),
+                      new MvxFragmentPagerAdapter.FragmentInfo("Клиенты", typeof (CustomersStatisticFragment),
+                        typeof (CustomersStatisticViewModel))
 
                 };
                 viewPager.Adapter = new MvxFragmentPagerAdapter(Activity, ChildFragmentManager, fragments);

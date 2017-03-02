@@ -52,7 +52,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
 
         public async Task<OwnerAccountModel> GetProfileOwner(string id, string token)
         {
-            var url = $"{AppData.Host}/api/get_seller_info?sellerID={id}";
+            var url = $"{AppData.Host}/api/get_chief_info?chiefID={id}";
 
             List<KeyValuePair<string, IEnumerable<string>>> headers = new List<KeyValuePair<string, IEnumerable<string>>>();
 

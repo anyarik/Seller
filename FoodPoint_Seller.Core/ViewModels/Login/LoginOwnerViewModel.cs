@@ -1,4 +1,6 @@
-﻿using FoodPoint_Seller.Core.Services;
+﻿using FoodPoint_Seller.Api.Controllers;
+using FoodPoint_Seller.Core.Services;
+using FoodPoint_Seller.Core.ViewModels.Base;
 using MvvmCross.FieldBinding;
 using System;
 using System.Collections.Generic;
@@ -8,12 +10,15 @@ using System.Threading.Tasks;
 
 namespace FoodPoint_Seller.Core.ViewModels
 {
-    public class LoginOwnerViewModel:BaseViewModel
+    public class LoginOwnerViewModel: BaseFragment
     {
         private readonly IOwnerAuthService _ownerAuthService;
         private readonly IDialogService _dialogService;
 
-        public LoginOwnerViewModel(IOwnerAuthService ownerAuthService, IDialogService dialogService)
+        public LoginOwnerViewModel(IOwnerAuthService ownerAuthService
+                                 , IDialogService dialogService
+                                 , ISellerOrderService sellerOrderService)
+            :base(sellerOrderService)
         {
             _ownerAuthService = ownerAuthService;
             _dialogService = dialogService;
@@ -61,19 +66,6 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         private async void Init()
         {
-            var isAuth = await _ownerAuthService.Login();
-
-            if (isAuth)
-                try
-                {
-                    //ShowViewModel<StatisticOwnerViewModel>();
-                }
-                catch (Exception exp)
-                {
-
-                    throw;
-                }
-
-         }
+        }
     }
 }

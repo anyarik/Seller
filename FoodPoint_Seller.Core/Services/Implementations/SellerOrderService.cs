@@ -16,6 +16,17 @@ namespace FoodPoint_Seller.Core.Services.Implementations
     {
         private List<PayedOrder> _activeOrders = new List<PayedOrder>();
 
+        public event EventHandler<string> ChangeStatus;
+
+        private string _curentStatus = "";
+        public string CurentStatus {
+            get { return _curentStatus ?? ""; }
+            set {
+                _curentStatus = value;
+                ChangeStatus?.Invoke(null, _curentStatus);
+            }
+        }
+
         private IOrderController _orderController;
         private ISellerAuthService _sellerAuthService;
 
@@ -41,11 +52,17 @@ namespace FoodPoint_Seller.Core.Services.Implementations
             this._sellerAuthService = sellerAuthService;
 
             this.Init();
+            CurentStatus = "";
+
+            this._orderController.OnChangeStatusSeller((_, status) =>
+            {
+                CurentStatus = status;
+            });
         }
 
         private async void Init()
         {
-            var seller = await _sellerAuthService.GetProfileSeller();
+            var seller = await _sellerAuthService.GetProfile();
             var token = await _sellerAuthService.GetToken();
 
             //var recivedActiveOrdrers = await Policy.Handle<Exception>(_ => true)

@@ -8,18 +8,18 @@ namespace FoodPoint_Seller.Api.Models.ViewModels
 {
     public class SellerDayInfo
     {
-        public string date;
+        public DateTime date;
         public int refusedOrders;
         public int nonanweredOrders;
         public int overedOrders;
         public float revenue;
 
         public SellerDayInfo()
-        {
+        {   
 
         }
 
-        public SellerDayInfo(string date, int refusedOrders, int nonanweredOrders, int overedOrders, float revenue)
+        public SellerDayInfo(DateTime date, int refusedOrders, int nonanweredOrders, int overedOrders, float revenue)
         {
             this.date = date;
             this.nonanweredOrders = nonanweredOrders;

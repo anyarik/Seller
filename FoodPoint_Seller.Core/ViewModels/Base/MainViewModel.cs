@@ -84,7 +84,10 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         private event EventHandler<RecivedOrder> OpenNexStackOrder;
 
-        public  MainViewModel(IOrderController orderController, IDialogService dialogService, ISellerAuthService loginService, ISellerOrderService sellerOrderService)
+        public  MainViewModel(IOrderController orderController
+                             ,IDialogService dialogService
+                             ,ISellerAuthService loginService
+                             ,ISellerOrderService sellerOrderService)
         {
             this._orderController = orderController;
             this._loginService = loginService;
@@ -150,7 +153,7 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         private async void Init()
         {
-           var user = await this._loginService.GetProfileSeller();
+           var user = await this._loginService.GetProfile();
 
             this._orderController.HubConnection(user.ID);
 
@@ -267,7 +270,7 @@ namespace FoodPoint_Seller.Core.ViewModels
             var recivedCorrectOrder = JsonConvert.SerializeObject(this._sendOrder.Order);
             this._orderController.CorrectOrder(this._sendOrder.CustomerName, false, recivedCorrectOrder, "false");
 
-            var user = await this._loginService.GetProfileSeller();
+            var user = await this._loginService.GetProfile();
 
             this._orderController.SetSellerOrder(this._sendOrder.Order.ID.ToString(), user.ID);
             this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString(), "refused", false, TimeSpan.Zero,"",false);

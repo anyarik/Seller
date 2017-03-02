@@ -8,7 +8,7 @@ namespace FoodPoint_Seller.Api.Models.ViewModels
 {
     public class RevenueDayInfo
     {
-        public string date;
+        public DateTime date;
 
         public float common;
         public float revenueSubs;
@@ -19,7 +19,7 @@ namespace FoodPoint_Seller.Api.Models.ViewModels
 
         }
 
-        public RevenueDayInfo(string date, int common, int revenueSubs, int revenueNoSubs)
+        public RevenueDayInfo(DateTime date, int common, int revenueSubs, int revenueNoSubs)
         {
             this.date = date;
             this.common = common;

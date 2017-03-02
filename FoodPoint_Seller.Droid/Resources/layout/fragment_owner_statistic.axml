@@ -8,12 +8,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            local:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+      <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:background="?attr/colorPrimary"
+          local:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+        <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+          <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/text_button_disconect"
+           android:layout_alignParentEnd="true"
+           android:layout_centerVertical="true"
+           local:MvxBind="Text TextActiveSeller; Click OnClickOffline"
+                 />
+          <TextView
+              android:id="@+id/statusUser"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/black"
+              android:textSize="20dp"
+              android:textStyle="bold"
+              android:layout_toLeftOf="@id/text_button_disconect"
+              android:layout_centerVertical="true"
+              android:gravity="center_vertical"
+              local:MvxBind="Text TextStatusSeller"
+                />
+          <!--android:background="@drawable/circle_button"-->
+
+        </RelativeLayout>
+      </android.support.v7.widget.Toolbar>
      <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"

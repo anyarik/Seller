@@ -1,6 +1,7 @@
 ﻿using FoodPoint_Seller.Api.Controllers;
 using FoodPoint_Seller.Api.Models.ViewModels;
 using FoodPoint_Seller.Core.Services;
+using FoodPoint_Seller.Core.ViewModels.Statistic.Tabs;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.FieldBinding;
 using System;
@@ -8,58 +9,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 
 namespace FoodPoint_Seller.Core.ViewModels
 {
-    public  class SellersStatisticViewModel : MvxViewModel
+    public class SellersStatisticViewModel : BaseStatisticViewModel<SellerDayInfo>
     {
-        private IStatisticController _statisticController;
-        private IOwnerAuthService _ownerAuthService;
-
-        private ISellerAuthService _loginService;
-
-        string formatsrc = "yyyy-MM-dd HH:mm:ss";
-    
-        //string formatdst = "dd:MM:yyyy";
-
-
-
-        public INC<List<SellerDayInfo>> SellerStatisticListItem = new NC<List<SellerDayInfo>>(new List<SellerDayInfo>(), (e) =>
+        public SellersStatisticViewModel(IStatisticController statisticController
+         , IOwnerAuthService ownerAuthService
+         , ISellerAuthService loginService
+         , IUserDialogs dialogService
+         , ISellerOrderService sellerOrderService) 
+            :base(statisticController, ownerAuthService, loginService, dialogService, sellerOrderService)
         {
-        });
-
-        public INC<DateTime> StartDateValue = new NC<DateTime>(DateTime.Now.AddDays(-7), (e) => {
-        });
-
-        public INC<DateTime> EndDateValue = new NC<DateTime>(DateTime.Now, (e) => {
-        });
-
-
-        public SellersStatisticViewModel(IStatisticController statisticController, IOwnerAuthService ownerAuthService, ISellerAuthService loginService)
-        {
-            this._statisticController = statisticController;
-            this._ownerAuthService = ownerAuthService;
-            this._loginService = loginService;
         }
 
-        public override void Start()
+
+        public override async void Start()
         {
             base.Start();
-            this.Init();
-            //this.ListOrderItem.Value = _orderService.GetOrders();
-        }
 
-        private async void Init()
-        {
-            var user = await this._loginService.GetProfileSeller();
+            var user = await _loginService.GetProfile();
             var token = await _ownerAuthService.GetToken();
+            ShopSellers.Value = await _statisticController.GetShopSellers(user.shopID.ToString(), token);
 
-            var startDate = StartDateValue.Value.ToString(formatsrc);
-            var endDate = EndDateValue.Value.ToString(formatsrc);
-
-            var sellerStatistic = await _statisticController.GetSellerStatisticForDay(user.shopID.ToString(), startDate, endDate, token);
-            SellerStatisticListItem.Value = sellerStatistic;
+            CurrentSeller.Changed += ShopSellers_Changed;
+        }
+        private void ShopSellers_Changed(object sender, EventArgs e)
+        {
+            GetStatistic();
         }
 
+
+        protected override async Task GetStatistic()
+        {
+            base.GetStatistic();
+            var user = await _loginService.GetProfile();
+            var token = await _ownerAuthService.GetToken();
+            var sellerStatistic = await _statisticController.GetSellerStatisticForDay(CurrentSeller.Value.ID.ToString(), StartDateValue.Value.ToString(formatDateWithTime),
+                                                                                                                EndDateValue.Value.ToString(formatDateWithTime), token);
+
+            StatisticListItem.Value = sellerStatistic;
+        }
     }
 }

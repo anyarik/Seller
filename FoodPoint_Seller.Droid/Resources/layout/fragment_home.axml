@@ -4,14 +4,14 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-             android:background="#e8e8e8"
+    android:background="@color/backgroudPrimary"
     android:descendantFocusability="blocksDescendants">
     <include
         layout="@layout/toolbar_actionbar"
         android:id="@+id/toolbar_actionbar" />
     <RelativeLayout
         android:id="@+id/order_list_content"
-        android:layout_width="400dp"
+        android:layout_width="800dp"
         android:layout_margin="1dp"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar_actionbar"
@@ -34,12 +34,14 @@
         <Mvx.MvxListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/orders_list"
+            android:id="@+id/small_orders_list"
             android:divider="@android:color/transparent"
-            android:layout_alignParentRight="true"
             android:descendantFocusability="blocksDescendants"
             local:MvxBind="ItemsSource ListOrderItem; ItemClick OrderClick"
             local:MvxItemTemplate="@layout/listitem_small_order" />
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 <!--<include
         layout="@layout/fragment_recived_clicked_order"

@@ -34,17 +34,29 @@ namespace FoodPoint_Seller.Touch.Views
             homeButton.SetTitleColor(UIColor.Black, UIControlState.Normal);
             set.Bind(homeButton).To(vm => vm.ShowHomeCommand);
 
-            //var settingsButton = new UIButton(new CGRect(0, 100, 320, 40));
-            //settingsButton.SetTitle("Settings", UIControlState.Normal);
-            //settingsButton.BackgroundColor = UIColor.White;
-            //settingsButton.SetTitleColor(UIColor.Black, UIControlState.Normal);
-            //set.Bind(settingsButton).To(vm => vm.ShowStatisticCommand);
+            var statisticSellerButton = new UIButton(new CGRect(0, 100, 320, 40));
+            statisticSellerButton.SetTitle("Статистика для продавца", UIControlState.Normal);
+            statisticSellerButton.BackgroundColor = UIColor.White;
+            statisticSellerButton.SetTitleColor(UIColor.Black, UIControlState.Normal);
+            set.Bind(statisticSellerButton).To(vm => vm.ShowStatisticSellerCommand);
 
-            var helpButton = new UIButton(new CGRect(0, 100, 320, 40));
-            helpButton.SetTitle("Help & Feedback", UIControlState.Normal);
-            helpButton.BackgroundColor = UIColor.White;
-            helpButton.SetTitleColor(UIColor.Black, UIControlState.Normal);
-            set.Bind(helpButton).To(vm => vm.ShowHelpCommand);
+            var statisticOwnerButton = new UIButton(new CGRect(0, 100, 320, 40));
+            statisticOwnerButton.SetTitle("Статистика для владельца", UIControlState.Normal);
+            statisticOwnerButton.BackgroundColor = UIColor.White;
+            statisticOwnerButton.SetTitleColor(UIColor.Black, UIControlState.Normal);
+            set.Bind(statisticOwnerButton).To(vm => vm.ShowStatisticOwnerCommand);
+
+            var settingButton = new UIButton(new CGRect(0, 100, 320, 40));
+            settingButton.SetTitle("Настройки", UIControlState.Normal);
+            settingButton.BackgroundColor = UIColor.White;
+            settingButton.SetTitleColor(UIColor.Black, UIControlState.Normal);
+            set.Bind(settingButton).To(vm => vm.ShowHelpCommand);
+
+            var exitButton = new UIButton(new CGRect(0, 100, 320, 40));
+            exitButton.SetTitle("Выйти", UIControlState.Normal);
+            exitButton.BackgroundColor = UIColor.White;
+            exitButton.SetTitleColor(UIColor.Black, UIControlState.Normal);
+            set.Bind(exitButton).To(vm => vm.ShowHelpCommand);
 
             set.Apply();
 
@@ -59,8 +71,10 @@ namespace FoodPoint_Seller.Touch.Views
                 scrollView.WithSameHeight(View));
 
             scrollView.Add(homeButton);
-            //scrollView.Add(settingsButton);
-            scrollView.Add(helpButton);
+            scrollView.Add(statisticSellerButton);
+            scrollView.Add(statisticOwnerButton);
+            scrollView.Add(settingButton);
+            scrollView.Add(exitButton);
 
             scrollView.SubviewsDoNotTranslateAutoresizingMaskIntoConstraints();
 

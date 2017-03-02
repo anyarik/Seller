@@ -5,9 +5,9 @@ using MvvmCross.iOS.Views;
 
 namespace FoodPoint_Seller.Touch.Views
 {
-    [Register("StatisticView")]
+    [Register("StatisticCurrentSellerView")]
 	[MvxPanelPresentation(MvxPanelEnum.Center, MvxPanelHintType.ResetRoot, true)]
-    public class StatisticView : MvxViewController<StatisticSellerViewModel>
+    public class StatisticCurrentSellerView : MvxViewController<StatisticCurrentSellerViewModel>
     {
         public override void ViewWillAppear(bool animated)
         {

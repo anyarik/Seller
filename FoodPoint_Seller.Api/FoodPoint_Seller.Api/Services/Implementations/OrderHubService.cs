@@ -242,25 +242,6 @@ namespace FoodPoint_Seller.Api.Services.Implementations
             });
         }
 
-        public static int count = 0;
-        public static int count1 = 0;
-        //public async Task<bool> Reconect(object o)
-        //{
-        //    var result = false;
-        //    await (connection.Start()
-        //                                   .ContinueWith(
-        //            (a) => result = count1++ < 0 ? a.IsFaulted : a.IsFaulted
-        //        ))
-        //                             ;
-            
-        //    if (result)
-        //    {
-        //        count++;
-        //        Reconect(null);
-        //         //_timer = new Timer(Reconect, null, 1000, 1000);
-        //    }
-        //}
-
         public void HubDisconnect()
         {
             isConnected = false;

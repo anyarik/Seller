@@ -2,43 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@color/backgroudPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:id="@+id/options_statistic_content">
-        <TextView
-            android:inputType="textPersonName"
-            android:text="start"
-            android:id="@+id/text_inputStartDate"
-            android:layout_height="wrap_content"
-            android:autoLink="all"
-            local:MvxBind="Click SetStartTime;Text StartDateValue"
-            android:layout_width="100dp" />
-        <TextView
-            android:inputType="textPersonName"
-            android:text="end"
-            android:autoLink="all"
-            android:id="@+id/text_inputEndDate"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/text_inputStartDate"
-            android:layout_width="100dp"
-            local:MvxBind="Click SetEndTime;Text EndDateValue"/>
-    </RelativeLayout>
-
-        <Mvx.MvxGridView
-            android:id="@+id/list_statistic_order"
-            android:layout_width="700dp"
-            android:layout_height="500dp"
-            android:layout_marginLeft="10dp"
-            android:layout_below="@id/options_statistic_content"
-            local:MvxBind="ItemsSource OrderStatisticListItem"
-            local:MvxItemTemplate="@layout/listitem_statistic_order" />
-    </RelativeLayout>
+        <include
+            layout="@layout/include_setting_statistic"
+            id="@+id/include_setting" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+                <Mvx.MvxTableLayout
+                    android:id="@+id/list_statistic_food"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                   local:MvxBind="ItemsSource StatisticListItem,Converter=OrderStatistic"
+                    local:MvxItemTemplate="@layout/listitem_statistic_order" />
+        </ScrollView>
 </LinearLayout>

@@ -13,6 +13,7 @@ namespace FoodPoint_Seller.Api.Models.ViewModels
         public Guid ID { get; set; }
         public int IDAdditive { get; set; }
         public string AdditiveName { get; set; }
+        public string Image { get; set; }
         public decimal AdditivePrice { get; set; }
         public bool IsActive = true;
 

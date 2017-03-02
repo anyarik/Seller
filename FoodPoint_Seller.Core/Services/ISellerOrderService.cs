@@ -14,5 +14,8 @@ namespace FoodPoint_Seller.Core.Services
         void DeletOrder(PayedOrder deletOrder);
 
         event EventHandler<PayedOrder> OnNewPayedOrder;
+        event EventHandler<string> ChangeStatus;
+        string CurentStatus { get; set; }
+
     }
 }

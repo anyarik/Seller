@@ -20,15 +20,13 @@ namespace FoodPoint_Seller.Core.ViewModels
             _loginService = loginService;
             _dialogService = dialogService;
 
-            //Username.Value = "test@test.ru";
-            //Password.Value = "pp";
+            Username.Value = "test@test.ru";
+            Password.Value = "pp";
             IsLoading.Value = false;
         }
 
         public INC<string> Username = new NC<string>();
-
         public INC<string> Password = new NC<string>();
-
         public INC<bool> IsLoading = new NC<bool>();
 
         public async void Login()
@@ -47,8 +45,7 @@ namespace FoodPoint_Seller.Core.ViewModels
                     _dialogService.Alert("We were unable to log you in!", "Login Failed", "OK");
                 }
             }
-            
-	        catch (System.Exception a)
+ 	        catch (System.Exception a)
 	        {
                 throw new Exception("Ошибка в авторизации");
             }

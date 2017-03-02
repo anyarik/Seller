@@ -1,40 +1,22 @@
 ﻿using FoodPoint_Seller.Api.Controllers;
 using FoodPoint_Seller.Api.Models.ViewModels;
-using MvvmCross.Core.ViewModels;
 using MvvmCross.FieldBinding;
-using MvvmCross.Plugins.Messenger;
-using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Input;
-using FooodPoint_Seller.Core.Messeges;
-using MvvmCross.Platform;
-using System;
 using FoodPoint_Seller.Core.Models;
-using FoodPoint_Seller.Core.Services.Implementations;
 using FoodPoint_Seller.Core.Services;
-using FoodPoint_Seller.Api.Models.DomainModels;
-using System.Collections.ObjectModel;
+using FoodPoint_Seller.Core.ViewModels.Base;
 
 namespace FoodPoint_Seller.Core.ViewModels
 {
-    public class HomeViewModel : BaseViewModel
+    public class HomeViewModel : BaseFragment
     {
         //TODO Необходимо:
         // Групировать товары
         // Верстка
-        // Диалоговые окна для дат
         // Занятость продавца
         // Таймер для оплаченного заказа
         // Просмотр полного заказа, при нажатии на него.
 
-        public INC<string> TextActiveSeller = new NC<string>("Выйти", (e) =>
-        {
-        });
-
-        public INC<string> TextStatusSeller = new NC<string>("offline", (e) =>
-        {
-        });
 
         public INC<string> OpenOrderNumber = new NC<string>("", (e) =>
         {
@@ -65,7 +47,11 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
         });
 
-        public HomeViewModel(IOrderController orderController, IUserController userControler, ISellerAuthService loginService, ISellerOrderService sellerOrderService)
+        public HomeViewModel(IOrderController orderController
+                           , IUserController userControler
+                           , ISellerAuthService loginService
+                           , ISellerOrderService sellerOrderService) 
+            : this(sellerOrderService)
         {
             this._orderController = orderController;
             this._userController = userControler;
@@ -73,12 +59,13 @@ namespace FoodPoint_Seller.Core.ViewModels
             this._loginService = loginService;
             this._sellerOrderService = sellerOrderService; 
 
-            this._orderController.OnChangeStatusSeller((_, status) =>
-            {
-                TextStatusSeller.Value = status;
-            });
+        }
+
+        public HomeViewModel(ISellerOrderService sellerOrderService) : base(sellerOrderService)
+        {
 
         }
+
         /// <summary>
         /// Метод, который говорит нам о том, что наша ViewModel отобразилась на экране
         /// </summary>
@@ -88,6 +75,11 @@ namespace FoodPoint_Seller.Core.ViewModels
             this.ListOrderItem.Value =  _sellerOrderService.GetOrders();
 
             this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder;
+        }
+
+        public void ShowMenu()
+        {
+            ShowViewModel<MenuViewModel>();
         }
 
         private void _sellerOrderService_OnNewPayedOrder(object sender, PayedOrder e)
@@ -117,6 +109,15 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
             this.IsClikedOrderDialogOpen.Value = false;
         }
+
+        public void OnFinishOrder(PayedOrder deleteOrder)
+        {
+            this.ListOrderItem.Value.RemoveAll(o => o.Order.ID == deleteOrder.Order.ID);
+
+            UpdatePayedOrderList();
+            _sellerOrderService.DeletOrder(deleteOrder);
+        }
+
         public async void OnClickOffline()
         {
             if (ListOrderItem.Value.Count == 0)
@@ -127,17 +128,9 @@ namespace FoodPoint_Seller.Core.ViewModels
             }
             else
             {
-                 this._loginService.ChangeStatusSeler();
-                 TextActiveSeller.Value = "Больше закаты не принимаются";
+                this._loginService.ChangeStatusSeler();
+                TextActiveSeller.Value = "Больше заказы не принимаются";
             }
-        }
-
-        public void OnFinishOrder(PayedOrder deleteOrder)
-        {
-            this.ListOrderItem.Value.RemoveAll(o => o.Order.ID == deleteOrder.Order.ID);
-
-            UpdatePayedOrderList();
-            _sellerOrderService.DeletOrder(deleteOrder);
         }
     }
 }

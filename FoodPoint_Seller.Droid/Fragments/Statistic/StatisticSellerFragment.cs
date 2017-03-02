@@ -8,7 +8,7 @@ namespace FoodPoint_Seller.Droid.Fragments
 {
     [MvxFragment(typeof(MainViewModel), Resource.Id.content_frame)]
     [Register("foodpoint_seller.droid.fragments.StatisticSellerFragment")]
-    public class StatisticSellerFragment : BaseFragment<StatisticSellerViewModel>
+    public class StatisticSellerFragment : BaseFragment<StatisticCurrentSellerViewModel>
     {
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -16,6 +16,6 @@ namespace FoodPoint_Seller.Droid.Fragments
             return base.OnCreateView(inflater, container, savedInstanceState);
         }
 
-        protected override int FragmentId => Resource.Layout.fragment_seller_statistic;
+        protected override int FragmentId => Resource.Layout.fragment_single_seller_statistic;
     }
 }

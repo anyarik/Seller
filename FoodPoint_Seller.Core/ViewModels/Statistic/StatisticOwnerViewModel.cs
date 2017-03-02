@@ -1,6 +1,7 @@
 ﻿using FoodPoint_Seller.Api.Controllers;
 using FoodPoint_Seller.Api.Models.ViewModels;
 using FoodPoint_Seller.Core.Services;
+using FoodPoint_Seller.Core.ViewModels.Base;
 using MvvmCross.FieldBinding;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FoodPoint_Seller.Core.ViewModels
 {
-    public  class StatisticOwnerViewModel: BaseViewModel
+    public  class StatisticOwnerViewModel: BaseFragment
     {
         private IStatisticController _statisticController;
         private IOwnerAuthService _ownerAuthService;
@@ -19,10 +20,6 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         string formatsrc = "yyyy-MM-dd HH:mm:ss";
     
-        //string formatdst = "dd:MM:yyyy";
-
-
-
         public INC<DateTime> StartDateValue = new NC<DateTime>(DateTime.Now.AddDays(-7), (e) => {
         });
 
@@ -30,11 +27,19 @@ namespace FoodPoint_Seller.Core.ViewModels
         });
 
 
-        public StatisticOwnerViewModel(IStatisticController statisticController, IOwnerAuthService ownerAuthService, ISellerAuthService loginService)
+        public StatisticOwnerViewModel(IStatisticController statisticController
+                                      , IOwnerAuthService ownerAuthService
+                                      , ISellerAuthService loginService
+                                      ,ISellerOrderService sellerOrderService)
+               :this(sellerOrderService)
         {
             this._statisticController = statisticController;
             this._ownerAuthService = ownerAuthService;
             this._loginService = loginService;
+        }
+
+        public StatisticOwnerViewModel(ISellerOrderService sellerOrderService) : base(sellerOrderService)
+        {
         }
 
         public override void Start()
@@ -46,9 +51,7 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         private async void Init()
         {
-            var user = await this._loginService.GetProfileSeller();
-
-
+            var user = await this._loginService.GetProfile();
         }
         
     }

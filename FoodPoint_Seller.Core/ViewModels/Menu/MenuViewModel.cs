@@ -23,7 +23,7 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         private void ShowStatisticSellerExecuted()
         {
-            ShowViewModel<StatisticSellerViewModel>();
+            ShowViewModel<StatisticCurrentSellerViewModel>();
         }
 
         public IMvxCommand ShowHelpCommand

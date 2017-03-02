@@ -23,7 +23,7 @@ namespace FoodPoint_Seller.Core.Services
 
         Task<string> GetToken();
 
-        Task<OwnerAccountModel> GetProfileOwner();
+        Task<OwnerAccountModel> GetProfile();
 
         void Logout();
     }

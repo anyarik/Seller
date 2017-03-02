@@ -18,6 +18,7 @@ namespace FoodPoint_Seller.Droid.Fragments
         /// If true show the hamburger menu
         /// </summary>
         protected bool ShowHamburgerMenu { get; set; } = false;
+        protected bool ShowStatusBar { get; set; } = false;
 
         protected BaseFragment()
         {
@@ -53,6 +54,15 @@ namespace FoodPoint_Seller.Droid.Fragments
                     DrawerToggle.DrawerOpened += (sender, e) => mainActivity?.HideSoftKeyboard();
                     mainActivity.DrawerLayout.AddDrawerListener(DrawerToggle);
                 }
+                if (ShowStatusBar)
+                {
+                   // textStatus = view.FindViewById<Toolbar>(Resource.Id.toolbar);
+                    //this._orderController.OnChangeStatusSeller((_, status) =>
+                    //{
+                    //    textStatus = status;
+                    //});
+                }
+
             }
             return view;
         }

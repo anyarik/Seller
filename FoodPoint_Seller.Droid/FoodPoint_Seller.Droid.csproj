@@ -220,6 +220,8 @@
     <Compile Include="Fragments\Menu\MenuFragment.cs" />
     <Compile Include="Fragments\Statistic\StatisticOwnerFragment.cs" />
     <Compile Include="Fragments\Statistic\StatisticSellerFragment.cs" />
+    <Compile Include="Fragments\Statistic\TabStatistics\OnlineSellersStatisticFragment.cs" />
+    <Compile Include="Fragments\Statistic\TabStatistics\CustomersStatisticFragment.cs" />
     <Compile Include="Fragments\Statistic\TabStatistics\SellersStatisticFragment.cs" />
     <Compile Include="Fragments\Statistic\TabStatistics\OrdersStatisticFragment.cs" />
     <Compile Include="Fragments\Statistic\TabStatistics\ProductStatisticFragment.cs" />
@@ -254,7 +256,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\fragment_recyclerview.axml" />
-    <AndroidResource Include="Resources\layout\fragment_seller_statistic.axml">
+    <AndroidResource Include="Resources\layout\fragment_single_seller_statistic.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\listitem_recyclerviewexample.axml" />
@@ -477,6 +479,25 @@
     <AndroidResource Include="Resources\layout\fragment_statistic_orders.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\include_setting_statistic.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_statistic_customers.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_statistic_online_sellers.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\listitem_statistic_customer.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\listitem_statistic_online_seller.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\seller_display_name.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\seller_item_template.axml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -559,6 +580,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\track_bg_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.23.4.0.1\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.23.4.0.1\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
