@@ -2,6 +2,7 @@
 using MvvmCross.iOS.Support.SidePanels;
 using MvvmCross.iOS.Views;
 using FoodPoint_Seller.Core.ViewModels;
+
 using XLPagerTabStrip;
 using System;
 using UIKit;
@@ -10,36 +11,21 @@ using MvvmCross.Binding.BindingContext;
 using CoreGraphics;
 using MvvmCross.Binding.iOS.Views;
 using System.Collections.Generic;
+using MvvmCross.Core.ViewModels;
+
+using FoodPoint_Seller.Core.Converters;
+using FoodPoint_Seller.Touch.Views.Statistic.Tab;
+using FoodPoint_Seller.Touch.Views.Statistic.Tab.Tables;
 
 namespace FoodPoint_Seller.Touch.Views
 {
     [Register("CustomersStatisticView")]
     //[MvxPanelPresentation(MvxPanelEnum.Center, MvxPanelHintType.ResetRoot, true)]
-    public class CustomersStatisticView : MvxViewController<CustomersStatisticViewModel>, IIndicatorInfoProvider
+    public class CustomersStatisticView : MvxViewController<CustomersStatisticViewModel>
     {
-        public string Title { get; set; }
-        public CustomersStatisticView(IntPtr handle) : base(handle) { }
-        public CustomersStatisticView(string title)
-        {
-            Title = title;
-        }
-        public IndicatorInfo IndicatorInfoForPagerTabStrip(PagerTabStripViewController pagerTabStripController)
-        {
-            return new IndicatorInfo(Title);
-        }
-
-        public override void ViewWillAppear(bool animated)
-        {
-            base.ViewWillAppear(animated);
-        }
-
         public override void ViewDidLoad()
         {
-            var a = this;
-            this.ViewModel = Mvx.IocConstruct<CustomersStatisticViewModel>();
             base.ViewDidLoad();
-
-
 
             var loginButton = new UIButton(new CGRect(100, 100, 100, 100));
             loginButton.SetTitle("Кастомер", UIControlState.Normal);
@@ -47,7 +33,6 @@ namespace FoodPoint_Seller.Touch.Views
 
             var startDate = new UILabel(new CGRect(100, 200, 100, 100));
             startDate.BackgroundColor = UIColor.Black;
-
 
             var set = this.CreateBindingSet<CustomersStatisticView, CustomersStatisticViewModel>();
 
@@ -57,48 +42,16 @@ namespace FoodPoint_Seller.Touch.Views
 
             set.Apply();
 
-            CustomerStatisticTableSource table = new CustomerStatisticTableSource();
-            
+          
+            var table = new TemplateTableViewController< CustomerCell
+                                                       , CustomersStatisticViewModel>
+                                ( ViewModel
+                                , nameof(CustomerStatisticValueConverter).Replace("ValueConverter", ""));
+
+            table.View.Frame = new CGRect(0, 50, View.Frame.Width, 300);
 
             Add(loginButton);
             View.AddSubview(table.View);
-
         }
     }
-
-
-    public class CustomerStatisticTableSource
-       : MvxTableViewController
-    {
-        public override void ViewDidLoad()
-        {
-            ViewModel = Mvx.IocConstruct<CustomersStatisticViewModel>();
-            base.ViewDidLoad();
-            
-
-            var source = new TableSource(TableView)
-            {
-                UseAnimations = true,
-                AddAnimation = UITableViewRowAnimation.Left,
-                RemoveAnimation = UITableViewRowAnimation.Right
-            };
-
-            this.AddBindings(new Dictionary<object, string>
-                {
-                    {source, "ItemsSource StatisticListItem"}
-                });
-
-            TableView.Source = source;
-            TableView.ReloadData();
-        }
-
-        public class TableSource : MvxSimpleTableViewSource
-        {
-            public TableSource(UITableView tableView)
-                : base(tableView, "CustomerCell", "CustomerCell")
-            {
-            }
-        }
-    }
-  
 }

@@ -20,19 +20,72 @@ namespace FoodPoint_Seller.Core.ViewModels
         private ISellerAuthService _loginService;
 
         private readonly IDialogService _dialogService;
-        private int indexFood = 0;
+       
        
         //public INC<string> TextActiveSeller = new NC<string>("offline", (e) =>
         //{
         //});
       
 
+     
+
+        private event EventHandler<RecivedOrder> OpenNexStackOrder;
+
+        public  MainViewModel(IOrderController orderController
+                             ,IDialogService dialogService
+                             ,ISellerAuthService loginService
+                             ,ISellerOrderService sellerOrderService)
+        {
+            this._orderController = orderController;
+            this._loginService = loginService;
+            this._sellerOrderService = sellerOrderService;
+
+            this._dialogService = dialogService;
+
+
+            IsDelayFive = new NC<bool>(false, (e) =>
+            {
+                if (e)
+                {
+                    var timeOrder = TimeSpan.Parse(this._sendOrder.Time);
+                    this._sendOrder.Time = timeOrder.Add(TimeSpan.FromMinutes(5)).ToString();
+                }
+                else
+                {
+                    var timeOrder = TimeSpan.Parse(this._sendOrder.Time);
+                    this._sendOrder.Time = timeOrder.Add(TimeSpan.FromMinutes(-5)).ToString();
+                }
+            });
+
+        }
+        public void ShowMenu()
+        {
+            try
+            {
+                ShowViewModel<HomeViewModel>();
+            }
+            catch (System.Exception a)
+            {
+                throw;
+            }
+            ShowViewModel<MenuViewModel>();
+            this.InitSignalRForAgreement();
+        }
+
+        public void ShowHome()
+        {
+            ShowViewModel<HomeViewModel>();
+        }
+
+
+        #region Окно согласования заказ
         #region Переменые для окна согласования заказа
         /// <summary>
         /// Информация о полученом заказе, который в обработке продовцом
         /// </summary>
         private RecivedOrder _sendOrder;
 
+        private int indexFood = 0;
 
         /// <summary>
         /// Очередь заказов, которые еще не обработаны.
@@ -79,64 +132,10 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
         });
 
-        public INC<bool> IsDelayFive; 
+        public INC<bool> IsDelayFive;
         #endregion
 
-        private event EventHandler<RecivedOrder> OpenNexStackOrder;
-
-        public  MainViewModel(IOrderController orderController
-                             ,IDialogService dialogService
-                             ,ISellerAuthService loginService
-                             ,ISellerOrderService sellerOrderService)
-        {
-            this._orderController = orderController;
-            this._loginService = loginService;
-            this._sellerOrderService = sellerOrderService;
-
-            this._dialogService = dialogService;
-
-            this.OpenNexStackOrder += HomeViewModel_OpenNexStackOrder;
-            IsDelayFive = new NC<bool>(false, (e) =>
-            {
-                if (e)
-                {
-                    var timeOrder = TimeSpan.Parse(this._sendOrder.Time);
-                    this._sendOrder.Time = timeOrder.Add(TimeSpan.FromMinutes(5)).ToString();
-                }
-                else
-                {
-                    var timeOrder = TimeSpan.Parse(this._sendOrder.Time);
-                    this._sendOrder.Time = timeOrder.Add(TimeSpan.FromMinutes(-5)).ToString();
-                }
-            });
-
-            _sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder;
-        }
-
-        private void _sellerOrderService_OnNewPayedOrder(object sender, PayedOrder e)
-        {
-            this.UpdatePayedOrderList(e);
-        }
-
-        public void ShowMenu()
-        {
-            try
-            {
-                ShowViewModel<HomeViewModel>();
-            }
-            catch (System.Exception a)
-            {
-                throw;
-            }
-            ShowViewModel<MenuViewModel>();
-            this.Init();
-        }
-
-        public void ShowHome()
-        {
-            ShowViewModel<HomeViewModel>();
-        }
-
+        #region Функции для согласования заказа
         /// <summary>
         /// Событие для  открытия следующего заказа 
         /// </summary>
@@ -151,9 +150,10 @@ namespace FoodPoint_Seller.Core.ViewModels
             }
         }
 
-        private async void Init()
+
+        private async void InitSignalRForAgreement()
         {
-           var user = await this._loginService.GetProfile();
+            var user = await this._loginService.GetProfile();
 
             this._orderController.HubConnection(user.ID);
 
@@ -187,7 +187,7 @@ namespace FoodPoint_Seller.Core.ViewModels
                 });
 
                 stackOrder.StartTimer();
-                
+
                 this._recivedStackOrders.Add(stackOrder);
 
                 if (this._recivedStackOrders.Count > 1)
@@ -195,20 +195,20 @@ namespace FoodPoint_Seller.Core.ViewModels
                     this.RecivedStackOrders.Value.Add(stackOrder);
                     UpdateStackOrderList();
                 }
-      
+
                 if (this._recivedStackOrders.Count == 1)
                     this.OpenDialogForOrderAgreement(stackOrder);
             });
 
-            this.CurentPayedOrders.Value = _sellerOrderService.GetOrders();
-            this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder1; 
+            //
+            //this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder; 
         }
 
-        private void _sellerOrderService_OnNewPayedOrder1(object sender, PayedOrder e)
+
+        private void _sellerOrderService_OnNewPayedOrder(object sender, PayedOrder e)
         {
             this.UpdatePayedOrderList(e);
         }
-
         private void UpdateStackOrderList()
         {
             var tempList = new List<RecivedOrder>();
@@ -273,7 +273,7 @@ namespace FoodPoint_Seller.Core.ViewModels
             var user = await this._loginService.GetProfile();
 
             this._orderController.SetSellerOrder(this._sendOrder.Order.ID.ToString(), user.ID);
-            this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString(), "refused", false, TimeSpan.Zero,"",false);
+            this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString(), "refused", false, TimeSpan.Zero, "", false);
 
             this.OpenNexStackOrder.Invoke(null, this._sendOrder);
         }
@@ -289,22 +289,22 @@ namespace FoodPoint_Seller.Core.ViewModels
             var isDeleteProduct = false;
 
             foreach (var product in this._sendOrder.Order.OrderedFood)
-              if (!product.ProductInfo.IsActive)
+                if (!product.ProductInfo.IsActive)
                     isDeleteProduct = true;
                 else
                     foreach (var additive in product.ProductInfo.OrderedAdditives)
                         if (!additive.IsActive)
                             isDeleteProduct = true;
-            
+
 
             if (this.IsDelayFive.Value && isDeleteProduct)
             {
-                this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString(), 
+                this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString(),
                                                                 "NoTime", true, TimeSpan.FromMinutes(5), "over", true);
                 this._orderController.SaveOfferedFood(this._sendOrder.Order.ID.ToString(), this._sendOrder.Order.OrderedFood, null);
             }
             else if (this.IsDelayFive.Value)
-                this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString(), 
+                this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString(),
                                                                     "NoTime", true, TimeSpan.FromMinutes(5), "over", true);
 
             else if (isDeleteProduct)
@@ -313,12 +313,12 @@ namespace FoodPoint_Seller.Core.ViewModels
                                                                     "NoProduct", true, TimeSpan.FromMinutes(5), "over", true);
                 this._orderController.SaveOfferedFood(this._sendOrder.Order.ID.ToString(), this._sendOrder.Order.OrderedFood, null);
             }
-                
+
             else
-                this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString(), 
+                this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString(),
                                                                         "Accept", true, TimeSpan.FromMinutes(5), "over", true);
-            
-             this.OpenNexStackOrder.Invoke(null, this._sendOrder);
+
+            this.OpenNexStackOrder.Invoke(null, this._sendOrder);
         }
 
         /// <summary>
@@ -337,12 +337,16 @@ namespace FoodPoint_Seller.Core.ViewModels
             IsOrderDialogOpen.Value = false;
             this._sendOrder = new RecivedOrder();
         }
+        #endregion  
+        #endregion
         #endregion
 
         public override async void Start()
         {
             //base.Start();
-           
+            this.OpenNexStackOrder += HomeViewModel_OpenNexStackOrder;
+            this.CurentPayedOrders.Value = _sellerOrderService.GetOrders();
+            this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder;
         }
     }
 }

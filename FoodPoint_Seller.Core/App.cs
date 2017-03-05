@@ -5,6 +5,7 @@ using FoodPoint_Seller.Api.Services;
 using FoodPoint_Seller.Api.Services.Implementations;
 using FoodPoint_Seller.Core.Services;
 using FoodPoint_Seller.Core.Services.Implementations;
+using FoodPoint_Seller.Core.ViewModels;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
 using MvvmCross.Platform.IoC;
@@ -26,28 +27,25 @@ namespace FoodPoint_Seller.Core
                 .RegisterAsLazySingleton();
 
             Mvx.RegisterSingleton<IKeyChain>(() => Plugin.KeyChain.CrossKeyChain.Current);
-            //Mvx.RegisterSingleton<IUserController>(() => new UserController(Mvx.GetSingleton<IUserService>()));
-            //Mvx.RegisterSingleton<IOrderController>(() => new OrderController(Mvx.GetSingleton<Api.Services.IOrderHubService>(), 
-            //                                                                  Mvx.GetSingleton<Api.Services.IOrderService>()));
 
-            Mvx.RegisterSingleton<Api.Services.IOrderService>(new Api.Services.Implementations.OrderService());
+            Mvx.RegisterSingleton<IOrderService>(new OrderService());
             Mvx.RegisterSingleton<IUserService>(new UserService());
             Mvx.RegisterSingleton<IStatisticService>(new StatisticService());
             Mvx.RegisterSingleton<IOrderHubService>(new OrderHubService());
-
-            //Mvx.RegisterSingleton<IMvxMessenger>(() => MvvmCross.Plugins.Messenger.C);
 
             Mvx.ConstructAndRegisterSingleton<IUserController, UserController>();
             Mvx.ConstructAndRegisterSingleton<IOrderController, OrderController>();
             Mvx.ConstructAndRegisterSingleton<IStatisticController, StatisticControler>();
 
             Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
-            //Mvx.RegisterSingleton<ILoginService>(() => new LoginService(
-            //     Mvx.GetSingleton<IUserController>()
-            //    , Mvx.GetSingleton<Plugin.KeyChain.Abstractions.IKeyChain>()
-            //    ));
 
 
+            Mvx.RegisterSingleton<ICustomersStatisticViewModel>(() =>
+    new CustomersStatisticViewModel( Mvx.GetSingleton<IStatisticController>()
+                                   , Mvx.GetSingleton<IOwnerAuthService>()
+                                   , Mvx.GetSingleton<ISellerAuthService>()
+                                   , Mvx.GetSingleton<IUserDialogs>()
+                                   , Mvx.GetSingleton<ISellerOrderService>())); 
 
 
             // Construct custom application start object

@@ -8,7 +8,7 @@ using MvvmCross.iOS.Views;
 
 namespace FoodPoint_Seller.Touch.Views
 {
-    [MvxPanelPresentation(MvxPanelEnum.Center, MvxPanelHintType.ActivePanel, true)]
+    [MvxPanelPresentation(MvxPanelEnum.Center, MvxPanelHintType.ResetRoot, true)]
     public partial class HomeView : MvxViewController<HomeViewModel>
     {
         public HomeView() : base("HomeView", null)

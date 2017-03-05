@@ -8,23 +8,15 @@ using MvvmCross.Platform;
 using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
 using UIKit;
+using FoodPoint_Seller.Core.Converters;
+using FoodPoint_Seller.Touch.Views.Statistic.Tab.Tables;
 
 namespace FoodPoint_Seller.Touch.Views
 {
     [Register("ProductStatisticView")]
 	//[MvxPanelPresentation(MvxPanelEnum.Center, MvxPanelHintType.ResetRoot, true)]
-    public class ProductStatisticView : MvxViewController<ProductStatisticViewModel>, IIndicatorInfoProvider
+    public class ProductStatisticView : MvxViewController<ProductStatisticViewModel>
     {
-        public string Title { get; set; }
-        public ProductStatisticView(IntPtr handle) : base(handle) { }
-        public ProductStatisticView(string title)
-        {
-            Title = title;
-        }
-        public IndicatorInfo IndicatorInfoForPagerTabStrip(PagerTabStripViewController pagerTabStripController)
-        {
-            return new IndicatorInfo(Title);
-        }
 
         public override void ViewWillAppear(bool animated)
         {
@@ -42,7 +34,7 @@ namespace FoodPoint_Seller.Touch.Views
             var loginButton = new UIButton(new CGRect(100, 100, 100, 100));
             loginButton.SetTitle("фуд", UIControlState.Normal);
             loginButton.BackgroundColor = UIColor.Black;
-
+            
 
             var set = this.CreateBindingSet<ProductStatisticView, ProductStatisticViewModel>();
             set.Bind(loginButton).For(l=>l.TitleLabel).To(vm => vm.StartDateValue);
@@ -50,6 +42,13 @@ namespace FoodPoint_Seller.Touch.Views
             set.Apply();
 
             Add(loginButton);
+
+            var table = new TemplateTableViewController<ProductCell
+                                                   , ProductStatisticViewModel>
+                            (ViewModel
+                            , nameof(FoodStatisticValueConverter).Replace("ValueConverter", ""));
+
+            View.AddSubview(table.View);
 
         }
     }

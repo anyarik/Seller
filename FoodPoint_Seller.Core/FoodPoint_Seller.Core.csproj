@@ -75,6 +75,7 @@
     <Compile Include="ViewModels\Statistic\StatisticOwnerViewModel.cs" />
     <Compile Include="ViewModels\Statistic\StatisticCurrentSellerViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Statistic\Tabs\ICustomersStatisticViewModel.cs" />
     <Compile Include="ViewModels\Statistic\Tabs\_base\BaseStatisticViewModel.cs" />
     <Compile Include="ViewModels\Statistic\Tabs\OrdersStatisticViewModel.cs" />
     <Compile Include="ViewModels\Statistic\Tabs\CustomersStatisticViewModel.cs" />

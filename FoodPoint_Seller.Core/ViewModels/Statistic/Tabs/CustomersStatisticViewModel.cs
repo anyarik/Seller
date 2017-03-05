@@ -13,7 +13,7 @@ using Acr.UserDialogs;
 
 namespace FoodPoint_Seller.Core.ViewModels
 {
-    public class CustomersStatisticViewModel : BaseStatisticViewModel<CustomerDayInfo>
+    public class CustomersStatisticViewModel : BaseStatisticViewModel<CustomerDayInfo>, ICustomersStatisticViewModel
     {
         public CustomersStatisticViewModel(IStatisticController statisticController
                                          , IOwnerAuthService ownerAuthService
@@ -29,7 +29,7 @@ namespace FoodPoint_Seller.Core.ViewModels
             base.GetStatistic();
             var user = await _loginService.GetProfile();
             var token = await _ownerAuthService.GetToken();
-            var customersStatistic = await _statisticController.
+            var customersStatistic = await  _statisticController.
                                 GetCustomersStatisticForDay(user.shopID.ToString(), StartDateValue.Value.ToString(formatDateWithTime), EndDateValue.Value.ToString(formatDateWithTime), token);
             StatisticListItem.Value = customersStatistic;
         }

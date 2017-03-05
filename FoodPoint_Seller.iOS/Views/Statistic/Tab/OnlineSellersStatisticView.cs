@@ -8,42 +8,19 @@ using UIKit;
 using MvvmCross.Platform;
 using MvvmCross.Binding.BindingContext;
 using CoreGraphics;
+using FoodPoint_Seller.Core.Converters;
+using FoodPoint_Seller.Touch.Views.Statistic.Tab.Tables;
 
 namespace FoodPoint_Seller.Touch.Views
 {
     [Register("OnlineSellersStatisticView")]
 	//[MvxPanelPresentation(MvxPanelEnum.Center, MvxPanelHintType.ResetRoot, true)]
-    public class OnlineSellersStatisticView : MvxViewController<OnlineSellersStatisticViewModel>, IIndicatorInfoProvider
+    public class OnlineSellersStatisticView : MvxViewController<OnlineSellersStatisticViewModel>//, IIndicatorInfoProvider
     {
-        public string Title { get; set; }
-        public OnlineSellersStatisticView(IntPtr handle) : base(handle) { }
-        public OnlineSellersStatisticView(string title)
-        {
-            Title = title;
-        }
-        public IndicatorInfo IndicatorInfoForPagerTabStrip(PagerTabStripViewController pagerTabStripController)
-        {
-            return new IndicatorInfo(Title);
-        }
-
-        public override void ViewWillAppear(bool animated)
-        {
-            //View.BackgroundColor = UIColor.Green; ;
-
-            
-            //var set = this.CreateBindingSet<LoginView, LoginViewModel>();
-            //set.Bind(textEmail).To(vm => vm.Username);
-            //set.Bind(textPassword).To(vm => vm.Password);
-            //set.Bind(loginButton).To("Login");
-            //set.Apply();
-
-            base.ViewWillAppear(animated);
-        }
-
         public override void ViewDidLoad()
         {
-            var a = this;
-            this.ViewModel = Mvx.IocConstruct<OnlineSellersStatisticViewModel>();
+            //var a = this;
+            //this.ViewModel = Mvx.IocConstruct<OnlineSellersStatisticViewModel>();
             base.ViewDidLoad();
 
             //var textEmail = new UITextField { Placeholder = "Username", BorderStyle = UITextBorderStyle.RoundedRect };
@@ -60,6 +37,14 @@ namespace FoodPoint_Seller.Touch.Views
             set.Apply();
 
             Add(loginButton);
+
+            var table = new TemplateTableViewController<OnlineSellerCell
+                                       , OnlineSellersStatisticView>
+                (ViewModel
+                , nameof(OnlineSellerStatisticValueConverter).Replace("ValueConverter", ""));
+
+
+            View.AddSubview(table.View);
 
         }
     }

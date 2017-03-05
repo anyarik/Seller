@@ -55,26 +55,24 @@ namespace FoodPoint_Seller.Core.ViewModels.Statistic.Tabs
             this._statisticController = statisticController;
             this._ownerAuthService = ownerAuthService;
             this._loginService = loginService;
+
+            this.Init();
         }
 
         public BaseStatisticViewModel(ISellerOrderService sellerOrderService) : base(sellerOrderService)
         {
-            this.Init();
 
         }
 
         public async override void Start()
         {
             base.Start();
-      
-
-            //this.ListOrderItem.Value = _orderService.GetOrders();
         }
 
 
         private async void Init()
         {
-            GetStatistic();
+             GetStatistic();
         }
 
         public async void SetStartTime()
@@ -114,6 +112,5 @@ namespace FoodPoint_Seller.Core.ViewModels.Statistic.Tabs
         {
 
         }
-
     }
 }

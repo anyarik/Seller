@@ -8,23 +8,15 @@ using MvvmCross.Platform;
 using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
 using UIKit;
+using FoodPoint_Seller.Core.Converters;
+using FoodPoint_Seller.Touch.Views.Statistic.Tab.Tables;
 
 namespace FoodPoint_Seller.Touch.Views
 {
     [Register("OrdersStatisticView")]
 	//[MvxPanelPresentation(MvxPanelEnum.Center, MvxPanelHintType.ResetRoot, true)]
-    public class OrdersStatisticView : MvxViewController<OrdersStatisticViewModel>, IIndicatorInfoProvider
-    {
-        public string Title { get; set; }
-        public OrdersStatisticView(IntPtr handle) : base(handle) { }
-        public OrdersStatisticView(string title)
-        {
-            Title = title;
-        }
-        public IndicatorInfo IndicatorInfoForPagerTabStrip(PagerTabStripViewController pagerTabStripController)
-        {
-            return new IndicatorInfo(Title);
-        }
+    public class OrdersStatisticView : MvxViewController<OrdersStatisticViewModel>
+    { 
 
         public override void ViewWillAppear(bool animated)
         {
@@ -33,8 +25,6 @@ namespace FoodPoint_Seller.Touch.Views
 
         public override void ViewDidLoad()
         {
-            var a = this;
-            this.ViewModel = Mvx.IocConstruct<OrdersStatisticViewModel>();
             base.ViewDidLoad();
 
             //var textEmail = new UITextField { Placeholder = "Username", BorderStyle = UITextBorderStyle.RoundedRect };
@@ -50,6 +40,13 @@ namespace FoodPoint_Seller.Touch.Views
             set.Apply();
 
             Add(loginButton);
+
+            var table = new TemplateTableViewController<OrderCell
+                                         , OrdersStatisticViewModel>
+                  (ViewModel
+                  , nameof(OrderStatisticValueConverter).Replace("ValueConverter", ""));
+
+            View.AddSubview(table.View);
 
         }
     }

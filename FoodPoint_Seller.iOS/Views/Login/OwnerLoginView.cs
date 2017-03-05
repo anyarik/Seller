@@ -12,7 +12,7 @@ namespace FoodPoint_Seller.Touch.Views
     /// The login view
     /// </summary>
     [Register("LoginOwnerView")]
-	[MvxPanelPresentation(MvxPanelEnum.Center, MvxPanelHintType.ActivePanel, true)]
+	[MvxPanelPresentation(MvxPanelEnum.Center, MvxPanelHintType.ResetRoot, true)]
     public class LoginOwnerView : MvxViewController<LoginOwnerViewModel>
     {
         #region Constructors
