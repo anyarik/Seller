@@ -21,15 +21,7 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         private readonly IDialogService _dialogService;
        
-       
-        //public INC<string> TextActiveSeller = new NC<string>("offline", (e) =>
-        //{
-        //});
-      
-
-     
-
-        private event EventHandler<RecivedOrder> OpenNexStackOrder;
+       private event EventHandler<RecivedOrder> OpenNexStackOrder;
 
         public  MainViewModel(IOrderController orderController
                              ,IDialogService dialogService
@@ -345,8 +337,8 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
             //base.Start();
             this.OpenNexStackOrder += HomeViewModel_OpenNexStackOrder;
-            this.CurentPayedOrders.Value = _sellerOrderService.GetOrders();
-            this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder;
+           // this.CurentPayedOrders.Value = _sellerOrderService.GetOrders();
+           // this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder;
         }
     }
 }

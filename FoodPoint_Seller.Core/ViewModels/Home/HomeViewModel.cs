@@ -57,8 +57,14 @@ namespace FoodPoint_Seller.Core.ViewModels
             this._userController = userControler;
 
             this._loginService = loginService;
-            this._sellerOrderService = sellerOrderService; 
+            this._sellerOrderService = sellerOrderService;
 
+            this.ListOrderItem.Changed += ListOrderItem_Changed;
+        }
+
+        private void ListOrderItem_Changed(object sender, System.EventArgs e)
+        {
+            var a = this.ListOrderItem.Value;
         }
 
         public HomeViewModel(ISellerOrderService sellerOrderService) : base(sellerOrderService)
@@ -72,7 +78,11 @@ namespace FoodPoint_Seller.Core.ViewModels
         public override void Start()
         {
             base.Start();
-            this.ListOrderItem.Value =  _sellerOrderService.GetOrders();
+            var orders = _sellerOrderService.GetOrders();
+            if (orders.Count != 0)
+            {
+                this.ListOrderItem.Value = _sellerOrderService.GetOrders();
+            }
 
             this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder;
         }

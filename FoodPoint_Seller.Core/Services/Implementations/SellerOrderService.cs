@@ -75,7 +75,7 @@ namespace FoodPoint_Seller.Core.Services.Implementations
 
             foreach (var item in recivedActiveOrdrers)
             {
-                _activeOrders.Add(new PayedOrder("", item, item.Timer, (orderInProcess) =>
+                var activeOrder = new PayedOrder("", item, item.Timer, (orderInProcess) =>
                 {
                     orderInProcess.CloseOrderTimer = new Timer(orderInProcess.OrderTime, (_) =>
                     {
@@ -86,8 +86,10 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                             orderInProcess.IsOrderFisihed = true;
                         }
                     });
-                }));
-            }
+                });
+                activeOrder.StartTimer();
+                _activeOrders.Add(activeOrder);
+             }
 
 
 
@@ -106,7 +108,7 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                             }
                         });
                     });
-
+                payedOrder.StartTimer();
                 _activeOrders.Add(payedOrder);
                 onNewPayedOrder.Invoke(null, payedOrder);
              });

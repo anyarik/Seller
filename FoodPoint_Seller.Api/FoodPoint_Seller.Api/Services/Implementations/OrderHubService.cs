@@ -120,7 +120,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                 this.customerAgreedYAY.Invoke(null, agreed);
             });
 
-            _hub.On<string, string>("GettingPurchasedOrders", (customer, order) =>
+            _hub.On<string>("NotificateAboutOrder", (order) =>
             {
                 this.gettingPurchasedOrders.Invoke(null, order);
             });
