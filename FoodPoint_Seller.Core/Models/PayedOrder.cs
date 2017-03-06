@@ -20,6 +20,8 @@ namespace FoodPoint_Seller.Core.Models
 
         public Action<PayedOrder> func;
 
+
+
         public PayedOrder() { }
 
         public PayedOrder(string customerName, OrderItem order, TimeSpan Time, Action<PayedOrder> func)
@@ -28,6 +30,22 @@ namespace FoodPoint_Seller.Core.Models
             this.Order = order;
             this.OrderTime = Time;
             this.func = func;
+        }
+        public void OnFinishOrder()
+        {
+            var a = this;
+            MvvmCross.Platform.Mvx.GetSingleton<MvvmCross.Plugins.Messenger.IMvxMessenger>().Publish(new ClickOnFinishOrderMessage(this));
+            //this.ListOrderItem.Value.RemoveAll(o => o.Order.ID == Order.ID);
+
+            //UpdatePayedOrderList();
+            //_sellerOrderService.DeletOrder(Order);
+        }
+
+        public PayedOrder(string whoSold, OrderItem deserializeOrder, TimeSpan timer)
+        {
+            this.CustomerName = whoSold;
+            this.Order = deserializeOrder;
+            this.OrderTime = timer;
         }
 
         public PayedOrder Clone(PayedOrder order)

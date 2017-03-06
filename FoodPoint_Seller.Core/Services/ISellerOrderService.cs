@@ -11,7 +11,7 @@ namespace FoodPoint_Seller.Core.Services
     public interface ISellerOrderService
     {
         List<PayedOrder> GetOrders();
-        void DeletOrder(PayedOrder deletOrder);
+        void DeletOrder(OrderItem deletOrder);
 
         event EventHandler<PayedOrder> OnNewPayedOrder;
         event EventHandler<string> ChangeStatus;

@@ -153,7 +153,11 @@ namespace FoodPoint_Seller.Core.ViewModels
             {
                 var deserializeOrder = JsonConvert.DeserializeObject<OrderItem>(reciveOrder);
 
-                _dialogService.Notification(new NotificaiosModel(deserializeOrder.RowNumber, deserializeOrder.Timer));
+         
+
+                _dialogService.Notification(new NotificaiosModel($"Пришел заказ №{deserializeOrder.RowNumber}"
+                                                , $"Необходимо приготовить его за {time}")
+                           );
 
                 var stackOrder = new RecivedOrder(customer.ToString(), time, deserializeOrder, (order) =>
                 {

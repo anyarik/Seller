@@ -44,6 +44,7 @@
     <Compile Include="Extentions\GenericExtentions.cs" />
     <Compile Include="Messeges\AddictiveAcceptedMessage.cs" />
     <Compile Include="Messeges\ProductAcceptedMessage.cs" />
+    <Compile Include="Models\ClickOnFinishOrderMessage.cs" />
     <Compile Include="Models\PayedOrder.cs" />
     <Compile Include="Models\Timer.cs" />
     <Compile Include="Models\RecivedOrder.cs" />

@@ -75,19 +75,8 @@ namespace FoodPoint_Seller.Core.Services.Implementations
 
             foreach (var item in recivedActiveOrdrers)
             {
-                var activeOrder = new PayedOrder("", item, item.Timer, (orderInProcess) =>
-                {
-                    orderInProcess.CloseOrderTimer = new Timer(orderInProcess.OrderTime, (_) =>
-                    {
-                        orderInProcess.CloseOrderTimer.WaitTime -= new TimeSpan(0, 0, 1);
+                var activeOrder = new PayedOrder("", item, item.Timer);
 
-                        if (orderInProcess.CloseOrderTimer.WaitTime == TimeSpan.Zero)
-                        {
-                            orderInProcess.IsOrderFisihed = true;
-                        }
-                    });
-                });
-                activeOrder.StartTimer();
                 _activeOrders.Add(activeOrder);
              }
 
@@ -96,19 +85,8 @@ namespace FoodPoint_Seller.Core.Services.Implementations
             _orderController.OnGettingPurchasedOrders((customer, order) => {
                 var deserializeOrder = JsonConvert.DeserializeObject<OrderItem>(order);
 
-                var payedOrder = new PayedOrder(deserializeOrder.WhoSold, deserializeOrder, deserializeOrder.Timer, (orderInProcess) =>
-                    {
-                        orderInProcess.CloseOrderTimer = new Timer(orderInProcess.OrderTime, (_) =>
-                        {
-                            orderInProcess.CloseOrderTimer.WaitTime -= new TimeSpan(0, 0, 1);
+                var payedOrder = new PayedOrder(deserializeOrder.WhoSold, deserializeOrder, deserializeOrder.Timer);
 
-                            if (orderInProcess.CloseOrderTimer.WaitTime == TimeSpan.Zero)
-                            {
-                                orderInProcess.IsOrderFisihed = true;
-                            }
-                        });
-                    });
-                payedOrder.StartTimer();
                 _activeOrders.Add(payedOrder);
                 onNewPayedOrder.Invoke(null, payedOrder);
              });
@@ -119,9 +97,9 @@ namespace FoodPoint_Seller.Core.Services.Implementations
             return _activeOrders;
         }
 
-        public void DeletOrder(PayedOrder deletOrder)
+        public void DeletOrder(OrderItem deletOrder)
         {
-            _activeOrders.RemoveAll(o => o.Order.ID == deletOrder.Order.ID);
+            _activeOrders.RemoveAll(o => o.Order.ID == deletOrder.ID);
         }
     }
 }

@@ -67,12 +67,12 @@ namespace FoodPoint_Seller.Droid.Activities
                
                 .SetAutoCancel(true)                    // Dismiss from the notif. area when clicked
                 .SetContentIntent(resultPendingIntent)  // Start 2nd activity when the intent is clicked.
-                .SetContentTitle($"Пришел заказ №{notification.rowNumber}")      // Set its title
+                .SetContentTitle(notification.title)      // Set its title
                 .SetNumber(1)                       // Display the count in the Content Info
                 .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Notification))
                 .SetVibrate(new long[] { 500, 500 })
                 .SetSmallIcon(Resource.Drawable.abc_ab_share_pack_mtrl_alpha)  // Display this icon
-                .SetContentText($"Необходимо приготовить его за {notification.orderTimer}"); // The message to display.
+                .SetContentText(notification.description); // The message to display.
 
             // Finally, publish the notification:
             NotificationManager notificationManager =

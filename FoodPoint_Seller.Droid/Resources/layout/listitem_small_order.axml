@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="100dp"
@@ -8,12 +8,26 @@
     android:layout_gravity="end"
     android:background="@color/white">
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_number_order_label"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        local:MvxBind="Text Format('№ {0}', Order.RowNumber)" />
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text_product_name"
         android:textColor="@color/black"
         android:textSize="15sp"
-        android:layout_centerInParent="true"
+        android:layout_below="@id/text_number_order_label"
+        android:layout_centerHorizontal="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        local:MvxBind="Text Order.RowNumber" />
-</LinearLayout>
+        local:MvxBind="Text Format('{0:00}:{1:00}',CloseOrderTimer.WaitTime.Minutes
+                                                  ,CloseOrderTimer.WaitTime.Seconds)"
+        />
+
+</RelativeLayout>

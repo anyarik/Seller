@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using FoodPoint_Seller.Core.Models;
 using FoodPoint_Seller.Core.Services;
 using FoodPoint_Seller.Core.ViewModels.Base;
+using System;
+using MvvmCross.Plugins.Messenger;
 
 namespace FoodPoint_Seller.Core.ViewModels
 {
@@ -28,7 +30,8 @@ namespace FoodPoint_Seller.Core.ViewModels
         private ISellerOrderService _sellerOrderService;
 
         private ISellerAuthService _loginService;
-        
+        private IDialogService _dialogService;
+
         /// <summary> 
         /// Список заказов, который получены и согласованы
         /// </summary>
@@ -46,11 +49,13 @@ namespace FoodPoint_Seller.Core.ViewModels
         public INC<List<ProductForOrder>> ListCurentOrderProductItem = new NC<List<ProductForOrder>>(new List<ProductForOrder>(), (e) =>
         {
         });
+        private MvxSubscriptionToken tokenClickOrder;
 
         public HomeViewModel(IOrderController orderController
                            , IUserController userControler
                            , ISellerAuthService loginService
-                           , ISellerOrderService sellerOrderService) 
+                           , ISellerOrderService sellerOrderService
+                           , IDialogService dialogService) 
             : this(sellerOrderService)
         {
             this._orderController = orderController;
@@ -58,8 +63,13 @@ namespace FoodPoint_Seller.Core.ViewModels
 
             this._loginService = loginService;
             this._sellerOrderService = sellerOrderService;
+            this._dialogService = dialogService;
 
             this.ListOrderItem.Changed += ListOrderItem_Changed;
+            this.tokenClickOrder = MvvmCross.Platform.Mvx.GetSingleton<IMvxMessenger>().Subscribe<ClickOnFinishOrderMessage>(this.OnFinishOrder, MvxReference.Strong);
+            this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder;
+
+
         }
 
         private void ListOrderItem_Changed(object sender, System.EventArgs e)
@@ -71,7 +81,6 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
 
         }
-
         /// <summary>
         /// Метод, который говорит нам о том, что наша ViewModel отобразилась на экране
         /// </summary>
@@ -82,9 +91,28 @@ namespace FoodPoint_Seller.Core.ViewModels
             if (orders.Count != 0)
             {
                 this.ListOrderItem.Value = _sellerOrderService.GetOrders();
-            }
+                foreach (var orderItem in this.ListOrderItem.Value)
+                {
+                    orderItem.func = (orderInProcess) =>
+                      {
+                          orderInProcess.CloseOrderTimer = new Timer(orderInProcess.OrderTime, (_) =>
+                          {
+                              orderInProcess.CloseOrderTimer.WaitTime -= new TimeSpan(0, 0, 1);
+                              UpdatePayedOrderList();
+                              if (orderInProcess.CloseOrderTimer.WaitTime == TimeSpan.Zero)
+                              {
+                                  _dialogService.Notification(new NotificaiosModel($"Время приготовления заказа №{orderInProcess.Order.RowNumber} закончилось"
+                                                                        , ""));
 
-            this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder;
+
+                                  orderInProcess.StopTimer();
+                                  orderInProcess.IsOrderFisihed = true;
+                              }
+                          });
+                      };
+                    orderItem.StartTimer();
+                }
+            }
         }
 
         public void ShowMenu()
@@ -92,9 +120,33 @@ namespace FoodPoint_Seller.Core.ViewModels
             ShowViewModel<MenuViewModel>();
         }
 
-        private void _sellerOrderService_OnNewPayedOrder(object sender, PayedOrder e)
+        private void _sellerOrderService_OnNewPayedOrder(object sender, PayedOrder addOrder)
         {
-            this.ListOrderItem.Value.Add(e);
+            _dialogService.Notification(new NotificaiosModel($"Заказ №{addOrder.Order.RowNumber} оплачен"
+                                                , "Начинайте готовить")
+                           );
+
+            addOrder.func = (orderInProcess) =>
+            {
+                orderInProcess.CloseOrderTimer = new Timer(orderInProcess.OrderTime, (_) =>
+                {
+                    orderInProcess.CloseOrderTimer.WaitTime -= new TimeSpan(0, 0, 1);
+                    if (orderInProcess.CloseOrderTimer.WaitTime == TimeSpan.Zero)
+                    {
+                        _dialogService.Notification(new NotificaiosModel($"Время приготовления заказа №{addOrder.Order.RowNumber} закончилось"
+                                                                        , "")
+                                                   );
+                        orderInProcess.StopTimer();
+                        orderInProcess.IsOrderFisihed = true;
+                    }
+                    UpdatePayedOrderList();
+                });
+            };
+            if (addOrder != null)
+            {
+                addOrder.StartTimer();
+            }
+            this.ListOrderItem.Value.Add(addOrder);
             UpdatePayedOrderList();
         }
 
@@ -112,20 +164,24 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
             this.IsClikedOrderDialogOpen.Value = true;
 
-            this.OpenOrderNumber.Value = order.Order.ID.ToString();
+            this.OpenOrderNumber.Value = order.Order.RowNumber.ToString();
             this.ListCurentOrderProductItem.Value = order.Order.OrderedFood;
         }
-        public void OnClose(PayedOrder order)
+        public void OnClose()
         {
             this.IsClikedOrderDialogOpen.Value = false;
         }
 
-        public void OnFinishOrder(PayedOrder deleteOrder)
+        public void OnFinishOrder(ClickOnFinishOrderMessage payed)
         {
-            this.ListOrderItem.Value.RemoveAll(o => o.Order.ID == deleteOrder.Order.ID);
+            var payedOrder = payed.Sender as PayedOrder;
+
+            if (payedOrder == null) return;
+
+            this.ListOrderItem.Value.RemoveAll(o => o.Order.ID == payedOrder.Order.ID);
 
             UpdatePayedOrderList();
-            _sellerOrderService.DeletOrder(deleteOrder);
+            _sellerOrderService.DeletOrder(payedOrder.Order);
         }
 
         public async void OnClickOffline()

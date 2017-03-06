@@ -4,13 +4,13 @@ namespace FoodPoint_Seller.Core.Models
 {
     public class NotificaiosModel
     {
-        public TimeSpan orderTimer;
-        public string rowNumber;
+        public string title;
+        public string description;
 
-        public NotificaiosModel(string rowNumber, TimeSpan orderTimer)
+        public NotificaiosModel(string title, string description)
         {
-            this.rowNumber = rowNumber;
-            this.orderTimer = orderTimer;
+            this.title = title;
+            this.description = description;
         }
     }
 }
