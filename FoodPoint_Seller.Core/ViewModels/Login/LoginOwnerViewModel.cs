@@ -51,7 +51,7 @@ namespace FoodPoint_Seller.Core.ViewModels
                 }
             }
 
-            catch (System.Exception a)
+            catch (Exception)
             {
                 throw new Exception("Ошибка в авторизации");
             }
@@ -61,7 +61,6 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
             base.Start();
             this.Init();
-            //this.ListOrderItem.Value = _orderService.GetOrders();
         }
 
         private async void Init()

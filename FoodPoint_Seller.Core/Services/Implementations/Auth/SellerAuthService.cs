@@ -65,7 +65,7 @@ namespace FoodPoint_Seller.Core.Services.Implementations
 
         public async void ChangeStatusSeler()
         {
-            _userController.Set_Busyness(_profileUser.ID, !_profileUser.IsBusy, _tokenAuth.access_token);
+           await _userController.Set_Busyness(_profileUser.ID, !_profileUser.IsBusy, _tokenAuth.access_token);
         }
 
 

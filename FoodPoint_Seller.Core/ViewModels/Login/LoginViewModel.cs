@@ -45,7 +45,7 @@ namespace FoodPoint_Seller.Core.ViewModels
                     _dialogService.Alert("We were unable to log you in!", "Login Failed", "OK");
                 }
             }
- 	        catch (System.Exception a)
+ 	        catch (System.Exception )
 	        {
                 throw new Exception("Ошибка в авторизации");
             }

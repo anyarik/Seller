@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace FoodPoint_Seller.Core.ViewModels.Statistic.Tabs
 {
-    public class BaseStatisticViewModel<T>: BaseFragment
+    public abstract class BaseStatisticViewModel<T>: BaseFragment
     {
         protected IStatisticController _statisticController;
         protected IOwnerAuthService _ownerAuthService;
@@ -42,8 +42,6 @@ namespace FoodPoint_Seller.Core.ViewModels.Statistic.Tabs
         {
         });
 
-
-
         public BaseStatisticViewModel( IStatisticController statisticController
                                      , IOwnerAuthService ownerAuthService 
                                      , ISellerAuthService loginService
@@ -56,7 +54,6 @@ namespace FoodPoint_Seller.Core.ViewModels.Statistic.Tabs
             this._ownerAuthService = ownerAuthService;
             this._loginService = loginService;
 
-            this.Init();
         }
 
         public BaseStatisticViewModel(ISellerOrderService sellerOrderService) : base(sellerOrderService)
@@ -64,18 +61,19 @@ namespace FoodPoint_Seller.Core.ViewModels.Statistic.Tabs
 
         }
 
-        public async override void Start()
+        public override void Start()
         {
             base.Start();
+
+            this.Init();
         }
 
-
-        private async void Init()
+        private async  void Init()
         {
-             GetStatistic();
+            await GetStatistic();
         }
 
-        public async void SetStartTime()
+        public void SetStartTime()
         {
             var config = new DatePromptConfig();
             var dialogDate = _dialogs.DatePrompt(config);
@@ -89,7 +87,7 @@ namespace FoodPoint_Seller.Core.ViewModels.Statistic.Tabs
             };
         }
 
-        public async void SetEndTime()
+        public void SetEndTime()
         {
             var config = new DatePromptConfig();
             var dialogDate = _dialogs.DatePrompt(config);
@@ -100,7 +98,7 @@ namespace FoodPoint_Seller.Core.ViewModels.Statistic.Tabs
                     this.EndDateValue.Value = result.SelectedDate;
                     await GetStatistic();
                 }
-               
+          
             };
         }
         public void UpdateStatistic()
@@ -108,9 +106,6 @@ namespace FoodPoint_Seller.Core.ViewModels.Statistic.Tabs
             GetStatistic();
         }
 
-        protected async virtual Task GetStatistic()
-        {
-
-        }
+        protected abstract Task GetStatistic();
     }
 }

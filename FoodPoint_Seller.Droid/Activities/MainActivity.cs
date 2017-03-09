@@ -96,6 +96,7 @@ namespace FoodPoint_Seller.Droid.Activities
 
             DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 
+
             if (bundle == null)
                 ViewModel.ShowMenu();
         }

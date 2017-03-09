@@ -27,10 +27,10 @@ namespace FoodPoint_Seller.Core.Converters
 
             newFoodsInfo.Insert(0, new FoodDayInfoUI()
             {
-                name = "Наименование товара",
-                withSubs = "Количество продаж подписок",
-                revenueSubs = "Выручка с подисок",
-                withoutSubs = "Количество продаж предзаказов",
+                name = "Товар",
+                withSubs = "Кол-во продаж подписок",
+                revenueSubs = "Выручка с подпиисок",
+                withoutSubs = "Кол-во продаж предзаказов",
                 revenueNoSubs = "Выручка с предзаказов",
                 commonSellingAmount = "Дата",
                 //revenueSubs = "Предзаказы",

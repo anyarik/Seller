@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
 >
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/text_product_name"
-        android:gravity="fill_horizontal"
         android:textAppearance="?android:attr/textAppearanceLarge"
         local:MvxBind="Text ProductInfo.Name"
-        android:textColor="#aeaeae"
-        android:textSize="20dp"
-        />
 
-    <Mvx.MvxLinearLayout
+        android:textColor="#aeaeae"
+        android:textSize="20dp"/>
+
+    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
         android:id="@+id/inner_category_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="2dp"
         android:clickable="true"
         local:MvxItemTemplate="@layout/listitem_addictive"
-        local:MvxBind="ItemsSource PossibleAdditives" />
-</RelativeLayout>
+        local:MvxBind="ItemsSource ProductInfo.OrderedAdditives" />
+</LinearLayout>

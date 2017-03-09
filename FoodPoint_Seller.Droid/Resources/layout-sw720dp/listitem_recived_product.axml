@@ -2,34 +2,52 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
-    android:background="@color/white">
-
-  <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/text_product_name"
-      android:layout_alignParentLeft="true"
-      android:text="test"
-      local:MvxBind="Text ProductInfo.Name"
- />
-
-  <Switch
-    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentRight="true"
-    android:id="@+id/activatedSwitch"
-    local:MvxBind="Checked ProductInfo.IsActive"
-    android:theme="@style/SCBSwitch" />
-  <!--android:layout_toRightOf="@id/text_product_name"-->
-
-  <Mvx.MvxListView
-    android:id="@+id/recived_addictive_list"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/text_product_name"
-    local:MvxItemTemplate="@layout/listitem_recived_addictive"
-    local:MvxBind="ItemsSource ProductInfo.OrderedAdditives" />
+    android:background="@color/white"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_gravity="end">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_product_name"
+        android:layout_alignParentLeft="true"
+        android:text="test"
+        local:MvxBind="Text ProductInfo.Name" />
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:id="@+id/activatedSwitch"
+        local:MvxBind="Checked ProductInfo.IsActive"
+        android:textOff=""
+        android:textOn=""
+        />
+    <!--android:background="@android:color/transparent"-->
+    <!--android:thumb="@drawable/toggle_image"-->
+    <!--android:track="@drawable/toggle_track"-->
+<!--android:layout_toRightOf="@id/text_product_name"-->
+  <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_product_name">
+        
+        <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+            android:id="@+id/recived_addictive_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="11dp"
+            android:paddingBottom="10dp"
+            local:MvxBind="ItemsSource ProductInfo.OrderedAdditives"
+            local:MvxItemTemplate="@layout/listitem_recived_addictive" />
+  <View
+            android:id="@+id/right_line_panel"
+            android:layout_width="1dp"
+            android:layout_height="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignLeft="@id/recived_addictive_list"
+            android:background="#cfcfcf"
+            local:MvxBind="MyHeight ProductInfo.OrderedAdditives"/>
+  </RelativeLayout>
 
 </RelativeLayout>

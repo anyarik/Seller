@@ -29,34 +29,34 @@ namespace FoodPoint_Seller.Core.ViewModels
             :base(statisticController, ownerAuthService, loginService, dialogService, sellerOrderService)
         {
         }
-
-
-
-
+        
         protected override async Task GetStatistic()
         {
-            base.GetStatistic();
-            var user = await _loginService.GetProfile();
             var token = await _ownerAuthService.GetToken();
-            var sellerStatistic = await _statisticController.
+
+            if (CurrentSeller.Value != null)
+            {
+                var sellerStatistic = await _statisticController.
                                 GetOnlineSellersStatisticForDay(CurrentSeller.Value.ID.ToString(), DateValue.Value.ToString(formatDate), token);
-            StatisticListItem.Value = sellerStatistic;
+                StatisticListItem.Value = sellerStatistic;
+            }
         }
 
-        private void ShopSellers_Changed(object sender, EventArgs e)
+        private async void ShopSellers_Changed(object sender, EventArgs e)
         {
-            GetStatistic();
+           await GetStatistic();
         }
 
         public override async void Start()
         {
-            base.Start();
-
             var user = await _loginService.GetProfile();
             var token = await _ownerAuthService.GetToken();
             ShopSellers.Value = await _statisticController.GetShopSellers(user.shopID.ToString(), token);
+            CurrentSeller.Value = ShopSellers.Value.FirstOrDefault();
 
             CurrentSeller.Changed += ShopSellers_Changed;
+
+            base.Start();
         }
 
         public void SetDate()

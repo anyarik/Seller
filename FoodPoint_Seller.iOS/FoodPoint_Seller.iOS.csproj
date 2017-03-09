@@ -279,12 +279,6 @@
       <Project>{C23A254A-EEC5-4BD7-B1F6-D01060BAC88B}</Project>
       <Name>FoodPoint_Seller.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\XLPagerTabStrip\XLPagerTabStrip.csproj">
-      <Project>{47BD137E-0BC0-402F-A3A8-8E257495EDBA}</Project>
-      <Name>XLPagerTabStrip</Name>
-      <IsAppExtension>false</IsAppExtension>
-      <IsWatchApp>false</IsWatchApp>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="jasidepanels">

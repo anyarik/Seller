@@ -8,152 +8,57 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            local:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+      <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:background="?attr/colorPrimary"
+          local:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+        <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+          <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/text_button_disconect"
+           android:layout_alignParentEnd="true"
+           android:layout_centerVertical="true"
+           local:MvxBind="Text TextActiveSeller; Click OnClickOffline"
+                 />
+          <TextView
+              android:id="@+id/statusUser"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/black"
+              android:textSize="20dp"
+              android:textStyle="bold"
+              android:layout_toLeftOf="@id/text_button_disconect"
+              android:layout_centerVertical="true"
+              android:gravity="center_vertical"
+              local:MvxBind="Text TextStatusSeller"
+                />
+          <!--android:background="@drawable/circle_button"-->
+
+        </RelativeLayout>
+      </android.support.v7.widget.Toolbar>
+     <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        local:tabGravity="center"
+        local:tabMode="scrollable" />
     </android.support.design.widget.AppBarLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/options_statistic_content"
         android:layout_below="@id/appbar">
-        <Button
-            android:text="Статистика по продуктам"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_product_statistic"
-            local:MvxBind="Click OnProductStatistic" />
-        <Button
-            android:text="Статистика по продовцам"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_seller_statistic"
-            android:layout_toRightOf="@id/btn_product_statistic"
-            local:MvxBind="Click OnSellerStatistic" />
-        <Button
-            android:text="Статистика по выручке"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/btn_seller_statistic"
-            android:id="@+id/btn_order_statistic"
-            local:MvxBind="Click OnOrderStatistic" />
-      <TextView
-          android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:layout_toRightOf="@id/btn_order_statistic"
-            android:id="@+id/start_date_picker"
-            local:MvxBind="Text StartDateValue" />
-      <TextView
-          android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/end_date_picker"
-            android:layout_toRightOf="@id/start_date_picker"
-            android:textSize="20dp"
-            local:MvxBind="Text EndDateValue" />
-    </RelativeLayout>
- 
-  <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/options_statistic_content"
-        local:MvxBind="Visibility Visibility(IsFoodStatisticOpen)">
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+            />
 
-      <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/texts_statistic_food">
-        <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:id="@+id/text_name_food"
-           android:text="Наименование товара" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_count_sub_food"
-            android:layout_toRightOf="@id/text_name_food"
-            android:text="Количество продаж подписок" />
-        <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:id="@+id/text_revenue_sub_food"
-           android:layout_toRightOf="@id/text_count_sub_food"
-           android:text="Выручка с подисок" />
-        <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:id="@+id/text_without_count_sub_food"
-           android:layout_toRightOf="@id/text_revenue_sub_food"
-           android:text="Количество продаж предзаказов" />
-        <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-            android:id="@+id/text_revenue_nosubs_food"
-            android:layout_toRightOf="@id/text_without_count_sub_food"
-           android:text="Выручка с предзаказов" />
-        <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:id="@+id/text_common_sellingamount_food"
-           android:layout_toRightOf="@id/text_revenue_nosubs_food"
-           android:text="Общее количество продаж" />
-        <!--<TextView
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:text="Общая выручка с продаж - нет" />-->
-      </RelativeLayout>
-
-      <Mvx.MvxTableLayout
-            android:id="@+id/list_statistic_food"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:shrinkColumns="*"
-            android:stretchColumns="*"
-            android:layout_below="@id/texts_statistic_food"
-            local:MvxBind="ItemsSource FoodStatisticListItem"
-            local:MvxItemTemplate="@layout/listitem_statistic_food"/>
-      
     </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/options_statistic_content"
-        local:MvxBind="Visibility Visibility(IsSellerStatisticOpen)">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Статистика продовцов" />
-        <Mvx.MvxGridView
-            android:id="@+id/list_statistic_seller"
-            android:layout_width="700dp"
-            android:layout_height="500dp"
-            android:layout_marginLeft="10dp"
-            local:MvxBind="ItemsSource SellerStatisticListItem"
-            local:MvxItemTemplate="@layout/listitem_statistic_seller" />
-    </RelativeLayout>
- 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/options_statistic_content"
-        local:MvxBind="Visibility Visibility(IsOrderStatisticOpen)">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Статистика выручки" />
-        <Mvx.MvxGridView
-            android:id="@+id/list_statistic_order"
-            android:layout_width="700dp"
-            android:layout_height="500dp"
-            android:layout_marginLeft="10dp"
-            local:MvxBind="ItemsSource OrderStatisticListItem"
-            local:MvxItemTemplate="@layout/listitem_statistic_order" />
-    </RelativeLayout>
-
-</RelativeLayout>
+ </RelativeLayout>

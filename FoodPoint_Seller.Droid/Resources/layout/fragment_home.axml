@@ -11,8 +11,8 @@
         android:id="@+id/toolbar_actionbar" />
     <RelativeLayout
         android:id="@+id/order_list_content"
-        android:layout_width="800dp"
-        android:layout_margin="1dp"
+        android:layout_width="400dp"
+        android:layout_margin="10dp"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar_actionbar">
         <Mvx.MvxListView
@@ -39,7 +39,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
-<include
+
+    <include
+        android:id="@+id/fragment_recived_clicked_order"
         layout="@layout/fragment_recived_clicked_order"
-        android:id="@+id/fragment_recived_clicked_order" />
+        android:visibility="gone" />
 </RelativeLayout>

@@ -21,7 +21,7 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         private readonly IDialogService _dialogService;
        
-       private event EventHandler<RecivedOrder> OpenNexStackOrder;
+        private event EventHandler<RecivedOrder> OpenNexStackOrder;
 
         public  MainViewModel(IOrderController orderController
                              ,IDialogService dialogService
@@ -58,7 +58,7 @@ namespace FoodPoint_Seller.Core.ViewModels
             }
             catch (System.Exception a)
             {
-                throw;
+                throw  new Exception(a.Message);
             }
             ShowViewModel<MenuViewModel>();
             this.InitSignalRForAgreement();
@@ -68,7 +68,6 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
             ShowViewModel<HomeViewModel>();
         }
-
 
         #region Окно согласования заказ
         #region Переменые для окна согласования заказа
@@ -149,7 +148,7 @@ namespace FoodPoint_Seller.Core.ViewModels
 
             this._orderController.HubConnection(user.ID);
 
-            this._orderController.OnReceiveOrder((customer, reciveOrder, time) =>
+            this._orderController.OnReceiveOrder( async (customer, reciveOrder, time) =>
             {
                 var deserializeOrder = JsonConvert.DeserializeObject<OrderItem>(reciveOrder);
 
@@ -161,16 +160,16 @@ namespace FoodPoint_Seller.Core.ViewModels
 
                 var stackOrder = new RecivedOrder(customer.ToString(), time, deserializeOrder, (order) =>
                 {
-                    order.CloseOrderTimer = new Timer(new TimeSpan(0, 5, 0), (_) =>
+                    order.CloseOrderTimer = new Timer(new TimeSpan(0, 0, 75), (_) =>
                     {
-                        order.CloseOrderTimer.WaitTime -= new TimeSpan(0, 0, 1);
+                        order.CloseOrderTimer.WaitTime.Value -= new TimeSpan(0, 0, 1);
 
                         UpdateStackOrderList();
 
                         if (order.IsAlive)
-                            this.RecivedOrderTimer.Value = order.CloseOrderTimer.WaitTime;
+                            this.RecivedOrderTimer.Value = order.CloseOrderTimer.WaitTime.Value;
 
-                        if (order.CloseOrderTimer.WaitTime == TimeSpan.Zero)
+                        if (order.CloseOrderTimer.WaitTime.Value == TimeSpan.Zero)
                         {
                             order.CloseOrderTimer.StopTimer();
 
@@ -194,6 +193,8 @@ namespace FoodPoint_Seller.Core.ViewModels
 
                 if (this._recivedStackOrders.Count == 1)
                     this.OpenDialogForOrderAgreement(stackOrder);
+
+                this.CurentPayedOrders.Value = await _sellerOrderService.GetOrders();
             });
 
             //
@@ -337,12 +338,12 @@ namespace FoodPoint_Seller.Core.ViewModels
         #endregion
         #endregion
 
-        public override async void Start()
+        public override void Start()
         {
+            
             //base.Start();
             this.OpenNexStackOrder += HomeViewModel_OpenNexStackOrder;
-           // this.CurentPayedOrders.Value = _sellerOrderService.GetOrders();
-           // this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder;
+            this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder;
         }
     }
 }

@@ -27,29 +27,31 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         public override async void Start()
         {
-            base.Start();
-
             var user = await _loginService.GetProfile();
             var token = await _ownerAuthService.GetToken();
             ShopSellers.Value = await _statisticController.GetShopSellers(user.shopID.ToString(), token);
+            CurrentSeller.Value = ShopSellers.Value.FirstOrDefault();
 
             CurrentSeller.Changed += ShopSellers_Changed;
-        }
-        private void ShopSellers_Changed(object sender, EventArgs e)
-        {
-            GetStatistic();
-        }
 
+            base.Start();
+        }
+        private async void ShopSellers_Changed(object sender, EventArgs e)
+        {
+            await GetStatistic();
+        }
 
         protected override async Task GetStatistic()
         {
-            base.GetStatistic();
-            var user = await _loginService.GetProfile();
             var token = await _ownerAuthService.GetToken();
-            var sellerStatistic = await _statisticController.GetSellerStatisticForDay(CurrentSeller.Value.ID.ToString(), StartDateValue.Value.ToString(formatDateWithTime),
-                                                                                                                EndDateValue.Value.ToString(formatDateWithTime), token);
 
-            StatisticListItem.Value = sellerStatistic;
+            if (CurrentSeller.Value != null)
+            {
+                var sellerStatistic = await _statisticController.GetSellerStatisticForDay(CurrentSeller.Value.ID.ToString(), StartDateValue.Value.ToString(formatDateWithTime),
+                                                                                                    EndDateValue.Value.ToString(formatDateWithTime), token);
+
+                StatisticListItem.Value = sellerStatistic;
+            }
         }
     }
 }

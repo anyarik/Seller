@@ -35,15 +35,12 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="AppStart.cs" />
-    <Compile Include="Converters\CommandToMessageValueConverter.cs" />
     <Compile Include="Converters\OnlineSellerStatisticValueConverter.cs" />
     <Compile Include="Converters\SellerStatisticValueConverter.cs" />
     <Compile Include="Converters\FoodStatisticValueConverter.cs" />
     <Compile Include="Converters\CustomerStatisticValueConverter.cs" />
     <Compile Include="Converters\OrderStatisticValueConverter.cs" />
     <Compile Include="Extentions\GenericExtentions.cs" />
-    <Compile Include="Messeges\AddictiveAcceptedMessage.cs" />
-    <Compile Include="Messeges\ProductAcceptedMessage.cs" />
     <Compile Include="Models\ClickOnFinishOrderMessage.cs" />
     <Compile Include="Models\PayedOrder.cs" />
     <Compile Include="Models\Timer.cs" />
@@ -55,15 +52,12 @@
     <Compile Include="Services\IOwnerAuthService.cs" />
     <Compile Include="Services\ISellerAuthService.cs" />
     <Compile Include="Services\ISellerOrderService.cs" />
-    <Compile Include="ListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ITimeService.cs" />
     <Compile Include="Services\Implementations\Auth\SellerAuthService.cs" />
     <Compile Include="Services\Implementations\SellerOrderService.cs" />
     <Compile Include="Util\InfoAccessToken.cs" />
     <Compile Include="Models\NotificaiosModel.cs" />
-    <Compile Include="ViewModels\Android\ExampleRecyclerViewModel.cs" />
-    <Compile Include="ViewModels\Android\ExampleViewPagerViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseFragment.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.cs" />
     <Compile Include="ViewModels\Login\LoginOwnerViewModel.cs" />
@@ -72,11 +66,9 @@
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
     <Compile Include="ViewModels\Base\MainViewModel.cs" />
     <Compile Include="ViewModels\Menu\MenuViewModel.cs" />
-    <Compile Include="ViewModels\Android\RecyclerViewModel.cs" />
     <Compile Include="ViewModels\Statistic\StatisticOwnerViewModel.cs" />
     <Compile Include="ViewModels\Statistic\StatisticCurrentSellerViewModel.cs" />
     <Compile Include="ViewModels\Base\BaseViewModel.cs" />
-    <Compile Include="ViewModels\Statistic\Tabs\ICustomersStatisticViewModel.cs" />
     <Compile Include="ViewModels\Statistic\Tabs\_base\BaseStatisticViewModel.cs" />
     <Compile Include="ViewModels\Statistic\Tabs\OrdersStatisticViewModel.cs" />
     <Compile Include="ViewModels\Statistic\Tabs\CustomersStatisticViewModel.cs" />
@@ -195,6 +187,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />
+    <Folder Include="Messeges\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

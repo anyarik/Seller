@@ -10,7 +10,7 @@ namespace FoodPoint_Seller.Core.Services
 {
     public interface ISellerOrderService
     {
-        List<PayedOrder> GetOrders();
+        Task<List<PayedOrder>> GetOrders();
         void DeletOrder(OrderItem deletOrder);
 
         event EventHandler<PayedOrder> OnNewPayedOrder;

@@ -13,7 +13,7 @@ using Acr.UserDialogs;
 
 namespace FoodPoint_Seller.Core.ViewModels
 {
-    public class CustomersStatisticViewModel : BaseStatisticViewModel<CustomerDayInfo>, ICustomersStatisticViewModel
+    public class CustomersStatisticViewModel : BaseStatisticViewModel<CustomerDayInfo>
     {
         public CustomersStatisticViewModel(IStatisticController statisticController
                                          , IOwnerAuthService ownerAuthService
@@ -26,7 +26,6 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         protected override async Task GetStatistic()
         {
-            base.GetStatistic();
             var user = await _loginService.GetProfile();
             var token = await _ownerAuthService.GetToken();
             var customersStatistic = await  _statisticController.

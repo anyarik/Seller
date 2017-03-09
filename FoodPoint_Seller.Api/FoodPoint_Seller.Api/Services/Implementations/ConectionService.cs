@@ -79,7 +79,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                                 throw new Exception(errorMessage);
                             }
                         }
-                        catch (Exception exp)
+                        catch (Exception )
                         {
                             return default(T);
                         }
@@ -218,7 +218,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                                 throw new Exception(errorMessage);
                             }
                         }
-                        catch (Exception e)
+                        catch (Exception )
                         {
                             return default(T);
                         }

@@ -25,7 +25,6 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         protected override async Task GetStatistic()
         {
-            base.GetStatistic();
             var user = await _loginService.GetProfile();
             var token = await _loginService.GetToken();
             var statisticInfo = await _statisticController.GetSellerStatisticForDay(user.ID.ToString(), StartDateValue.Value.ToString(formatDateWithTime),

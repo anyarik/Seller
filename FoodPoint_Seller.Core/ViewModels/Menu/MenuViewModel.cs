@@ -47,7 +47,7 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         private void ShowRecyclerExecuted()
         {
-            ShowViewModel<ExampleRecyclerViewModel>();
+            //ShowViewModel<ExampleRecyclerViewModel>();
         }
 
         public IMvxCommand ShowStatisticOwnerCommand
@@ -63,8 +63,7 @@ namespace FoodPoint_Seller.Core.ViewModels
             }
             catch (System.Exception exp)
             {
-
-                throw;
+                throw new System.Exception(exp.Message);
             }
         }
 

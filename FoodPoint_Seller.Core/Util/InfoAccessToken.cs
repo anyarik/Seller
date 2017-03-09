@@ -26,15 +26,13 @@ namespace FoodPoint_Seller.Core.Util
             var str = Encoding.UTF8.GetString(byt, 0, byt.Length);
             try
             {
-
                 return JsonConvert.DeserializeObject<AccessToken>(str);
             }
             catch (Exception a)
             {
+                var err = a.Message;
                 return null;
             }
-
-       
         }
     }
 }

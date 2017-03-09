@@ -20,7 +20,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
         private IHubProxy _hub;
         private string userId;
         private bool isConnected;
-        private Timer _timer; 
+
         private event EventHandler<IDictionary<string,string>> receiveOrder;
         private event EventHandler<bool> customerAgreedYAY;
         private event EventHandler<string> gettingPurchasedOrders;
@@ -79,7 +79,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
             }
         }
 
-        public async void HubConnection(string id)
+        public  void HubConnection(string id)
         {
             this.userId = id;
 
@@ -90,7 +90,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
             this.IntHubSubscriptions();
         }
 
-        private void IntHubSubscriptions()
+        private  void IntHubSubscriptions()
         {
              _hub.On("OnСonnected", () => {
 
@@ -126,7 +126,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
             });
         }
 
-        private void InitConectinEvents()
+        private  void InitConectinEvents()
         {
             connection.Start(new LongPollingTransport()).ContinueWith(task =>
             {
@@ -139,7 +139,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                     this.isConnected = true;
                     setStatusSeller.Invoke(null, "online");
                 }
-            }).Wait();
+            });
 
             connection.Closed += Connection_Closed;
 
@@ -182,35 +182,31 @@ namespace FoodPoint_Seller.Api.Services.Implementations
             
         }
 
-        private async void Connection_Reconnecting()
+        private  void Connection_Reconnecting()
         {
             setStatusSeller.Invoke(null, "reconecting...");
         }
 
-        private async void Connection_Reconnected()
+        private void Connection_Reconnected()
         {
            var state =  connection.State;
            setStatusSeller.Invoke(null, "online");
 
-            //isConnected = false;
         }
 
-        private async void Connection_Error(Exception obj)
+        private  void Connection_Error(Exception obj)
         {
-            //await connection.Start();
-            //connection.Stop();
+           
         }
 
-        private async void Connection_ConnectionSlow()
+        private  void Connection_ConnectionSlow()
         {
-            //await connection.Start();
             setStatusSeller.Invoke(null, "internet problem");
-            //connection.Stop();
+            
         }
 
         private async void Connection_Closed()
         {
-            //setStatusSeller.Invoke(null, "offline");
             setStatusSeller.Invoke(null, "conecting...");
             await Policy.Handle<Exception>(_ => true)
                                         .WaitAndRetryForeverAsync
@@ -218,10 +214,6 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                                             sleepDurationProvider: retry => TimeSpan.FromSeconds(10)
                                         )
                                         .ExecuteAsync(async () => await Connect());
-
-
-
-            //}
         }
 
         public async Task<bool> Connect()
@@ -235,9 +227,8 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                     throw new Exception();
                 }
                 else
-                {
+                {               
                     return true;
-                    setStatusSeller.Invoke(null, "conected...");
                 }
             });
         }
@@ -248,13 +239,11 @@ namespace FoodPoint_Seller.Api.Services.Implementations
             setStatusSeller.Invoke(null, "offline");
 
             connection.Stop();
- 
         }
         public void CorrectOrder(string customerId, bool status, string corectOrder, string corectTime )
         {
             _hub.Invoke("CorrectOrder", customerId, status.ToString(), corectOrder, corectTime);
 
         }
- 
     }
 }

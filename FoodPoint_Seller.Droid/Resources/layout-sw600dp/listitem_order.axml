@@ -2,12 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
-
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
+    android:minHeight="150dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="20dp"
     android:background="@drawable/listorder_backnew">
 
     <TextView
@@ -18,8 +16,9 @@
         android:textSize="22dp"
         android:textColor="#898989"
         android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        local:MvxBind="Text Format('№ {0}', Order.RowNumber)" />
 
-        local:MvxBind="Text Order.RowNumber" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,45 +27,40 @@
         android:textSize="22dp"
         android:textColor="#898989"
         android:textStyle="bold"
-                local:MvxBind="Text TimeOrder" />
+        android:layout_marginRight="10dp"
+        local:MvxBind="Text Format('{0:00}:{1:00}',CloseOrderTimer.WaitTime.Minutes
+                                                  ,CloseOrderTimer.WaitTime.Seconds)" />
     <View
         android:layout_width="match_parent"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
         android:layout_height="1dp"
         android:id="@+id/down_line"
         android:layout_below="@id/number_active_order"
         android:background="#dddddd" />
-<!--<Button
-      android:layout_width="200dp"
-      android:layout_height="wrap_content"
-      android:textSize="16dp"
-      android:padding="5dp"
-      android:layout_alignParentBottom="true"
-      android:layout_alignParentRight="true"
-      android:background="@drawable/listitem_order_butback"
-      local:MvxBind="Click TimeOrder" />-->
-    <Mvx.MvxLinearLayout
+
+    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
         android:id="@+id/inner_product_list"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/down_line"
         android:divider="@android:color/transparent"
-        android:clickable="true"
         local:MvxItemTemplate="@layout/listitem_product"
         local:MvxBind="ItemsSource Order.OrderedFood" />
 
     <Button
-      android:layout_width="wrap_content"
+      android:layout_width="100dp"
       android:layout_height="wrap_content"
-      android:textSize="20dp"
+      android:textSize="15dp"
       android:layout_alignParentRight="true"
+      android:textColor="@color/white"
       android:layout_margin="10dp"
-        android:layout_below="@id/inner_product_list"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/listitem_order_butback"
-      android:text="Завершить заказ"
-      local:MvxBind="Click OnFinishOrder(.); Visibility Visibility(IsOrderFisihed) " />
+      android:layout_below="@id/inner_product_list"
+      android:background="@drawable/listitem_order_butback"
+      android:text="Завершить"
+      local:MvxBind="Click OnFinishOrder; Visibility Visibility(IsOrderFinished)" />
 
 </RelativeLayout>

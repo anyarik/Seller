@@ -1,10 +1,6 @@
 ﻿using Foundation;
 using FoodPoint_Seller.Core.ViewModels;
-using MvvmCross.iOS.Support.SidePanels;
 using MvvmCross.iOS.Views;
-using System;
-using XLPagerTabStrip;
-using MvvmCross.Platform;
 using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
 using UIKit;

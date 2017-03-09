@@ -27,7 +27,6 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         protected override async  Task GetStatistic()
         {
-            base.GetStatistic();
             var user = await _loginService.GetProfile();
             var token = await _ownerAuthService.GetToken();
             var revenueStatistic = await _statisticController.

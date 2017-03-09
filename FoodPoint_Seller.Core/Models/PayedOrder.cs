@@ -1,4 +1,5 @@
 ﻿using FoodPoint_Seller.Api.Models.ViewModels;
+using MvvmCross.FieldBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,19 @@ namespace FoodPoint_Seller.Core.Models
 
         public TimeSpan OrderTime;
 
+
+        //public INC<Timer> CloseOrderTimer = new NC<Timer>(false, (e) =>
+        //{
+        //});
+
         public Timer CloseOrderTimer;
-        public bool IsOrderFisihed = false;
+
+        public INC<bool> IsOrderFinished = new NC<bool>(false, (e) =>
+        {
+        });
+     
+        //public bool IsOrderFinished = false;
+
 
         public Action<PayedOrder> func;
 
@@ -35,10 +47,6 @@ namespace FoodPoint_Seller.Core.Models
         {
             var a = this;
             MvvmCross.Platform.Mvx.GetSingleton<MvvmCross.Plugins.Messenger.IMvxMessenger>().Publish(new ClickOnFinishOrderMessage(this));
-            //this.ListOrderItem.Value.RemoveAll(o => o.Order.ID == Order.ID);
-
-            //UpdatePayedOrderList();
-            //_sellerOrderService.DeletOrder(Order);
         }
 
         public PayedOrder(string whoSold, OrderItem deserializeOrder, TimeSpan timer)
@@ -55,7 +63,7 @@ namespace FoodPoint_Seller.Core.Models
                 Order = order.Order,
                 CustomerName = order.CustomerName,
                 OrderTime = order.OrderTime,
-                IsOrderFisihed = order.IsOrderFisihed,
+                IsOrderFinished = order.IsOrderFinished,
                 CloseOrderTimer = order.CloseOrderTimer,
                 func = order.func,
             };

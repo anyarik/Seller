@@ -32,7 +32,7 @@ namespace FoodPoint_Seller.Droid.Fragments
             return view;
         }
 
-        public bool OnNavigationItemSelected(IMenuItem item)
+        public  bool OnNavigationItemSelected(IMenuItem item)
         {
             if (item != _previousMenuItem)
             {
@@ -44,7 +44,7 @@ namespace FoodPoint_Seller.Droid.Fragments
 
             _previousMenuItem = item;
 
-            Navigate (item.ItemId);
+            Navigate(item.ItemId);
 
             return true;
         }

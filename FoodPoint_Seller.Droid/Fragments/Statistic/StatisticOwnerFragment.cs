@@ -29,8 +29,6 @@ namespace FoodPoint_Seller.Droid.Fragments
             ShowHamburgerMenu = true;
             var view = base.OnCreateView(inflater, container, savedInstanceState);
 
-            //new DateElement("The Date", DateTime.Today).Bind(this, "Value EndDateValue");
-            //new DateElement("The Date", DateTime.Today).Bind(this, "Value StartDateValue");
             var viewPager = view.FindViewById<ViewPager>(Resource.Id.viewpager);
             if (viewPager != null)
             {
@@ -42,15 +40,13 @@ namespace FoodPoint_Seller.Droid.Fragments
                         typeof (ProductStatisticViewModel)),
                     new MvxFragmentPagerAdapter.FragmentInfo("Продавцы", typeof (SellersStatisticFragment),
                         typeof (SellersStatisticViewModel)),
-                     new MvxFragmentPagerAdapter.FragmentInfo("Работа продавцов", typeof (OnlineSellersStatisticFragment),
+                    new MvxFragmentPagerAdapter.FragmentInfo("Работа продавцов", typeof (OnlineSellersStatisticFragment),
                         typeof (OnlineSellersStatisticViewModel)),
-                      new MvxFragmentPagerAdapter.FragmentInfo("Клиенты", typeof (CustomersStatisticFragment),
+                    new MvxFragmentPagerAdapter.FragmentInfo("Клиенты", typeof (CustomersStatisticFragment),
                         typeof (CustomersStatisticViewModel))
-
                 };
                 viewPager.Adapter = new MvxFragmentPagerAdapter(Activity, ChildFragmentManager, fragments);
             }
-
 
             var tabLayout = view.FindViewById<TabLayout>(Resource.Id.tabs);
             tabLayout.SetupWithViewPager(viewPager);

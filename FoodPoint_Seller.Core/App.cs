@@ -40,14 +40,6 @@ namespace FoodPoint_Seller.Core
             Mvx.RegisterSingleton<IUserDialogs>(() => UserDialogs.Instance);
 
 
-            Mvx.RegisterSingleton<ICustomersStatisticViewModel>(() =>
-    new CustomersStatisticViewModel( Mvx.GetSingleton<IStatisticController>()
-                                   , Mvx.GetSingleton<IOwnerAuthService>()
-                                   , Mvx.GetSingleton<ISellerAuthService>()
-                                   , Mvx.GetSingleton<IUserDialogs>()
-                                   , Mvx.GetSingleton<ISellerOrderService>())); 
-
-
             // Construct custom application start object
             Mvx.ConstructAndRegisterSingleton<IMvxAppStart, AppStart>();
 

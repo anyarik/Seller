@@ -17,43 +17,51 @@
     <RelativeLayout
         android:id="@+id/layout_welcome"
         local:MvxBind="Visibility Visibility(IsClikedOrderDialogOpen)"
-        android:layout_height="650dp"
+        android:layout_height="450dp"
         android:background="@android:color/background_light"
         android:layout_marginTop="37dp"
-        android:layout_width="1100dp"
+        android:layout_width="500dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true">
-      <TextView
-          android:layout_width="wrap_content"
+      <RelativeLayout
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:id="@+id/text_number_order"
-          android:textSize="20dp"
-          android:layout_marginLeft="10dp"
-          android:text="Заказ номер:" />
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:id="@+id/number_order"
-          android:textSize="20dp"
-          android:layout_toRightOf="@id/text_number_order"
-          local:MvxBind="Text RecivedOrderNumber" />
+          android:id="@+id/top_panel_clicked_order">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_number_order"
+            android:layout_alignParentLeft="true"
+            android:textSize="20dp"
+            android:layout_margin="10dp"
+            local:MvxBind="Text Format('№ {0}',OpenOrderNumber)"/>
+
+        <Button
+            android:id="@+id/text_number_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/listitem_order_butback"
+            android:text="Закрыть"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:layout_alignParentRight="true"
+            android:textSize="20dp"
+
+            local:MvxBind="Click OnClose" />
+      </RelativeLayout>
+
       <Mvx.MvxListView
           android:id="@+id/list_recived_order"
-          android:layout_width="700dp"
-          android:layout_height="500dp"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
           android:layout_marginLeft="10dp"
-          android:layout_below="@id/text_number_order"
+          android:layout_marginBottom="10dp"
+          android:layout_marginRight="10dp"
+
+          android:layout_below="@id/top_panel_clicked_order"
           local:MvxBind="ItemsSource ListCurentOrderProductItem"
           local:MvxItemTemplate="@layout/listitem_product" />
-      <Button
-          android:text="Согласовать"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:id="@+id/btn_approve"
-          android:layout_alignParentBottom="true"
-          android:layout_alignParentRight="true"
-          local:MvxBind="Click OnClose" />
-     
+
       </RelativeLayout>
     </RelativeLayout>
   </RelativeLayout>

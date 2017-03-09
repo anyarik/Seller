@@ -13,6 +13,9 @@ using MvvmCross.Platform.Droid.Platform;
 using FoodPoint_Seller.Core.Services.Implementations;
 using MvvmCross.Dialog.Droid;
 using FoodPoint_Seller.Core.Services;
+using MvvmCross.Binding.Bindings.Target.Construction;
+using Android.Views;
+using FoodPoint_Seller.Droid.MvxBinding;
 
 namespace FoodPoint_Seller.Droid
 {
@@ -71,6 +74,16 @@ namespace FoodPoint_Seller.Droid
             base.InitializeFirstChance();
 
             Mvx.RegisterSingleton<IDialogService>(() => new DialogService());
+        }
+        protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
+        {
+            registry.RegisterCustomBindingFactory<View>(
+                "MyHeight",
+                view => new LayoutHeightBinding(view)
+                );
+
+
+            base.FillTargetFactories(registry);
         }
     }
 }

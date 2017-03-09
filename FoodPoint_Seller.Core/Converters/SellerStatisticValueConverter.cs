@@ -44,6 +44,4 @@ namespace FoodPoint_Seller.Core.Converters
             public string revenue;
         }
     }
-
-    
 }

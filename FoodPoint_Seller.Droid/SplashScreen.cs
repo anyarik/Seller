@@ -8,7 +8,7 @@ using MvvmCross.Platform.Droid.Platform;
 namespace FoodPoint_Seller.Droid
 {
     [Activity(
-		Label = "FoodPoint_Seller.Droid"
+		Label = "FP продавец"
 		, MainLauncher = true
 		, Icon = "@drawable/icon"
 		, Theme = "@style/AppTheme.Splash"

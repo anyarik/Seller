@@ -17,8 +17,6 @@ namespace FoodPoint_Seller.Core.ViewModels
         private IOwnerAuthService _ownerAuthService;
 
         private ISellerAuthService _loginService;
-
-        string formatsrc = "yyyy-MM-dd HH:mm:ss";
     
         public INC<DateTime> StartDateValue = new NC<DateTime>(DateTime.Now.AddDays(-7), (e) => {
         });
@@ -46,13 +44,11 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
             base.Start();
             this.Init();
-            //this.ListOrderItem.Value = _orderService.GetOrders();
         }
 
         private async void Init()
         {
             var user = await this._loginService.GetProfile();
         }
-        
     }
 }
