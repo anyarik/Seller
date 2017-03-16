@@ -70,6 +70,7 @@ namespace FoodPoint_Seller.Droid.Activities
                 .SetContentTitle(notification.title)      // Set its title
                 .SetNumber(1)                       // Display the count in the Content Info
                 .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Notification))
+                //.Se
                 .SetVibrate(new long[] { 500, 500 })
                 .SetSmallIcon(Resource.Drawable.abc_ab_share_pack_mtrl_alpha)  // Display this icon
                 .SetContentText(notification.description); // The message to display.
@@ -136,8 +137,8 @@ namespace FoodPoint_Seller.Droid.Activities
         {
             if (DrawerLayout != null && DrawerLayout.IsDrawerOpen(GravityCompat.Start))
                 DrawerLayout.CloseDrawers();
-            else
-                base.OnBackPressed();
+          //  else
+               // base.OnBackPressed();
         }
 
         public void HideSoftKeyboard()

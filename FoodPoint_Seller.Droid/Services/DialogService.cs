@@ -46,7 +46,7 @@ namespace FoodPoint_Seller.Droid.Services
             var adb = new AlertDialog.Builder(act);
             adb.SetTitle(title);
             adb.SetMessage(message);
-            adb.SetIcon(Resource.Drawable.Icon);
+            //adb.SetIcon(Resource.Drawable.Icon);
             adb.SetPositiveButton(okbtnText, (sender, args) => { /* some logic */ });
             adb.Create().Show();
         }
@@ -54,7 +54,6 @@ namespace FoodPoint_Seller.Droid.Services
         public void Notification(NotificaiosModel notification)
         {
                this.NotificateIt.Invoke(null, notification);
-
         }
     }
 }

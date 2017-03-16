@@ -13,12 +13,11 @@ using System.Threading.Tasks;
 
 namespace FoodPoint_Seller.Core.ViewModels.Statistic.Tabs
 {
-    public abstract class BaseStatisticViewModel<T>: BaseFragment
+    public abstract class BaseStatisticViewModel<T>: MvxViewModel
     {
         protected IStatisticController _statisticController;
         protected IOwnerAuthService _ownerAuthService;
 
-        protected ISellerAuthService _loginService;
         protected IUserDialogs _dialogs;
 
         protected readonly string formatDateWithTime = "yyyy-MM-dd HH:mm:ss";
@@ -43,23 +42,18 @@ namespace FoodPoint_Seller.Core.ViewModels.Statistic.Tabs
         });
 
         public BaseStatisticViewModel( IStatisticController statisticController
-                                     , IOwnerAuthService ownerAuthService 
-                                     , ISellerAuthService loginService
-                                     , IUserDialogs dialogService
-                                     , ISellerOrderService sellerOrderService)
-            :this(sellerOrderService)
+                                     , IOwnerAuthService ownerAuthService
+                                     , IUserDialogs dialogs)
         {
-            this._dialogs = dialogService;
             this._statisticController = statisticController;
             this._ownerAuthService = ownerAuthService;
-            this._loginService = loginService;
-
+            this._dialogs = dialogs;
         }
 
-        public BaseStatisticViewModel(ISellerOrderService sellerOrderService) : base(sellerOrderService)
-        {
+        //public BaseStatisticViewModel(ISellerOrderService sellerOrderService) : base(sellerOrderService)
+        //{
 
-        }
+        //}
 
         public override void Start()
         {

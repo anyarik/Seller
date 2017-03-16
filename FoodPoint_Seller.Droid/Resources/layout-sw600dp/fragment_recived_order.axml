@@ -27,10 +27,10 @@
                 android:id="@+id/number_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:textColor="#898989"
-                android:textSize="20dp"
+                android:textSize="30dp"
                 android:textStyle="bold"
                 local:MvxBind="Text Format('№ {0}', RecivedOrderNumber)" />
 
@@ -42,20 +42,20 @@
                 android:layout_below="@id/number_order"
                 android:text="В наличии"
                 android:textColor="@color/colorTextLight"
-                android:textSize="10dp" />
+                android:textSize="17dp" />
             <Mvx.MvxListView
                 android:id="@+id/list_recived_order"
-                android:layout_width="150dp"
+                android:layout_width="300dp"
                 android:divider="@android:color/transparent"
-                android:layout_height="100dp"
-                android:layout_marginLeft="10dp"
+                android:layout_height="200dp"
+                android:layout_marginLeft="20dp"
                 local:MvxBind="ItemsSource ListCurentOrderProductItem"
                 local:MvxItemTemplate="@layout/listitem_recived_product"
                 android:layout_below="@+id/available_product_text"/>
 
             <RelativeLayout
                 android:id="@+id/orders_panel"
-                android:layout_width="150dp"
+                android:layout_width="280dp"
                 android:layout_height="match_parent"
 
                 android:layout_alignParentRight="true"
@@ -72,7 +72,7 @@
                 <RelativeLayout
                     android:id="@+id/stack_orders_panel"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="180dp"
                     android:layout_toRightOf="@id/right_line_panel"
                     android:background="@android:color/background_light">
 
@@ -81,6 +81,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="17dp"
                         android:text="Заказы на очереди:"
                         android:textColor="@color/colorTextLight" />
 
@@ -89,12 +92,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@id/stack_orders_text"
-                        android:columnWidth="50dp"
+                        android:columnWidth="120dp"
+                        android:layout_marginLeft="10dp"
                         android:divider="@android:color/transparent"
-                        android:horizontalSpacing="10dp"
+                        android:horizontalSpacing="5dp"
                         android:numColumns="auto_fit"
                         android:stretchMode="columnWidth"
-                        android:verticalSpacing="10dp"
+                        android:verticalSpacing="5dp"
                         local:MvxBind="ItemsSource RecivedStackOrders"
                         local:MvxItemTemplate="@layout/listitem_stack_order" />
 
@@ -120,6 +124,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="17dp"
                         android:text="Принятые заказы:"
                         android:textColor="@color/colorTextLight" />
 
@@ -140,7 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_toLeftOf="@id/orders_panel">
                 <TextView
@@ -149,13 +156,13 @@
                     android:id="@+id/timer_order_text"
                     android:textColor="@color/colorTextLight"
                     android:text="Время ожидания клиента"
-                    android:textSize="10dp" />
+                    android:textSize="18dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/timer_order"
-                    android:textSize="20dp"
+                    android:textSize="25dp"
                     android:textColor="#898989"
                     android:textStyle="bold"
                     android:layout_centerHorizontal="true"
@@ -163,74 +170,113 @@
                     local:MvxBind="Text Format('{0:00}:{1:00}',
                     RecivedOrderTimer.Minutes,
                    RecivedOrderTimer.Seconds)" />
-
             </RelativeLayout>
-
             <TextView
                 android:id="@+id/order_time_text"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/list_recived_order"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
-                android:text="Время приготовления заказа:"
+                android:text="Время на приготовления заказа:"
                 android:textColor="@color/colorTextLight"
-                android:textSize="10dp" />
+                android:textSize="17dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/delay_number_text"
-                android:textSize="20dp"
-                android:layout_marginLeft="10dp"
+                android:textSize="25dp"
+                android:layout_marginLeft="20dp"
                 android:textColor="#898989"
                 android:textStyle="bold"
+                android:text="11:11:11"
                 android:layout_below="@id/order_time_text"
                 local:MvxBind="Text Format('{0:00}:{1:00}',
                     RecivedOrderTime.Minutes,
-                   RecivedOrderTime.Seconds)" />
+                    RecivedOrderTime.Seconds)" />
 
-            <Button
+            <android.support.v7.widget.CardView
                 android:id="@+id/btn_approve"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="15dp"
+                local:cardElevation="1dp"
+                local:cardCornerRadius="5dp"
+                local:cardBackgroundColor="@color/colorPrimary"
+                local:cardUseCompatPadding="true"
+                local:cardPreventCornerOverlap="false"
                 android:layout_alignParentBottom="true"
-                android:layout_margin="10dp"
                 android:layout_toLeftOf="@id/orders_panel"
-                android:background="@drawable/listitem_order_butback"
-                android:text="Согласовать"
-                android:textColor="@color/white"
-                android:textSize="12dp"
-                local:MvxBind="Click OnApprove" />
+                android:clickable="true"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp">
 
-            <Button
+                <Button
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="Согласовать"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    local:MvxBind="Click OnApprove" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:id="@+id/btn_cancel_order"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+
+                local:cardElevation="1dp"
+                local:cardCornerRadius="5dp"
+                local:cardBackgroundColor="#aeaeae"
+                local:cardUseCompatPadding="true"
+                local:cardPreventCornerOverlap="false"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_margin="10dp"
-                android:background="@drawable/listitem_order_cancel"
-                android:text="Отменить"
-                android:textColor="@color/white"
-                android:textSize="12dp"
-                local:MvxBind="Click OnCancelOrder" />
+                android:clickable="true"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp">
+
+                <Button
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="Отменить"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    local:MvxBind="Click OnCancelOrder" />
+
+            </android.support.v7.widget.CardView>
 
             <RelativeLayout
                 android:id="@+id/approve_area"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="30dp"
                 android:layout_above="@id/btn_cancel_order">
 
                 <TextView
                     android:id="@+id/delay_text"
-                    android:layout_width="120dp"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
                     android:layout_gravity="bottom"
                     android:maxLines="2"
+                    android:textSize="17dp"
                     android:text="Отложить заказ на 5 мин."
                     android:textAlignment="center"
                     android:textColor="@color/colorTextLight" />
@@ -240,7 +286,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="70dp"
                     android:layout_toRightOf="@id/delay_text"
                     android:theme="@style/SCBSwitch"
                     local:MvxBind="Checked IsDelayFive" />

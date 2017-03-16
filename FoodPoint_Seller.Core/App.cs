@@ -9,6 +9,7 @@ using FoodPoint_Seller.Core.ViewModels;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
 using MvvmCross.Platform.IoC;
+using MvvmCross.Platform.Plugins;
 using MvvmCross.Plugins.Messenger;
 using Plugin.KeyChain.Abstractions;
 
@@ -48,6 +49,11 @@ namespace FoodPoint_Seller.Core
 
             // register the appstart object
             RegisterAppStart(appStart);
+        }
+
+        public override void LoadPlugins(IMvxPluginManager pluginManager)
+        {
+            base.LoadPlugins(pluginManager);
         }
     }
 }

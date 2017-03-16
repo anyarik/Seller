@@ -29,7 +29,7 @@ namespace FoodPoint_Seller.Touch.Views
             var set = this.CreateBindingSet<MenuView, MenuViewModel>();
 
             var homeButton = new UIButton(new CGRect(0, 100, 320, 40));
-            homeButton.SetTitle("Home", UIControlState.Normal);
+            homeButton.SetTitle("Экран заказов", UIControlState.Normal);
             homeButton.BackgroundColor = UIColor.White;
             homeButton.SetTitleColor(UIColor.Black, UIControlState.Normal);
             set.Bind(homeButton).To(vm => vm.ShowHomeCommand);
@@ -40,11 +40,11 @@ namespace FoodPoint_Seller.Touch.Views
             statisticSellerButton.SetTitleColor(UIColor.Black, UIControlState.Normal);
             set.Bind(statisticSellerButton).To(vm => vm.ShowStatisticSellerCommand);
 
-            var statisticOwnerButton = new UIButton(new CGRect(0, 100, 320, 40));
-            statisticOwnerButton.SetTitle("Статистика для владельца", UIControlState.Normal);
-            statisticOwnerButton.BackgroundColor = UIColor.White;
-            statisticOwnerButton.SetTitleColor(UIColor.Black, UIControlState.Normal);
-            set.Bind(statisticOwnerButton).To(vm => vm.ShowStatisticOwnerCommand);
+            //var statisticOwnerButton = new UIButton(new CGRect(0, 100, 320, 40));
+            //statisticOwnerButton.SetTitle("Статистика для владельца", UIControlState.Normal);
+            //statisticOwnerButton.BackgroundColor = UIColor.White;
+            //statisticOwnerButton.SetTitleColor(UIColor.Black, UIControlState.Normal);
+            //set.Bind(statisticOwnerButton).To(vm => vm.ShowStatisticOwnerCommand);
 
             var settingButton = new UIButton(new CGRect(0, 100, 320, 40));
             settingButton.SetTitle("Настройки", UIControlState.Normal);
@@ -72,7 +72,7 @@ namespace FoodPoint_Seller.Touch.Views
 
             scrollView.Add(homeButton);
             scrollView.Add(statisticSellerButton);
-            scrollView.Add(statisticOwnerButton);
+           // scrollView.Add(statisticOwnerButton);
             scrollView.Add(settingButton);
             scrollView.Add(exitButton);
 

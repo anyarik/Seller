@@ -35,7 +35,7 @@
             android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="12dp"
             android:paddingLeft="10dp"
             android:layout_gravity="left"
             android:textAlignment="textStart"
@@ -77,7 +77,7 @@
             android:gravity="left"
             android:textAlignment="textStart"
             android:layout_centerVertical="true"
-            android:textSize="20dp"
+            android:textSize="12dp"
             android:paddingLeft="10dp"
             local:MvxBind="Text revenueSubs" />
     </RelativeLayout>
@@ -112,7 +112,7 @@
             android:gravity="left"
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
-            android:textSize="20dp"
+            android:textSize="12dp"
             android:paddingLeft="10dp"
             android:layout_centerVertical="true"
             local:MvxBind="Text revenueNoSubs" />
@@ -150,7 +150,7 @@
             android:layout_width="match_parent"
             android:layout_centerVertical="true"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="12dp"
             local:MvxBind="Text common" />
     </RelativeLayout>
 

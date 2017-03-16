@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:layout_marginLeft="10dp">
+    android:layout_height="25dp"
+    android:background="@color/white">
 
-  <TextView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textColor="#aeaeae"
-      android:textAppearance="?android:attr/textAppearanceLarge"
-      local:MvxBind="Text AdditiveName" />
-</LinearLayout>
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:orientation="horizontal">
+    <View
+        android:id="@+id/right_line_panel"
+        android:layout_width="15dp"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:background="#cfcfcf" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/text_addictive_name"
+        android:textColor="#aeaeae"
+        local:MvxBind="Text AdditiveName" />
+  </LinearLayout>
+</RelativeLayout>

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/text_product_name"
         android:layout_alignParentLeft="true"
-        android:text="test"
+        android:textSize="19dp"
         local:MvxBind="Text ProductInfo.Name" />
     <Switch
         android:layout_width="wrap_content"
@@ -30,7 +30,8 @@
   <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_product_name">
+        android:layout_below="@id/text_product_name"
+         android:layout_marginLeft="10dp">
         
         <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
             android:id="@+id/recived_addictive_list"

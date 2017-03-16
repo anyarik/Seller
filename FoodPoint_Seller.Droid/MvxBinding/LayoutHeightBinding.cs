@@ -27,7 +27,7 @@ namespace FoodPoint_Seller.Droid.MvxBinding
         {
             get
             {
-                return typeof(int);
+                return typeof(List<AdditiveForProduct>);
             }
         }
 
@@ -39,12 +39,9 @@ namespace FoodPoint_Seller.Droid.MvxBinding
             var top = Mvx.Resolve<IMvxAndroidCurrentTopActivity>();
             var act = top.Activity;
 
-            
 
-            if(valueRotate != null)
-                targetView.LayoutParameters.Height = ((int)(valueRotate.Count * act.Resources.DisplayMetrics.Density * 25));
-
-
+            if (valueRotate != null && targetView?.LayoutParameters != null)
+                targetView.LayoutParameters.Height= ((int)(valueRotate.Count * act.Resources.DisplayMetrics.Density * 25));
         }
     }
 }

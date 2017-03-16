@@ -16,21 +16,21 @@ namespace FoodPoint_Seller.Core.ViewModels
     public  class OrdersStatisticViewModel : BaseStatisticViewModel<RevenueDayInfo>
     {
         public OrdersStatisticViewModel(IStatisticController statisticController
-                         , IOwnerAuthService ownerAuthService
-                         , ISellerAuthService loginService
-                         , IUserDialogs dialogService
-                         , ISellerOrderService sellerOrderService) 
-            :base(statisticController, ownerAuthService, loginService, dialogService, sellerOrderService)
+                                        , IOwnerAuthService ownerAuthService
+                                        , IUserDialogs dialogs)
+            : base(statisticController, ownerAuthService, dialogs)
         {
         }
 
-
         protected override async  Task GetStatistic()
         {
-            var user = await _loginService.GetProfile();
+            var user = await _ownerAuthService.GetProfile();
             var token = await _ownerAuthService.GetToken();
             var revenueStatistic = await _statisticController.
-                                GetRevenueStatisticForDay(user.shopID.ToString(), StartDateValue.Value.ToString(formatDateWithTime), EndDateValue.Value.ToString(formatDateWithTime), token);
+                                GetRevenueStatisticForDay(user.shopID.ToString()
+                                                         , StartDateValue.Value.ToString(formatDateWithTime)
+                                                         , EndDateValue.Value.ToString(formatDateWithTime)
+                                                         , token);
             StatisticListItem.Value = revenueStatistic;
         }
     }

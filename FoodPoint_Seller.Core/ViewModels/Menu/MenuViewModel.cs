@@ -33,7 +33,7 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         private void ShowHelpExecuted()
         {
-            ShowViewModel<HelpAndFeedbackViewModel>();
+            //ShowViewModel<HelpAndFeedbackViewModel>();
         }
 
         #endregion
@@ -59,7 +59,7 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
             try
             {
-                ShowViewModel<LoginOwnerViewModel>();
+                //ShowViewModel<LoginOwnerViewModel>();
             }
             catch (System.Exception exp)
             {

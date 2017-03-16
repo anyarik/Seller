@@ -15,6 +15,8 @@ namespace FoodPoint_Seller.Core.Services
 
         event EventHandler<PayedOrder> OnNewPayedOrder;
         event EventHandler<string> ChangeStatus;
+        event EventHandler<string> ChangeExitText;
+
         string CurentStatus { get; set; }
 
     }

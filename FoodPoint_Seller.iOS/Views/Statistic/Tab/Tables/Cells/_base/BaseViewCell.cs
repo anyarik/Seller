@@ -24,7 +24,7 @@ namespace FoodPoint_Seller.Touch.Views.Statistic.Tab.Tables
 
                 this.AddSubview(view);
             }
-            catch (Exception exp)
+            catch (Exception)
             {
 
                 throw new Exception("В классе BaseViewCell this = null.");

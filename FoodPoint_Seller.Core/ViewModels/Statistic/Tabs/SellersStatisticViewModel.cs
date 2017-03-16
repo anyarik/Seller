@@ -16,18 +16,15 @@ namespace FoodPoint_Seller.Core.ViewModels
     public class SellersStatisticViewModel : BaseStatisticViewModel<SellerDayInfo>
     {
         public SellersStatisticViewModel(IStatisticController statisticController
-         , IOwnerAuthService ownerAuthService
-         , ISellerAuthService loginService
-         , IUserDialogs dialogService
-         , ISellerOrderService sellerOrderService) 
-            :base(statisticController, ownerAuthService, loginService, dialogService, sellerOrderService)
+                                        , IOwnerAuthService ownerAuthService
+                                        , IUserDialogs dialogs)
+            : base(statisticController, ownerAuthService, dialogs)
         {
         }
 
-
         public override async void Start()
         {
-            var user = await _loginService.GetProfile();
+            var user = await _ownerAuthService.GetProfile();
             var token = await _ownerAuthService.GetToken();
             ShopSellers.Value = await _statisticController.GetShopSellers(user.shopID.ToString(), token);
             CurrentSeller.Value = ShopSellers.Value.FirstOrDefault();
@@ -47,8 +44,11 @@ namespace FoodPoint_Seller.Core.ViewModels
 
             if (CurrentSeller.Value != null)
             {
-                var sellerStatistic = await _statisticController.GetSellerStatisticForDay(CurrentSeller.Value.ID.ToString(), StartDateValue.Value.ToString(formatDateWithTime),
-                                                                                                    EndDateValue.Value.ToString(formatDateWithTime), token);
+                var sellerStatistic = await _statisticController
+                                    .GetSellerStatisticForDay(CurrentSeller.Value.ID.ToString()
+                                                            , StartDateValue.Value.ToString(formatDateWithTime)
+                                                            , EndDateValue.Value.ToString(formatDateWithTime)
+                                                            , token);
 
                 StatisticListItem.Value = sellerStatistic;
             }

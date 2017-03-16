@@ -17,19 +17,20 @@ namespace FoodPoint_Seller.Core.ViewModels
     {
         public CustomersStatisticViewModel(IStatisticController statisticController
                                          , IOwnerAuthService ownerAuthService
-                                         , ISellerAuthService loginService
-                                         , IUserDialogs dialogService
-                                         , ISellerOrderService sellerOrderService) 
-            :base(statisticController, ownerAuthService, loginService, dialogService, sellerOrderService)
+                                         , IUserDialogs dialogs) 
+            :base(statisticController, ownerAuthService, dialogs)
         {
         }
 
         protected override async Task GetStatistic()
         {
-            var user = await _loginService.GetProfile();
+            var user = await _ownerAuthService.GetProfile();
             var token = await _ownerAuthService.GetToken();
             var customersStatistic = await  _statisticController.
-                                GetCustomersStatisticForDay(user.shopID.ToString(), StartDateValue.Value.ToString(formatDateWithTime), EndDateValue.Value.ToString(formatDateWithTime), token);
+                                GetCustomersStatisticForDay(user.shopID.ToString()
+                                                            , StartDateValue.Value.ToString(formatDateWithTime)
+                                                            , EndDateValue.Value.ToString(formatDateWithTime)
+                                                            , token);
             StatisticListItem.Value = customersStatistic;
         }
     }

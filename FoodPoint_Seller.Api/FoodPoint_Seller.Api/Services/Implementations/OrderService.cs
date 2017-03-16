@@ -27,7 +27,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
             }
         }
 
-        public  void ChangeStatusOrder(string id, string state, bool isActive, TimeSpan time, string crashState, bool isOverPrevTimer)
+        public async  void ChangeStatusOrder(string id, string state, bool isActive, TimeSpan time, string crashState, bool isOverPrevTimer)
         {
             var url = "";
             if (time == TimeSpan.Zero)
@@ -49,12 +49,12 @@ namespace FoodPoint_Seller.Api.Services.Implementations
             //                                                    )
             //        );
 
-            var result =  ConnectionService.PostStatus(url, null,  "Не удалось получить профиль");
+            var result =  await ConnectionService.PostStatusAsync(url, null, null,  "Не удалось получить профиль");
 
             //return result;
         }
 
-        public  void SetSellerOrder(string orderId, string sellerID)
+        public async  void SetSellerOrder(string orderId, string sellerID)
         {
             var url = $"{AppData.Host}/api/set_seller?orderID={orderId}&sellerID={sellerID}";
 
@@ -71,7 +71,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
             //                                                    )
             //        );
 
-            var result =  ConnectionService.PostStatus(url, null, "Не удалось получить профиль");
+            var result = await ConnectionService.PostStatusAsync(url, null, null, "Не удалось получить профиль");
         }
         public async Task<List<OrderItem>> GetActiveOrders(string sellerId, string token)
         {

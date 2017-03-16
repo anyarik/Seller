@@ -13,19 +13,19 @@ xmlns:local="http://schemas.android.com/apk/res-auto">
        		<item
 	            android:id="@+id/nav_statistic_seller"
 	            android:title="Статистика продавца за день" />
-            <item
+            <!--<item
 	            android:id="@+id/nav_statistic_owner"
-	            android:title="Статистика для владельца" />
+	            android:title="Статистика для владельца" />-->
         </menu>
     </item>
 
-	<group android:id="@+id/nav_footer">
+	<!--<group android:id="@+id/nav_footer">
         <item
             android:id="@+id/nav_helpfeedback"
             android:title="Настройки" />
         <item
             android:id="@+id/nav_settings"
             android:title="Выйти" />
-    </group>
+    </group>-->
 
 </menu>

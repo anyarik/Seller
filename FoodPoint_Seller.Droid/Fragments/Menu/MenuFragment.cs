@@ -61,18 +61,18 @@ namespace FoodPoint_Seller.Droid.Fragments
                 case Resource.Id.nav_home:
                     ViewModel.ShowHomeCommand.Execute();
                     break;
-                case Resource.Id.nav_statistic_owner:
-                    ViewModel.ShowStatisticOwnerCommand.Execute();
-                    break;
-                case Resource.Id.nav_settings:
-                    ViewModel.ShowRecyclerCommand.Execute();
-                    break;
+                //case Resource.Id.nav_statistic_owner:
+                //    ViewModel.ShowStatisticOwnerCommand.Execute();
+                //    break;
+                //case Resource.Id.nav_settings:
+                //    ViewModel.ShowRecyclerCommand.Execute();
+                //    break;
                 case Resource.Id.nav_statistic_seller:
                     ViewModel.ShowStatisticSellerCommand.Execute();
                     break;
-                case Resource.Id.nav_helpfeedback:
-                    ViewModel.ShowHelpCommand.Execute();
-                    break;
+                    //case Resource.Id.nav_helpfeedback:
+                    //    ViewModel.ShowHelpCommand.Execute();
+                    //    break;
             }
         }
     }

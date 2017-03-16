@@ -39,6 +39,7 @@
     <Compile Include="Controllers\Implementations\OrderController.cs" />
     <Compile Include="Controllers\Implementations\UserController.cs" />
     <Compile Include="Models\DomainModels\AccessToken.cs" />
+    <Compile Include="Models\DomainModels\AccountModel.cs" />
     <Compile Include="Models\DomainModels\AdditiveModel.cs" />
     <Compile Include="Models\DomainModels\CategoryModel.cs" />
     <Compile Include="Models\DomainModels\CompanyModel.cs" />

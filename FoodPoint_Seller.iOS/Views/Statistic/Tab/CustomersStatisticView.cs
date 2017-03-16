@@ -41,9 +41,7 @@ namespace FoodPoint_Seller.Touch.Views
 
             set.Apply();
 
-          
-            var table = new TemplateTableViewController< CustomerCell
-                                                       , CustomersStatisticViewModel>
+            var table = new TemplateTableViewController< CustomerCell, CustomersStatisticViewModel>
                                 ( ViewModel
                                 , nameof(CustomerStatisticValueConverter).Replace("ValueConverter", ""));
 

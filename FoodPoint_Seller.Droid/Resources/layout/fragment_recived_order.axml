@@ -125,7 +125,7 @@
 
                     <Mvx.MvxListView
                         android:id="@+id/list_curent_order"
-                        android:layout_width="match_parent"
+                        android:layout_width="60dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
                         android:divider="@android:color/transparent"
@@ -190,39 +190,76 @@
                     RecivedOrderTime.Minutes,
                     RecivedOrderTime.Seconds)" />
 
-            <Button
+            <android.support.v7.widget.CardView
                 android:id="@+id/btn_approve"
                 android:layout_width="100dp"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
+                local:cardElevation="1dp"
+                local:cardCornerRadius="5dp"
+                local:cardBackgroundColor="@color/colorPrimary"
+                local:cardUseCompatPadding="true"
+                local:cardPreventCornerOverlap="false"
                 android:layout_alignParentBottom="true"
                 android:layout_margin="10dp"
                 android:layout_toLeftOf="@id/orders_panel"
-                android:background="@drawable/listitem_order_butback"
-                android:text="Согласовать"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textSize="12dp"
-                local:MvxBind="Click OnApprove" />
+                android:clickable="true"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:paddingBottom="2dp">
 
-            <Button
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="2dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="Согласовать"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    local:MvxBind="Click OnApprove" />
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:id="@+id/btn_cancel_order"
                 android:layout_width="100dp"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
+                local:cardElevation="1dp"
+                local:cardCornerRadius="5dp"
+                android:paddingBottom="2dp"
+                local:cardBackgroundColor="#aeaeae"
+                local:cardUseCompatPadding="true"
+                local:cardPreventCornerOverlap="false"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_margin="10dp"
-                android:textStyle="bold"
-                android:background="@drawable/listitem_order_cancel"
-                android:text="Отменить"
-                android:textColor="@color/white"
-                android:textSize="12dp"
-                local:MvxBind="Click OnCancelOrder" />
+                android:clickable="true"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp">
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="2dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:text="Отменить"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    local:MvxBind="Click OnCancelOrder" />
+
+            </android.support.v7.widget.CardView>
 
             <RelativeLayout
                 android:id="@+id/approve_area"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+
                 android:layout_above="@id/btn_cancel_order">
 
                 <TextView

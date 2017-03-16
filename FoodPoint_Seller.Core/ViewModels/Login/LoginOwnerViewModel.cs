@@ -1,70 +1,80 @@
-﻿using FoodPoint_Seller.Api.Controllers;
-using FoodPoint_Seller.Core.Services;
-using FoodPoint_Seller.Core.ViewModels.Base;
-using MvvmCross.FieldBinding;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using FoodPoint_Seller.Api.Controllers;
+//using FoodPoint_Seller.Core.Services;
+//using FoodPoint_Seller.Core.ViewModels.Base;
+//using MvvmCross.FieldBinding;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace FoodPoint_Seller.Core.ViewModels
-{
-    public class LoginOwnerViewModel: BaseFragment
-    {
-        private readonly IOwnerAuthService _ownerAuthService;
-        private readonly IDialogService _dialogService;
+//namespace FoodPoint_Seller.Core.ViewModels
+//{
+//    public enum Roles
+//    {
+//        Продавец = 1, Управляющий = 2 
+//    };
 
-        public LoginOwnerViewModel(IOwnerAuthService ownerAuthService
-                                 , IDialogService dialogService
-                                 , ISellerOrderService sellerOrderService)
-            :base(sellerOrderService)
-        {
-            _ownerAuthService = ownerAuthService;
-            _dialogService = dialogService;
 
-            Username.Value = "test@test.ru";
-            Password.Value = "pp";
+//    public class LoginOwnerViewModel: BaseFragment
+//    {
+//        private readonly IOwnerAuthService _ownerAuthService;
+//        private readonly IDialogService _dialogService;
 
-            this.IsLoading.Value = false;
-        }
+//        public LoginOwnerViewModel(IOwnerAuthService ownerAuthService
+//                                 , IDialogService dialogService
+//                                 , ISellerOrderService sellerOrderService)
+//            :base(sellerOrderService)
+//        {
+//            _ownerAuthService = ownerAuthService;
+//            _dialogService = dialogService;
 
-        public INC<string> Username = new NC<string>();
+//            Username.Value = "test@test.ru";
+//            Password.Value = "pp";
 
-        public INC<string> Password = new NC<string>();
+//            this.IsLoading.Value = false;
+//        }
 
-        public INC<bool> IsLoading = new NC<bool>();
+//        public INC<string> Username = new NC<string>();
 
-        public async void Login()
-        {
-            try
-            {
-                var isLogin = await _ownerAuthService.Login(Username.Value, Password.Value);
-                IsLoading.Value = true;
-                if (isLogin)
-                    ShowViewModel<StatisticOwnerViewModel>();
+//        public INC<string> Password = new NC<string>();
 
-                else
-                {
-                    IsLoading.Value = false;
-                    _dialogService.Alert("We were unable to log you in!", "Login Failed", "OK");
-                }
-            }
+//        public INC<bool> IsLoading = new NC<bool>();
 
-            catch (Exception)
-            {
-                throw new Exception("Ошибка в авторизации");
-            }
-        }
+//        public INC<Roles> RoleList = new NC<Roles>();
 
-        public override void Start()
-        {
-            base.Start();
-            this.Init();
-        }
+//        public INC<string> CurrentRole = new NC<string>();
 
-        private async void Init()
-        {
-        }
-    }
-}
+//        public async void Login()
+//        {
+//            try
+//            {
+//                var isLogin = await _ownerAuthService.Login(Username.Value, Password.Value);
+//                IsLoading.Value = true;
+//                if (isLogin)
+//                    ShowViewModel<StatisticOwnerViewModel>();
+
+//                else
+//                {
+//                    IsLoading.Value = false;
+//                    _dialogService.Alert("We were unable to log you in!", "Login Failed", "OK");
+//                }
+//            }
+
+//            catch (Exception)
+//            {
+//                throw new Exception("Ошибка в авторизации");
+//            }
+//        }
+
+//        public override void Start()
+//        {
+//            base.Start();
+//            this.Init();
+//        }
+
+//        private  void Init()
+//        {
+//        }
+//    }
+//}

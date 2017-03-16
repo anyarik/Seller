@@ -40,7 +40,6 @@
             android:id="@+id/text_number_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/listitem_order_butback"
             android:text="Закрыть"
             android:layout_margin="10dp"
             android:textColor="@color/white"

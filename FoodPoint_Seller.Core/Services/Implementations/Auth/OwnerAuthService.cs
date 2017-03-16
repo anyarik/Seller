@@ -6,13 +6,14 @@ using Plugin.KeyChain.Abstractions;
 using FoodPoint_Seller.Core.Services.Implementations;
 using Plugin.SecureStorage;
 using Newtonsoft.Json;
+using Polly;
 
 namespace FoodPoint_Seller.Core.Services.Implementations
 {
     /// <summary>
     /// The login service.
     /// </summary>
-    public class OwnerAuthService : BaseAuthService<OwnerAccountModel>, IOwnerAuthService
+    public class OwnerAuthService : BaseAuthService,  IOwnerAuthService
     {
         public OwnerAuthService(IUserController userController, IKeyChain keyChain) : base(userController, keyChain)
         {
@@ -24,18 +25,30 @@ namespace FoodPoint_Seller.Core.Services.Implementations
             try
             {
                 var user = new OwnerAccountModel(username, password);
-                _tokenAuth = await this._userController.AuthorizationOwner(user);
 
-                if (_tokenAuth != null)
+                _tokenAuth = await Policy.Handle<Exception>(_ => true)
+                                       .WaitAndRetryForeverAsync
+                                       (
+                                           sleepDurationProvider: retry => TimeSpan.FromSeconds(10)
+                                       )
+                                       .ExecuteAsync(async () => await this._userController.AuthorizationOwner(user));
+
+
+                if (_tokenAuth.access_token != null)
                 {
                     var isUpdate = await this.UpdateProfile();
 
                     if (isUpdate)
-                    {
-                        IsAuthenticated = true;
-                    }
+                        return IsAuthenticated = true;
+                    else
+                        return IsAuthenticated;
+
                 }
-                return IsAuthenticated;
+                else
+                {
+                    return IsAuthenticated;
+                }
+          
             }
             catch (ArgumentException argex)
             {
@@ -50,14 +63,14 @@ namespace FoodPoint_Seller.Core.Services.Implementations
         {
             var id = Util.InfoAccessToken.GetInfoFromToken(_tokenAuth.access_token).sub.Replace(".chief", "");
 
-            //_profileUser = await _userController.GetProfileOwner(
-            //   id, _tokenAuth.access_token
-            //    );
+            _profileUser = await _userController.GetProfileOwner(
+               id, _tokenAuth.access_token
+                );
 
-            //if (_profileUser != null)
-            //{
-            //    return true;
-            //}
+            if (_profileUser != null)
+            {
+                return true;
+            }
 
             return true;
         }

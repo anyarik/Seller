@@ -23,14 +23,11 @@ namespace FoodPoint_Seller.Touch.Views.Statistic.Tab.Tables
         {
             base.ViewDidLoad();
 
-
             var source = new TemplateTableSource<TCell>(TableView)
             {
                 UseAnimations = false,
                 AddAnimation = UITableViewRowAnimation.Left,
                 RemoveAnimation = UITableViewRowAnimation.Right,
-                
-                
             };
 
             TableView.Source = source;
@@ -41,6 +38,5 @@ namespace FoodPoint_Seller.Touch.Views.Statistic.Tab.Tables
 
             TableView.ReloadData();
         }
-
     }
 }

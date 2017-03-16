@@ -21,7 +21,6 @@ namespace FoodPoint_Seller.Touch
                 Debug.WriteLine("Error", "Ошибка", a.Message);
                 throw new Exception(a.Message);
             }
-           
         }
     }
 }

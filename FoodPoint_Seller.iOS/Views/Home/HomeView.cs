@@ -5,6 +5,9 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.iOS.Support.SidePanels;
 using Foundation;
 using MvvmCross.iOS.Views;
+using UIKit;
+using CoreGraphics;
+using FoodPoint_Seller.Touch.Views.Home;
 
 namespace FoodPoint_Seller.Touch.Views
 {
@@ -26,6 +29,7 @@ namespace FoodPoint_Seller.Touch.Views
         {
             base.ViewDidUnload();
 
+
             // Clear any references to subviews of the main view in order to
             // allow the Garbage Collector to collect them sooner.
             //
@@ -38,20 +42,20 @@ namespace FoodPoint_Seller.Touch.Views
         {
             base.ViewDidLoad();
             ViewModel.ShowMenu();
-            //var viewModel = this.ViewModel;
-            ////var source= new TableSource(ListOrderItemTable);
+            this.View.BackgroundColor = UIColor.FromRGB(232, 232, 232);
+            this.NavigationController.NavigationBar.BarTintColor = UIColor.FromRGB(252, 80, 98);
+            this.NavigationController.NavigationBar.TintColor = UIColor.White;
 
-            ////this.AddBindings(new Dictionary<object, string>
-            ////    {
-            ////        {source, "ItemsSource ListOrderItem"}
-            ////    });
+            var toolbarButton = new UIBarButtonItem(UIBarButtonSystemItem.Cancel, (sender, args) =>
+            {
+                // button was clicked
+            });
+            this.NavigationItem.SetRightBarButtonItem(
+                   toolbarButton
+                , true);
 
-            ////ListOrderItemTable.Source = source;
-            ////ListOrderItemTable.ReloadData();
+            this.CreateBinding(toolbarButton).To("OnClickOffline").Apply();
 
-
-
-            // this.CreateBinding(RecivedOrderNumberLabel).To((HomeViewModel vm) => vm.RecivedOrderNumber).Apply();
             // this.CreateBinding(RecivedOrderTimeLabel).To((HomeViewModel vm) => vm.RecivedOrderTime).Apply();
             // this.CreateBinding(RecivedOrderTimerLabel).To((HomeViewModel vm) => vm.RecivedOrderTimer).Apply();
 
@@ -62,10 +66,27 @@ namespace FoodPoint_Seller.Touch.Views
             //.To<HomeViewModel>(vm => vm.IsOrderDialogOpen)
             //.WithConversion("Visibility").Apply();
 
-
-            this.CreateBinding(ListOrderItemTable.Source).To((HomeViewModel vm) => vm.ListOrderItem).Apply();
+            //this.CreateBinding(OrdersList).For(o=>o.s).To((HomeViewModel vm) => vm.ListOrderItem).Apply();
             //this.CreateBinding(CurentOrderProductItemTable.Source).To((HomeViewModel vm) => vm.ListCurentOrderProductItem).Apply();
             //// Perform any additional setup after loading the view, typically from a nib.
         }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+            var OrdersList = new OrderTableView(this.ViewModel);
+            OrdersList.TableView.Frame = new CGRect(0, 50, 400, View.Frame.Height);
+            //OrdersList.TableView.SeparatorColor = UIColor.FromRGBA(0, 0, 0, 0);
+            ////   OrdersList.TableView.
+            OrdersList.TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
+            OrdersList.TableView.EstimatedRowHeight = 200;
+            OrdersList.TableView.RowHeight = 200;
+            OrdersList.TableView.ReloadData();
+
+            OrdersList.TableView.LayoutMargins = new UIEdgeInsets(10, 10, 10, 10);
+
+            this.View.AddSubview(OrdersList.View);
+        }
+
     }
 }

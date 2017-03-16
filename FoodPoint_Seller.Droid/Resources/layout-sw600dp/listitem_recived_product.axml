@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/text_product_name"
         android:layout_alignParentLeft="true"
-        android:text="test"
+        android:textSize="19dp"
         local:MvxBind="Text ProductInfo.Name" />
     <Switch
         android:layout_width="wrap_content"
@@ -27,13 +27,28 @@
     <!--android:thumb="@drawable/toggle_image"-->
     <!--android:track="@drawable/toggle_track"-->
 <!--android:layout_toRightOf="@id/text_product_name"-->
-    <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
-        android:id="@+id/recived_addictive_list"
+  <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/text_product_name"
-        android:padding="10dp"
+         android:layout_marginLeft="10dp">
+        
+        <MvvmCross.Droid.Support.V7.RecyclerView.MvxRecyclerView
+            android:id="@+id/recived_addictive_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="11dp"
+            android:paddingBottom="10dp"
+            local:MvxBind="ItemsSource ProductInfo.OrderedAdditives"
+            local:MvxItemTemplate="@layout/listitem_recived_addictive" />
+  <View
+            android:id="@+id/right_line_panel"
+            android:layout_width="1dp"
+            android:layout_height="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignLeft="@id/recived_addictive_list"
+            android:background="#cfcfcf"
+            local:MvxBind="MyHeight ProductInfo.OrderedAdditives"/>
+  </RelativeLayout>
 
-        local:MvxBind="ItemsSource ProductInfo.OrderedAdditives"
-        local:MvxItemTemplate="@layout/listitem_recived_addictive" />
 </RelativeLayout>

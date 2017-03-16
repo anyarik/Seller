@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+      <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:background="?attr/colorPrimary"
+          local:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+        <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+            <android.support.v7.widget.CardView
+                android:id="@+id/text_button_disconect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                local:cardElevation="1dp"
+                local:cardCornerRadius="5dp"
+                local:cardBackgroundColor="@color/white"
+                local:cardUseCompatPadding="true"
+                local:cardPreventCornerOverlap="false"
+                android:clickable="true"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:layout_margin="1dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:textStyle="bold"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/colorPrimary"
+                    android:text="Выйти"
+
+                    local:MvxBind="Click OnClickExit"/>
+            </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+
+      </android.support.v7.widget.Toolbar>
+     <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        local:tabGravity="center"
+        local:tabMode="scrollable" />
+    </android.support.design.widget.AppBarLayout>
+  
+  
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/options_statistic_content"
+        android:layout_below="@id/appbar">
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+            />
+      <FrameLayout
+          android:id="@+id/content_statistic_frame"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_centerInParent="true">
+      </FrameLayout>
+    </RelativeLayout>
+ </RelativeLayout>

@@ -5,6 +5,14 @@ using FoodPoint_Seller.Core.ViewModels;
 using MvvmCross.iOS.Views;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.iOS.Support.SidePanels;
+using MvvmCross.Binding.iOS.Views;
+using System.Drawing;
+using CoreGraphics;
+using PickerCells;
+using System.Collections.Generic;
+using System;
+using AllianceCustomPicker;
+using Xam.DownPicker;
 
 namespace FoodPoint_Seller.Touch.Views
 {
@@ -12,7 +20,7 @@ namespace FoodPoint_Seller.Touch.Views
     /// The login view
     /// </summary>
     [Register("LoginView")]
-	[MvxPanelPresentation(MvxPanelEnum.Center, MvxPanelHintType.ActivePanel, true)]
+	[MvxPanelPresentation(MvxPanelEnum.Center, MvxPanelHintType.ResetRoot, true)]
     public class LoginView : MvxViewController<LoginViewModel>
     {
         #region Constructors
@@ -39,7 +47,9 @@ namespace FoodPoint_Seller.Touch.Views
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            var viewModel = this.ViewModel;
+            this.NavigationController.NavigationBar.BarTintColor = UIColor.FromRGB(252, 80, 98);
+            this.View.BackgroundColor =  UIColor.FromRGB(232, 232, 232); ;
+      
 
             var scrollView = new UIScrollView(View.Frame)
             {
@@ -47,14 +57,39 @@ namespace FoodPoint_Seller.Touch.Views
                 AutoresizingMask = UIViewAutoresizing.FlexibleHeight
             };
 
-            var textEmail = new UITextField { Placeholder = "Username", BorderStyle = UITextBorderStyle.RoundedRect };
-            var textPassword = new UITextField { Placeholder = "Your password", BorderStyle = UITextBorderStyle.RoundedRect, SecureTextEntry = true };
-            var loginButton = new UIButton(UIButtonType.RoundedRect);
-            loginButton.SetTitle("Log in", UIControlState.Normal);
-            loginButton.BackgroundColor = UIColor.White;
+                        
+            var textEmail = new UITextField { Placeholder = "Username"
+                                            , BorderStyle = UITextBorderStyle.RoundedRect };
+            var textPassword = new UITextField { Placeholder = "Your password"
+                                                , BorderStyle = UITextBorderStyle.RoundedRect
+                                                , SecureTextEntry = true };
 
-            var set = this.CreateBindingSet<LoginView, LoginViewModel>();
-            set.Bind(textEmail).To(vm => vm.Username);
+            var loginButton = new UIButton(UIButtonType.RoundedRect);
+            loginButton.SetTitle("Войти", UIControlState.Normal);
+            loginButton.BackgroundColor = UIColor.FromRGB(252, 80, 98); ;
+            loginButton.SetTitleColor(UIColor.White, UIControlState.Normal);
+
+            NSMutableArray array = new NSMutableArray() ;
+            array.Add(new NSString("Продавец"));
+            array.Add(new NSString("Управляющий"));
+
+            //Add Data to our down picker outlet
+            UIDownPicker picker = new UIDownPicker(array)
+            {
+                BorderStyle = UITextBorderStyle.RoundedRect
+            }; 
+            picker.Frame = this.View.Bounds;
+            picker.DownPicker.SetToolbarDoneButtonText("Выбрать");
+            picker.DownPicker.SetToolbarCancelButtonText("Закрыть");
+            //picker.DownPicker.SetArrowImage(UIImage.);
+            //picker.DownPicker.SetToolbarStyle(UIBarStyle.Default);
+            picker.DownPicker.ShowArrowImage(true);
+            picker.DownPicker.SetPlaceholderWhileSelecting("Выберете роль...");
+            picker.DownPicker.SetPlaceholder("Выберете роль...");
+            picker.EditingDidEnd += Picker_EditingDidEnd;
+
+          var set = this.CreateBindingSet<LoginView, LoginViewModel>();
+            set.Bind(textEmail).To(vm => vm.Username); 
             set.Bind(textPassword).To(vm => vm.Password);
             set.Bind(loginButton).To("Login");
             set.Apply();
@@ -69,6 +104,7 @@ namespace FoodPoint_Seller.Touch.Views
                 scrollView.WithSameWidth(View),
                 scrollView.WithSameHeight(View));
 
+            scrollView.Add(picker);
             scrollView.Add(textEmail);
             scrollView.Add(textPassword);
             scrollView.Add(loginButton);
@@ -79,6 +115,10 @@ namespace FoodPoint_Seller.Touch.Views
             scrollView.AddConstraints(constraints);
         }
 
+        private void Picker_EditingDidEnd(object sender, EventArgs e)
+        {
+            ViewModel.CurrentRole.Value = ((UIDownPicker)sender).Text;
+        }
         #endregion
     }
 }

@@ -6,13 +6,14 @@ using Plugin.KeyChain.Abstractions;
 using FoodPoint_Seller.Core.Services.Implementations;
 using Plugin.SecureStorage;
 using Newtonsoft.Json;
+using Polly;
 
 namespace FoodPoint_Seller.Core.Services.Implementations
 {
     /// <summary>
     /// The login service.
     /// </summary>
-    public class SellerAuthService : BaseAuthService<SellerAccountModel>, ISellerAuthService
+    public class SellerAuthService : BaseAuthService, ISellerAuthService
     {
         public SellerAuthService(IUserController userController, IKeyChain keyChain) : base(userController, keyChain)
         {
@@ -23,22 +24,28 @@ namespace FoodPoint_Seller.Core.Services.Implementations
             try
             {
                 var user = new SellerAccountModel(username, password);
-                _tokenAuth = await this._userController.AuthorizationSeller(user);
 
-                if (_tokenAuth != null)
+                _tokenAuth = await Policy.Handle<Exception>(_ => true)
+                               .WaitAndRetryForeverAsync
+                               (
+                                   sleepDurationProvider: retry => TimeSpan.FromSeconds(10)
+                               )
+                               .ExecuteAsync(async () => await this._userController.AuthorizationSeller(user));
+
+
+                if (_tokenAuth.access_token != null)
                 {
                     //_keyChain.SetKey(KEY_LOGIN, username);
                     //_keyChain.SetKey(KEY_PASSWORD, password);
 
                     var isUpdate = await this.UpdateProfile();
 
-                    if (isUpdate)
-                    {
-                        IsAuthenticated = true;
-                    }
+                    return isUpdate ? IsAuthenticated = true : IsAuthenticated;
                 }
-
-                return IsAuthenticated;
+                else
+                {
+                    return IsAuthenticated;
+                }
             }
             catch (ArgumentException argex)
             {
@@ -57,17 +64,15 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                 );
 
             if (_profileUser != null)
-            {
                 return true;
-            }
-            return false;
+            else
+                return false;
         }
 
-        public async void ChangeStatusSeler()
+        public  void ChangeStatusSeler()
         {
-           await _userController.Set_Busyness(_profileUser.ID, !_profileUser.IsBusy, _tokenAuth.access_token);
+           _userController.Set_Busyness(_profileUser.ID, !(_profileUser as SellerAccountModel).Busyness, _tokenAuth.access_token);
+           this.ChangeBusy((_profileUser as SellerAccountModel).Busyness);
         }
-
-
     }
 }

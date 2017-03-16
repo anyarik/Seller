@@ -14,13 +14,16 @@ namespace FoodPoint_Seller.Core.Extentions
     {
         public static ObservableCollection<PayedOrder> RemoveItem(this ObservableCollection<PayedOrder> list, PayedOrder deleteItem)
         {
+            PayedOrder tempItem = null;
             foreach (var item in list)
             {
                 if (item.Order.ID == deleteItem.Order.ID)
                 {
-                    list.Remove(item);
+                    tempItem = item;
                 }
             }
+
+            list.Remove(tempItem);
             return list;
         }
     }

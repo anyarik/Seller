@@ -26,7 +26,9 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                                                                                 }
                                                             )
                 );
-            var seller = await ConnectionService.PostAsync<AccessTokenAuthorise>(url, new StringContent(data, Encoding.UTF8, "application/x-www-form-urlencoded"), headers, "Не удалось авторизоваться");
+            var seller = await ConnectionService.PostAsync<AccessTokenAuthorise>(url
+                                        , new StringContent(data, Encoding.UTF8, "application/x-www-form-urlencoded")
+                                        , headers, "Не удалось авторизоваться");
 
             return seller;
         }
@@ -45,7 +47,9 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                                                                                 }
                                                             )
                 );
-            var owner = await ConnectionService.PostAsync<AccessTokenAuthorise>(url, new StringContent(data, Encoding.UTF8, "application/x-www-form-urlencoded"), headers, "Не удалось авторизоваться");
+            var owner = await ConnectionService.PostAsync<AccessTokenAuthorise>(url
+                                            , new StringContent(data, Encoding.UTF8, "application/x-www-form-urlencoded")
+                                            , headers, "Не удалось авторизоваться");
 
             return owner;
        }
@@ -67,7 +71,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                                                                 )
                     );
 
-            var profile = await ConnectionService.GetAsync<OwnerAccountModel>(url, null, "Не удалось получить профиль");
+            var profile = await ConnectionService.GetAsync<OwnerAccountModel>(url, headers, "Не удалось получить профиль");
 
             return profile;
         }
@@ -90,27 +94,27 @@ namespace FoodPoint_Seller.Api.Services.Implementations
 
             var profile = await ConnectionService.GetAsync<SellerAccountModel>(url, headers, "Не удалось получить профиль");
 
-            return profile; 
+                return profile; 
         }
 
         public async Task<string> Set_Busyness(string id, bool busyness, string token)
         {
-            var url = $"{AppData.Host}/api/set_busyness?seller={id}Name&busyness={busyness}";
+            var url = $"{AppData.Host}/api/set_busyness?sellerName={id}&busyness={busyness}";
 
             List<KeyValuePair<string, IEnumerable<string>>> headers = new List<KeyValuePair<string, IEnumerable<string>>>();
 
            
-            headers.Add(
-                new KeyValuePair<string, IEnumerable<string>>(
-                                                                "Authorization",
-                                                                new List<string>() {
-                                                                                    "Bearer "
-                                                                                    +token
-                                                                                    }
-                                                                )
-                    );
+            //headers.Add(
+            //    new KeyValuePair<string, IEnumerable<string>>(
+            //                                                    "Authorization",
+            //                                                    new List<string>() {
+            //                                                                        "Bearer "
+            //                                                                        +token
+            //                                                                        }
+            //                                                    )
+            //        );
 
-            var result = await ConnectionService.PostStatusAsync(url, null, null, "Не удалось получить профиль");
+            var result = await ConnectionService.PostStatusAsync(url, null, headers, "Не послать запрос на изменение занятости");
 
             return result;
         }

@@ -12,16 +12,24 @@ using System.Linq;
 
 namespace FoodPoint_Seller.Core.ViewModels
 {
+    public enum StatusOrder
+    {
+        refused,
+        over,
+        NoTime,
+        NoProduct,
+        Accept
+    }
 	public class MainViewModel : BaseViewModel
     {
         private IOrderController _orderController;
 
         private ISellerOrderService _sellerOrderService;
         private ISellerAuthService _loginService;
-
         private readonly IDialogService _dialogService;
        
         private event EventHandler<RecivedOrder> OpenNexStackOrder;
+        public INC<bool> IsLoading = new NC<bool>();
 
         public  MainViewModel(IOrderController orderController
                              ,IDialogService dialogService
@@ -108,9 +116,7 @@ namespace FoodPoint_Seller.Core.ViewModels
         /// <summary>
         /// Выбраное время для приготовления заказа покупателем, отображаемое на диалоговом окне пришедшего заказа
         /// </summary>
-        public INC<string> RecivedOrderTime = new NC<string>("", (e) =>
-        {
-        });
+        public INC<TimeSpan> RecivedOrderTime = new NC<TimeSpan>();
 
         /// <summary>
         /// Номер заказа, отображаемое на диалоговом окне пришедшего заказа
@@ -119,9 +125,7 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
         });
 
-        public INC<TimeSpan> RecivedOrderTimer = new NC<TimeSpan>(TimeSpan.Zero, (e) =>
-        {
-        });
+        public INC<TimeSpan> RecivedOrderTimer = new NC<TimeSpan>();
 
         public INC<bool> IsDelayFive;
         #endregion
@@ -146,61 +150,63 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
             var user = await this._loginService.GetProfile();
 
-            this._orderController.HubConnection(user.ID);
-
-            this._orderController.OnReceiveOrder( async (customer, reciveOrder, time) =>
+            if (user != null)
             {
-                var deserializeOrder = JsonConvert.DeserializeObject<OrderItem>(reciveOrder);
+                this._orderController.HubConnection(user.ID);
 
-         
+                this._orderController.OnReceiveOrder(async (customer, reciveOrder, time) =>
+               {
+                   var deserializeOrder = JsonConvert.DeserializeObject<OrderItem>(reciveOrder);
 
-                _dialogService.Notification(new NotificaiosModel($"Пришел заказ №{deserializeOrder.RowNumber}"
-                                                , $"Необходимо приготовить его за {time}")
-                           );
 
-                var stackOrder = new RecivedOrder(customer.ToString(), time, deserializeOrder, (order) =>
-                {
-                    order.CloseOrderTimer = new Timer(new TimeSpan(0, 0, 75), (_) =>
-                    {
-                        order.CloseOrderTimer.WaitTime.Value -= new TimeSpan(0, 0, 1);
 
-                        UpdateStackOrderList();
+                   _dialogService.Notification(new NotificaiosModel($"Пришел заказ №{deserializeOrder.RowNumber}"
+                                                   , $"Необходимо приготовить его за {time}")
+                              );
 
-                        if (order.IsAlive)
-                            this.RecivedOrderTimer.Value = order.CloseOrderTimer.WaitTime.Value;
+                   var stackOrder = new RecivedOrder(customer.ToString(), time, deserializeOrder, (order) =>
+                   {
+                       order.CloseOrderTimer = new Timer(new TimeSpan(0, 0, 75), (_) =>
+                       {
+                           order.CloseOrderTimer.WaitTime.Value -= new TimeSpan(0, 0, 1);
 
-                        if (order.CloseOrderTimer.WaitTime.Value == TimeSpan.Zero)
-                        {
-                            order.CloseOrderTimer.StopTimer();
+                           UpdateStackOrderList();
 
-                            this._recivedStackOrders.RemoveAll(o => o.Order.ID == order.Order.ID);
+                           if (order.IsAlive)
+                               this.RecivedOrderTimer.Value = order.CloseOrderTimer.WaitTime.Value;
 
-                            if (this.IsOrderDialogOpen.Value)
-                                this.OpenNexStackOrder.Invoke(null, null);
-                        }
-                    });
-                });
+                           if (order.CloseOrderTimer.WaitTime.Value == TimeSpan.Zero)
+                           {
+                               order.CloseOrderTimer.StopTimer();
 
-                stackOrder.StartTimer();
+                               this._recivedStackOrders.RemoveAll(o => o.Order.ID == order.Order.ID);
 
-                this._recivedStackOrders.Add(stackOrder);
+                               if (this.IsOrderDialogOpen.Value)
+                                   this.OpenNexStackOrder.Invoke(null, null);
+                           }
+                       });
+                   });
 
-                if (this._recivedStackOrders.Count > 1)
-                {
-                    this.RecivedStackOrders.Value.Add(stackOrder);
-                    UpdateStackOrderList();
-                }
+                   stackOrder.StartTimer();
 
-                if (this._recivedStackOrders.Count == 1)
-                    this.OpenDialogForOrderAgreement(stackOrder);
+                   this._recivedStackOrders.Add(stackOrder);
 
-                this.CurentPayedOrders.Value = await _sellerOrderService.GetOrders();
-            });
+                   if (this._recivedStackOrders.Count > 1)
+                   {
+                       this.RecivedStackOrders.Value.Add(stackOrder);
+                       UpdateStackOrderList();
+                   }
+
+                   if (this._recivedStackOrders.Count == 1)
+                       this.OpenDialogForOrderAgreement(stackOrder);
+
+                   this.CurentPayedOrders.Value = await _sellerOrderService.GetOrders();
+               });
+            }
 
             //
             //this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder; 
         }
-
 
         private void _sellerOrderService_OnNewPayedOrder(object sender, PayedOrder e)
         {
@@ -242,7 +248,7 @@ namespace FoodPoint_Seller.Core.ViewModels
 
             currentOrder.IsAlive = true;
 
-            this.RecivedOrderTime.Value = currentOrder.Time;
+            this.RecivedOrderTime.Value = TimeSpan.Parse(currentOrder.Time);
             this.RecivedOrderNumber.Value = currentOrder.Order.RowNumber;
 
             foreach (var item in currentOrder.Order.OrderedFood)
@@ -264,24 +270,31 @@ namespace FoodPoint_Seller.Core.ViewModels
         /// </summary>
         public async void OnCancelOrder()
         {
+            IsLoading.Value = true;
             var recivedCorrectOrder = JsonConvert.SerializeObject(this._sendOrder.Order);
             this._orderController.CorrectOrder(this._sendOrder.CustomerName, false, recivedCorrectOrder, "false");
 
             var user = await this._loginService.GetProfile();
 
-            this._orderController.SetSellerOrder(this._sendOrder.Order.ID.ToString(), user.ID);
-            this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString(), "refused", false, TimeSpan.Zero, "", false);
+            //this._orderController.SetSellerOrder(this._sendOrder.Order.ID.ToString(), user.ID);
+            this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString()
+                                                    , StatusOrder.refused.ToString(), false, TimeSpan.Zero, "", false);
 
             this.OpenNexStackOrder.Invoke(null, this._sendOrder);
+            IsLoading.Value = false;
         }
 
         /// <summary>
         /// Согласовать заказ
         /// </summary>
-        public async void OnApprove()
+        public  void OnApprove()
         {
+            IsLoading.Value = true;
             var recivedCorrectOrder = JsonConvert.SerializeObject(this._sendOrder.Order);
-            this._orderController.CorrectOrder(this._sendOrder.CustomerName, true, recivedCorrectOrder, this.IsDelayFive.Value.ToString());
+
+            //TODO Сделать загрузку при согласовании и внедрить поли
+            this._orderController.CorrectOrder(this._sendOrder.CustomerName
+                                              , true, recivedCorrectOrder, this.IsDelayFive.Value.ToString());
 
             var isDeleteProduct = false;
 
@@ -296,26 +309,42 @@ namespace FoodPoint_Seller.Core.ViewModels
 
             if (this.IsDelayFive.Value && isDeleteProduct)
             {
-                this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString(),
-                                                                "NoTime", true, TimeSpan.FromMinutes(5), "over", true);
+                this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString()
+                                                        , StatusOrder.NoTime.ToString()
+                                                        , true, TimeSpan.FromMinutes(5)
+                                                        , StatusOrder.over.ToString()
+                                                        , true);
                 this._orderController.SaveOfferedFood(this._sendOrder.Order.ID.ToString(), this._sendOrder.Order.OrderedFood, null);
             }
             else if (this.IsDelayFive.Value)
-                this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString(),
-                                                                    "NoTime", true, TimeSpan.FromMinutes(5), "over", true);
+                this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString()
+                                                        , StatusOrder.NoTime.ToString()
+                                                        , true
+                                                        , TimeSpan.FromMinutes(5)
+                                                        , StatusOrder.over.ToString()
+                                                        , true);
 
             else if (isDeleteProduct)
             {
-                this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString(),
-                                                                    "NoProduct", true, TimeSpan.FromMinutes(5), "over", true);
+                this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString()
+                                                       , StatusOrder.NoProduct.ToString()
+                                                       , true
+                                                       , TimeSpan.FromMinutes(5)
+                                                       , StatusOrder.over.ToString()
+                                                       , true);
                 this._orderController.SaveOfferedFood(this._sendOrder.Order.ID.ToString(), this._sendOrder.Order.OrderedFood, null);
             }
 
             else
-                this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString(),
-                                                                        "Accept", true, TimeSpan.FromMinutes(5), "over", true);
+                this._orderController.ChangeStatusOrder(this._sendOrder.Order.ID.ToString()
+                                                       , StatusOrder.Accept.ToString()
+                                                       , true
+                                                       , TimeSpan.FromMinutes(5)
+                                                       , StatusOrder.over.ToString()
+                                                       , true);
 
             this.OpenNexStackOrder.Invoke(null, this._sendOrder);
+            IsLoading.Value = false;
         }
 
         /// <summary>
@@ -340,7 +369,6 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         public override void Start()
         {
-            
             //base.Start();
             this.OpenNexStackOrder += HomeViewModel_OpenNexStackOrder;
             this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder;

@@ -15,7 +15,7 @@ namespace FoodPoint_Seller.Touch.Services
 
         public void Notification(NotificaiosModel notification)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

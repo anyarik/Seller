@@ -16,21 +16,42 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-               <Button
+            <android.support.v7.widget.CardView
+                android:id="@+id/text_button_disconect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/text_button_disconect"
+                local:cardElevation="1dp"
+                local:cardCornerRadius="5dp"
+                local:cardBackgroundColor="@color/white"
+                local:cardUseCompatPadding="true"
+                local:cardPreventCornerOverlap="false"
+                android:clickable="true"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:layout_margin="1dp"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                local:MvxBind="Text TextActiveSeller; Click OnClickOffline"
-                 />
+                android:layout_centerVertical="true">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:textStyle="bold"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/colorPrimary"
+                    local:MvxBind="Text TextToolbarBtn; Click OnClickOffline"/>
+            </android.support.v7.widget.CardView>
+
             <TextView
                 android:id="@+id/statusUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:layout_marginRight="20dp"
                 android:textSize="20dp"
+
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 android:layout_toLeftOf="@id/text_button_disconect"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"

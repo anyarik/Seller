@@ -22,16 +22,13 @@ namespace FoodPoint_Seller.Core.ViewModels
         // Верстка
         // Занятость продавца
 
-        public INC<string> OpenOrderNumber = new NC<string>("", (e) =>
-        {
-        });
-
+        public INC<string> OpenOrderNumber = new NC<string>();
+        public INC<bool> IsLoading = new NC<bool>();
 
         private IOrderController _orderController;
-        private IUserController _userController;
         private ISellerOrderService _sellerOrderService;
 
-        private ISellerAuthService _loginService;
+        private ISellerAuthService _authService;
         private IDialogService _dialogService;
 
         /// <summary> 
@@ -56,28 +53,29 @@ namespace FoodPoint_Seller.Core.ViewModels
         private MvxSubscriptionToken tokenClickOrder;
 
         public HomeViewModel(IOrderController orderController
-                           , IUserController userControler
-                           , ISellerAuthService loginService
+                           , ISellerAuthService authService
                            , ISellerOrderService sellerOrderService
                            , IDialogService dialogService) 
-            : this(sellerOrderService)
+            : this(sellerOrderService, authService)
         {
             this._orderController = orderController;
-            this._userController = userControler;
 
-            this._loginService = loginService;
+            this._authService = authService;
             this._sellerOrderService = sellerOrderService;
             this._dialogService = dialogService;
 
-            this.tokenClickOrder = MvvmCross.Platform.Mvx.GetSingleton<IMvxMessenger>().Subscribe<ClickOnFinishOrderMessage>(this.OnFinishOrder, MvxReference.Strong);
+            this.tokenClickOrder = MvvmCross.Platform.Mvx.GetSingleton<IMvxMessenger>()
+                                        .Subscribe<ClickOnFinishOrderMessage>(this.OnFinishOrder, MvxReference.Strong);
+
             this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder;
         }
 
-
-        public HomeViewModel(ISellerOrderService sellerOrderService) : base(sellerOrderService)
+        public HomeViewModel(ISellerOrderService sellerOrderService,  ISellerAuthService authService) 
+            : base(sellerOrderService, authService)
         {
 
         }
+
         /// <summary>
         /// Метод, который говорит нам о том, что наша ViewModel отобразилась на экране
         /// </summary>
@@ -87,8 +85,7 @@ namespace FoodPoint_Seller.Core.ViewModels
 
             if (this.ListOrderItem.Count == 0)
                 orders = await _sellerOrderService.GetOrders();
-
-
+            
             if (orders.Count != 0 )
             {
                 foreach (var item in orders)
@@ -112,7 +109,6 @@ namespace FoodPoint_Seller.Core.ViewModels
             MvxMainThreadDispatcher.Instance.RequestMainThreadAction(() => this.ListOrderItem.Add(addOrder));
         }
 
-
         public void OrderClick(PayedOrder order)
         {
             this.IsClikedOrderDialogOpen.Value = true;
@@ -124,37 +120,14 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
             this.IsClikedOrderDialogOpen.Value = false;
         }
-
         public void OnFinishOrder(ClickOnFinishOrderMessage payed)
         {
             var payedOrder = payed.Sender as PayedOrder;
 
             if (payedOrder == null) return;
 
-            //foreach (var item in this.ListOrderItem)
-            //{
-            //    if (item.Order.ID == payedOrder.Order.ID)
-            //    {
-            //        this.ListOrderItem.Remove(item);
-            //    }
-            //}
             this.ListOrderItem.RemoveItem(payedOrder);
             _sellerOrderService.DeletOrder(payedOrder.Order);
-        }
-
-        public  void OnClickOffline()
-        {
-            //if (ListOrderItem.Value.Count == 0)
-            //{
-            //    this._orderController.HubDisconnect();
-            //    this._loginService.Logout();
-            //    ShowViewModel<LoginViewModel>();
-            //}
-            //else
-            //{
-            //    this._loginService.ChangeStatusSeler();
-            //    TextActiveSeller.Value = "Больше заказы не принимаются";
-            //}
         }
     }
 }

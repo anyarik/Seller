@@ -5,25 +5,46 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:clickable="true"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginRight="2dp"
         android:id="@+id/options_statistic_content">
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/button_update_stat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        local:cardElevation="1dp"
+        local:cardCornerRadius="5dp"
+        local:cardBackgroundColor="@color/colorPrimary"
+        local:cardUseCompatPadding="true"
+        local:cardPreventCornerOverlap="false"
+        android:clickable="true"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Получить"
-            android:id="@+id/button_update_stat"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/white"
+            android:background="?android:attr/selectableItemBackground"
             local:MvxBind="Click UpdateStatistic"/>
+    </android.support.v7.widget.CardView>
+
         <TextView
             android:text="end"
             android:id="@+id/text_inputEndDate"
             android:layout_height="wrap_content"
             android:clickable="true"
+            style="@android:style/Widget.Button"
             android:layout_toLeftOf="@id/button_update_stat"
             android:layout_centerVertical="true"
             android:textStyle="bold"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             local:MvxBind="Click SetEndTime;Text Format('До: {0:dd:MM yyyy}',EndDateValue )"/>
         <TextView
             android:text="start"
@@ -31,9 +52,10 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:textStyle="bold"
+            style="@android:style/Widget.Button"
             android:layout_toLeftOf="@id/text_inputEndDate"
             android:layout_centerVertical="true"
             local:MvxBind="Text Format('От: {0:dd:MM:yyyy}',StartDateValue);Click SetStartTime"
-            android:layout_width="100dp" />
+            android:layout_width="wrap_content" />
 
     </RelativeLayout>

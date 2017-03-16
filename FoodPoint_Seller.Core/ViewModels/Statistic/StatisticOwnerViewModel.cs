@@ -1,7 +1,9 @@
 ﻿using FoodPoint_Seller.Api.Controllers;
+using FoodPoint_Seller.Api.Models.DomainModels;
 using FoodPoint_Seller.Api.Models.ViewModels;
 using FoodPoint_Seller.Core.Services;
 using FoodPoint_Seller.Core.ViewModels.Base;
+using MvvmCross.Core.ViewModels;
 using MvvmCross.FieldBinding;
 using System;
 using System.Collections.Generic;
@@ -11,44 +13,37 @@ using System.Threading.Tasks;
 
 namespace FoodPoint_Seller.Core.ViewModels
 {
-    public  class StatisticOwnerViewModel: BaseFragment
+    public  class StatisticOwnerViewModel: MvxViewModel
     {
-        private IStatisticController _statisticController;
-        private IOwnerAuthService _ownerAuthService;
-
-        private ISellerAuthService _loginService;
+        //private IStatisticController _statisticController;
+        //private IOwnerAuthService _ownerAuthService;
+        
+        //protected OwnerAccountModel User;
     
-        public INC<DateTime> StartDateValue = new NC<DateTime>(DateTime.Now.AddDays(-7), (e) => {
-        });
-
-        public INC<DateTime> EndDateValue = new NC<DateTime>(DateTime.Now, (e) => {
-        });
-
-
-        public StatisticOwnerViewModel(IStatisticController statisticController
-                                      , IOwnerAuthService ownerAuthService
-                                      , ISellerAuthService loginService
-                                      ,ISellerOrderService sellerOrderService)
-               :this(sellerOrderService)
+        public StatisticOwnerViewModel()
         {
-            this._statisticController = statisticController;
-            this._ownerAuthService = ownerAuthService;
-            this._loginService = loginService;
+
         }
 
-        public StatisticOwnerViewModel(ISellerOrderService sellerOrderService) : base(sellerOrderService)
+        public void OnClickExit()
         {
+            this.Close(this);
+            ShowViewModel<LoginViewModel>();
         }
 
-        public override void Start()
-        {
-            base.Start();
-            this.Init();
-        }
+        //public StatisticOwnerViewModel(ISellerOrderService sellerOrderService) : base(sellerOrderService)
+        //{
+        //}
 
-        private async void Init()
-        {
-            var user = await this._loginService.GetProfile();
-        }
+        //public override void Start()
+        //{
+        //    base.Start();
+        //    this.Init();
+        //}
+
+        //private async void Init()
+        //{
+        //   // var user = await this._ownerAuthService.GetProfile();
+        //}
     }
 }
