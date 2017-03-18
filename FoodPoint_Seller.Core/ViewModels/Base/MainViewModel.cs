@@ -259,7 +259,9 @@ namespace FoodPoint_Seller.Core.ViewModels
 
             indexFood = 0;
 
-            this.ListCurentOrderProductItem.Value = currentOrder.Order.OrderedFood;
+            this.ListCurentOrderProductItem.Value = currentOrder.Order.OrderedFood
+                                                        .OrderBy(f=>f.ProductInfo.Name)
+                                                        .ToList();
 
             IsOrderDialogOpen.Value = true;
         }

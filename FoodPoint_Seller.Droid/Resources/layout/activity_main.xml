@@ -38,7 +38,6 @@
       android:layout_alignParentTop="true"
       android:layout_alignParentEnd="true"
       android:layout_marginEnd="21dp" />
-  <include layout="@layout/include_loading">
-  </include>
+
 </RelativeLayout>
 

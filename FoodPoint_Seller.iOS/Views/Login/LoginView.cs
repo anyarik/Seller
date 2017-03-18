@@ -5,13 +5,7 @@ using FoodPoint_Seller.Core.ViewModels;
 using MvvmCross.iOS.Views;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.iOS.Support.SidePanels;
-using MvvmCross.Binding.iOS.Views;
-using System.Drawing;
-using CoreGraphics;
-using PickerCells;
-using System.Collections.Generic;
 using System;
-using AllianceCustomPicker;
 using Xam.DownPicker;
 
 namespace FoodPoint_Seller.Touch.Views

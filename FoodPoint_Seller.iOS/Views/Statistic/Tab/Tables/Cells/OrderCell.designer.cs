@@ -20,11 +20,11 @@ namespace FoodPoint_Seller.Touch.Views.Statistic.Tab.Tables
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UITableView ProductTabel { get; set; }
+        UIKit.UILabel RowLabel { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel RowLabel { get; set; }
+        UIKit.UIView TestView { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -37,14 +37,14 @@ namespace FoodPoint_Seller.Touch.Views.Statistic.Tab.Tables
                 OverOrderBtn = null;
             }
 
-            if (ProductTabel != null) {
-                ProductTabel.Dispose ();
-                ProductTabel = null;
-            }
-
             if (RowLabel != null) {
                 RowLabel.Dispose ();
                 RowLabel = null;
+            }
+
+            if (TestView != null) {
+                TestView.Dispose ();
+                TestView = null;
             }
 
             if (Timerlbl != null) {

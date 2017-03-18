@@ -67,11 +67,11 @@ namespace FoodPoint_Seller.Core.ViewModels
         {
             try
             {
-                if (CurrentRole.Value == RolesEnum.Продавец.ToString())
+                if (CurrentRole.Value.Equals(RolesEnum.Продавец.ToString()))
                 {
-                    roleLog<MainViewModel>(_loginService);
+                   roleLog<MainViewModel>(_loginService);
                 }
-                else if (CurrentRole.Value == RolesEnum.Управляющий.ToString())
+                else if (CurrentRole.Value.Equals(RolesEnum.Управляющий.ToString()))
                 {
                     roleLog<StatisticOwnerViewModel>(_ownerAuthService);
                 }
@@ -90,7 +90,7 @@ namespace FoodPoint_Seller.Core.ViewModels
         private async void roleLog<TModel>(IAuth authServise)
             where TModel : IMvxViewModel
         {
-            _userDialogs.Loading("Загрузка", null, null, true, MaskType.Gradient);
+             _userDialogs.Loading("Загрузка", null, null, true, MaskType.Gradient);
             var isLogin = await authServise.Login(Username.Value, Password.Value);
 
             if (isLogin)

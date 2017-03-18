@@ -18,6 +18,7 @@ using FoodPoint_Seller.Core.Services;
 using FoodPoint_Seller.Core.Models;
 using FoodPoint_Seller.Droid.Services;
 using Android.Media;
+using Android.Graphics;
 
 namespace FoodPoint_Seller.Droid.Activities
 {
@@ -70,7 +71,10 @@ namespace FoodPoint_Seller.Droid.Activities
                 .SetContentTitle(notification.title)      // Set its title
                 .SetNumber(1)                       // Display the count in the Content Info
                 .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Notification))
-                //.Se
+                .SetSmallIcon(Resource.Drawable.ic_stat_name)
+                .SetLargeIcon(BitmapFactory.DecodeResource(Resources, Resource.Drawable.logo))
+                .SetPriority(1)
+                .SetVisibility(5)
                 .SetVibrate(new long[] { 500, 500 })
                 .SetSmallIcon(Resource.Drawable.abc_ab_share_pack_mtrl_alpha)  // Display this icon
                 .SetContentText(notification.description); // The message to display.

@@ -58,4 +58,4 @@ namespace FoodPoint_Seller.Touch.Views.Home
             }
         }
     }
-}
+}   

@@ -9,26 +9,17 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace FoodPoint_Seller.Touch.Views.Home.ProductTables.ProductCell
+namespace FoodPoint_Seller.Touch.Views.Home.AdditiveTable.AdditiveCell
 {
-    [Register ("ProductCell")]
-    partial class ProductCell
+    [Register ("AdditiveCell")]
+    partial class AdditiveCell
     {
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIView AdditiveView { get; set; }
-
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel NameLbl { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
-            if (AdditiveView != null) {
-                AdditiveView.Dispose ();
-                AdditiveView = null;
-            }
-
             if (NameLbl != null) {
                 NameLbl.Dispose ();
                 NameLbl = null;

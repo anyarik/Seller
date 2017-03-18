@@ -2201,52 +2201,64 @@ namespace FoodPoint_Seller.Droid
 			public const int dialog_spinner_default_holo_light = 2130837587;
 			
 			// aapt resource value: 0x7f020054
-			public const int ic_errorstatus = 2130837588;
+			public const int ic_brightness_1_black_24dp = 2130837588;
 			
 			// aapt resource value: 0x7f020055
-			public const int ic_successstatus = 2130837589;
+			public const int ic_errorstatus = 2130837589;
 			
 			// aapt resource value: 0x7f020056
-			public const int Icon = 2130837590;
+			public const int ic_lightbulb_outline_white_18dp = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public const int listorder_back = 2130837591;
+			public const int ic_stat_name = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public const int listorder_backnew = 2130837592;
+			public const int ic_successstatus = 2130837592;
 			
 			// aapt resource value: 0x7f020059
-			public const int logo = 2130837593;
-			
-			// aapt resource value: 0x7f020063
-			public const int notification_template_icon_bg = 2130837603;
+			public const int ic_vector_name = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int offlineButton = 2130837594;
+			public const int Icon = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public const int roundedbg = 2130837595;
+			public const int listorder_back = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
-			public const int roundedbgdark = 2130837596;
+			public const int listorder_backnew = 2130837596;
 			
 			// aapt resource value: 0x7f02005d
-			public const int toggle_image = 2130837597;
+			public const int logo = 2130837597;
+			
+			// aapt resource value: 0x7f020067
+			public const int notification_template_icon_bg = 2130837607;
 			
 			// aapt resource value: 0x7f02005e
-			public const int toggle_off = 2130837598;
+			public const int offlineButton = 2130837598;
 			
 			// aapt resource value: 0x7f02005f
-			public const int toggle_on = 2130837599;
+			public const int roundedbg = 2130837599;
 			
 			// aapt resource value: 0x7f020060
-			public const int toggle_track = 2130837600;
+			public const int roundedbgdark = 2130837600;
 			
 			// aapt resource value: 0x7f020061
-			public const int track_bg_off = 2130837601;
+			public const int toggle_image = 2130837601;
 			
 			// aapt resource value: 0x7f020062
-			public const int track_bg_on = 2130837602;
+			public const int toggle_off = 2130837602;
+			
+			// aapt resource value: 0x7f020063
+			public const int toggle_on = 2130837603;
+			
+			// aapt resource value: 0x7f020064
+			public const int toggle_track = 2130837604;
+			
+			// aapt resource value: 0x7f020065
+			public const int track_bg_off = 2130837605;
+			
+			// aapt resource value: 0x7f020066
+			public const int track_bg_on = 2130837606;
 			
 			static Drawable()
 			{

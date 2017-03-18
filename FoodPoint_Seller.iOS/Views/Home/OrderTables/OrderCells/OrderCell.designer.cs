@@ -30,6 +30,10 @@ namespace Collections.Touch
         [GeneratedCode("iOS Designer", "1.0")]
         UIKit.UITableView ProductTabel { get; set; }
 
+        [Outlet]
+        [GeneratedCode("iOS Designer", "1.0")]
+        UIKit.UIView TestView { get; set; }
+
         void ReleaseDesignerOutlets ()
         {
             if (RowLabel != null) {
@@ -50,6 +54,11 @@ namespace Collections.Touch
             {
                 ProductTabel.Dispose();
                 ProductTabel = null;
+            }
+            if (TestView != null)
+            {
+                TestView.Dispose();
+                TestView = null;
             }
         }
     }

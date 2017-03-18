@@ -4,7 +4,8 @@
         android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroudPrimary">
+    android:background="@color/backgroudPrimary"
+    android:descendantFocusability="beforeDescendants">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -44,8 +45,6 @@
 
     <include
         android:id="@+id/fragment_recived_clicked_order"
-        layout="@layout/fragment_recived_clicked_order"
-        android:visibility="gone" />
-    <include
-        layout="@layout/include_loading" />
+        layout="@layout/fragment_recived_clicked_order"/>
+
 </RelativeLayout>

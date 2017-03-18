@@ -119,7 +119,7 @@ namespace FoodPoint_Seller.Core.Services.Implementations
 
         public async Task<List<PayedOrder>> GetOrders()
         {
-            if (_activeOrders.Count == 0)
+            if (_activeOrders.Count.Equals(0))
             {
                 await InitActiveOrder();
             }
@@ -136,7 +136,7 @@ namespace FoodPoint_Seller.Core.Services.Implementations
         {
             _activeOrders.RemoveAll(o => o.Order.ID == deletOrder.ID);
 
-            if (_activeOrders.Count == 0)
+            if (_activeOrders.Count.Equals(0))
                 ChangeExitText.Invoke(null, "Выйти");
         }
 

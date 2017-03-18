@@ -13,7 +13,7 @@
         android:overScrollMode="ifContentScrolls"
         android:background="@color/white"
         android:focusableInTouchMode="true"
-        android:descendantFocusability="blocksDescendants">
+        android:descendantFocusability="beforeDescendants">
 
         <Mvx.MvxSpinner
             android:id="@+id/role_spinner"
@@ -107,8 +107,5 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:text="Войти" />
         </android.support.v7.widget.CardView>
-
     </LinearLayout>
-    <include layout="@layout/include_loading">
-    </include>
 </RelativeLayout>

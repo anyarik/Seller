@@ -13,7 +13,9 @@
         android:id="@+id/text_product_name"
         android:layout_alignParentLeft="true"
         android:textSize="19dp"
-        local:MvxBind="Text ProductInfo.Name" />
+        local:MvxBind="Text Format('{0}){1}',
+                    index,
+                    ProductInfo.Name)" />
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
