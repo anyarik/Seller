@@ -34,7 +34,7 @@ namespace FoodPoint_Seller.Core.ViewModels
 
         private event EventHandler<RecivedOrder> OpenNexStackOrder;
 
-        public  MainViewModel(IOrderController orderController
+        public  MainViewModel( IOrderController orderController
                              , IDialogService dialogService
                              , IUserDialogs userArcDialogs
                              , ISellerAuthService loginService

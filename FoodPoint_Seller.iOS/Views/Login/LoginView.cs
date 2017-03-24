@@ -82,11 +82,8 @@ namespace FoodPoint_Seller.Touch.Views
             _picker.DownPicker.SetPlaceholderWhileSelecting("Выберете роль...");
             _picker.DownPicker.SetPlaceholder("Выберете роль...");
             _picker.EditingDidEnd += Picker_EditingDidEnd;
-            //picker.DownPicker.//EditingEnded(picker.DownPicker.TextField); 
-            _picker.EditingDidEndOnExit += Picker_EditingDidEnd;
 
             var set = this.CreateBindingSet<LoginView, LoginViewModel>();
-            //set.Bind(picker.DownPicker).For().To(vm => vm.CurrentRole);
             set.Bind(textEmail).To(vm => vm.Username); 
             set.Bind(textPassword).To(vm => vm.Password);
             set.Bind(loginButton).To("Login");
@@ -113,10 +110,6 @@ namespace FoodPoint_Seller.Touch.Views
             scrollView.AddConstraints(constraints);
         }
 
-        private void Picker_Ended(object sender, EventArgs e)
-        {
-        }
-
         private void Picker_EditingDidEnd(object sender, EventArgs e)
         {
             var senderPicker = ((UIDownPicker)sender);
@@ -129,12 +122,6 @@ namespace FoodPoint_Seller.Touch.Views
             {
                 ViewModel.CurrentRole.Value = ((UIDownPicker)sender).DownPicker.TextField.Text;
             }
-         
-            //if (true)
-            //{
-
-            //}
-            //var a = picker;
         }
         #endregion
     }

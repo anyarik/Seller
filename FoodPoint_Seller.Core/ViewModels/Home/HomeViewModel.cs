@@ -1,17 +1,14 @@
-﻿using FoodPoint_Seller.Api.Controllers;
-using FoodPoint_Seller.Api.Models.ViewModels;
+﻿using FoodPoint_Seller.Api.Models.ViewModels;
 using MvvmCross.FieldBinding;
 using System.Collections.Generic;
 using FoodPoint_Seller.Core.Models;
 using FoodPoint_Seller.Core.Services;
 using FoodPoint_Seller.Core.ViewModels.Base;
-using System;
 using MvvmCross.Plugins.Messenger;
-using MvvmCross.Platform;
 using System.Collections.ObjectModel;
 using MvvmCross.Platform.Core;
-using System.Collections;
 using FoodPoint_Seller.Core.Extentions;
+using MvvmCross.Platform;
 
 namespace FoodPoint_Seller.Core.ViewModels
 {
@@ -23,22 +20,21 @@ namespace FoodPoint_Seller.Core.ViewModels
         // Просмотр заказа в отдельном окне
         // Верстка
 
-        public INC<string> OpenOrderNumber = new NC<string>();
-        public INC<bool> IsLoading = new NC<bool>();
-
+        
         private readonly ISellerOrderService _sellerOrderService;
         private readonly ISellerAuthService _authService;
-
         private readonly IDialogService _dialogService;
 
         /// <summary> 
         /// Список заказов, который получены и согласованы
         /// </summary>
         public ObservableCollection<PayedOrder> ListOrderItem = new ObservableCollection<PayedOrder>();
+
         public INC<bool> IsClikedOrderDialogOpen = new NC<bool>(false);
+        public INC<string> OpenOrderNumber = new NC<string>();
 
         /// <summary>
-        /// Список полученых текущих продуктов в пришедшем заказе
+        /// Список полученых текущих продуктов в открытом заказе
         /// </summary>
         public INC<List<ProductForOrder>> ListCurentOrderProductItem = new NC<List<ProductForOrder>>(new List<ProductForOrder>());
 
@@ -53,8 +49,8 @@ namespace FoodPoint_Seller.Core.ViewModels
             this._sellerOrderService = sellerOrderService;
             this._dialogService = dialogService;
 
-            this._tokenClickOrder = MvvmCross.Platform.Mvx.GetSingleton<IMvxMessenger>()
-                                        .Subscribe<ClickOnFinishOrderMessage>(this.OnFinishOrder, MvxReference.Strong);
+            this._tokenClickOrder = Mvx.GetSingleton<IMvxMessenger>()
+                                    .Subscribe<ClickOnFinishOrderMessage>(this.OnFinishOrder, MvxReference.Strong);
 
             this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder;
         }
@@ -62,7 +58,7 @@ namespace FoodPoint_Seller.Core.ViewModels
         public HomeViewModel(ISellerOrderService sellerOrderService,  ISellerAuthService authService) 
             : base(sellerOrderService, authService)
         {
-            
+               
         }
 
         /// <summary>
@@ -93,8 +89,8 @@ namespace FoodPoint_Seller.Core.ViewModels
         private void _sellerOrderService_OnNewPayedOrder(object sender, PayedOrder addOrder)
         {
             _dialogService.Notification(new NotificaiosModel($"Заказ №{addOrder.Order.RowNumber} оплачен"
-                                                , "Начинайте готовить")
-                           );
+                                                , "Начинайте готовить"));
+
             MvxMainThreadDispatcher.Instance.RequestMainThreadAction(() => this.ListOrderItem.Add(addOrder));
         }
 

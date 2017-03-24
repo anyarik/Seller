@@ -10,6 +10,8 @@ using CoreGraphics;
 using FoodPoint_Seller.Touch.Views.Home;
 using MvvmCross.Binding.iOS.Views;
 using FoodPoint_Seller.Touch.Views.OrderDialog;
+using Cirrious.FluentLayouts.Touch;
+using MvvmCross.Platform;
 
 namespace FoodPoint_Seller.Touch.Views
 {
@@ -104,16 +106,21 @@ namespace FoodPoint_Seller.Touch.Views
         {
             base.ViewWillAppear(animated);
             this._ordersTable = new UITableView(
-                new CGRect( 0
-                          , 0 //+ this.NavigationController.NavigationBar.Frame.Height
+                new CGRect(0
+                          , 0 + this.NavigationController.NavigationBar.Frame.Height
                           , View.Frame.Width * widthOrdersTable
                           , View.Frame.Height))
             {
                 SeparatorStyle = UITableViewCellSeparatorStyle.None,
                 BackgroundColor = UIColor.Clear,
                 EstimatedRowHeight = 200,
-                RowHeight = 200//UITableView.AutomaticDimension,
+                RowHeight = 200,
+               
+                //EstimatedSectionHeaderHeight = 30,
+                SectionHeaderHeight = 30//UITableView.AutomaticDimension,
             };
+
+            //_ordersTable.SectionHeaderHeight = 30;
             this._smallOrdersTable = new UITableView(
                 new CGRect( _ordersTable.Frame.Width + marginLeftTable
                           , 0 + this.NavigationController.NavigationBar.Frame.Height
@@ -123,7 +130,11 @@ namespace FoodPoint_Seller.Touch.Views
                 SeparatorStyle = UITableViewCellSeparatorStyle.None,
                 BackgroundColor = UIColor.Clear,
                 EstimatedRowHeight = 60,
-                RowHeight = 60
+                RowHeight = 60,
+                
+               // EstimatedSectionHeaderHeight = 30,
+                SectionHeaderHeight = 30,
+                
             };
 
             this._ordersTable.RegisterClassForCellReuse(typeof(OrderCell), OrderCell.Key);
@@ -161,7 +172,8 @@ namespace FoodPoint_Seller.Touch.Views
 
             //setDialog.Apply();
 
-            //var mainViewModel =
+            var top = Mvx.Resolve<IMvxIosView<MainViewModel>>();
+            var act = top.ViewModel;
 
             this.CreateBinding(_dialog).For("Visibility").To<MainViewModel>(vm => vm.IsOrderDialogOpen)
                                                                                    .WithConversion("Visibility").Apply();
@@ -169,6 +181,11 @@ namespace FoodPoint_Seller.Touch.Views
             this.View.AddSubview(this._dialog.View);
             this.View.AddSubview(this._ordersTable);
             this.View.AddSubview(this._smallOrdersTable);
+
+            //_ordersTable.SubviewsDoNotTranslateAutoresizingMaskIntoConstraints();
+
+            //var constraints = _ordersTable.VerticalStackPanelConstraints(new Margins(20, 10, 20, 10, 5, 5), _ordersTable.Subviews);
+            //_ordersTable.AddConstraints(constraints);
         }
 
         public override void ViewDidLayoutSubviews()

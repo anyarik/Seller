@@ -10,11 +10,11 @@ namespace FoodPoint_Seller
     {
         public static string Host
         {
-            get { return "http://95.46.44.224:50387"; }
+            get { return "http://193.124.66.1:50387"; }
         }
         public static string Identity
         {
-            get { return "http://95.46.44.224:55493"; }
+            get { return "http://193.124.66.1:55493"; }
         }
         public static string YaSuccessUri
         {
