@@ -17,7 +17,6 @@ namespace FoodPoint_Seller.Core.Services.Implementations
     {
         public OwnerAuthService(IUserController userController, IKeyChain keyChain) : base(userController, keyChain)
         {
-
         }
 
         public async override  Task<bool> Login(string username, string password)
@@ -27,28 +26,22 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                 var user = new OwnerAccountModel(username, password);
 
                 _tokenAuth = await Policy.Handle<Exception>(_ => true)
-                                       .WaitAndRetryForeverAsync
+                                       .WaitAndRetryAsync
                                        (
-                                           sleepDurationProvider: retry => TimeSpan.FromSeconds(10)
+                                           3,
+                                           sleepDurationProvider: retry => TimeSpan.FromSeconds(5)
                                        )
                                        .ExecuteAsync(async () => await this._userController.AuthorizationOwner(user));
-
 
                 if (_tokenAuth.access_token != null)
                 {
                     var isUpdate = await this.UpdateProfile();
-
-                    if (isUpdate)
-                        return IsAuthenticated = true;
-                    else
-                        return IsAuthenticated;
-
+                    return isUpdate ? IsAuthenticated = true : IsAuthenticated;
                 }
                 else
                 {
                     return IsAuthenticated;
                 }
-          
             }
             catch (ArgumentException argex)
             {
@@ -68,11 +61,9 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                 );
 
             if (_profileUser != null)
-            {
                 return true;
-            }
-
-            return true;
+            else
+                return false;
         }
     }
 }

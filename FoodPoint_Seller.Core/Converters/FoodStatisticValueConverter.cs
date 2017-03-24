@@ -48,9 +48,6 @@ namespace FoodPoint_Seller.Core.Converters
             public string withoutSubs;
             public string revenueNoSubs;
             public string commonSellingAmount;
-
         }
     }
-
-    
 }

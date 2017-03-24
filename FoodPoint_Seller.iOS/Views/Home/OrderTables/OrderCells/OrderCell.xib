@@ -7,36 +7,65 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrderCell">
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="4" rowHeight="171" reuseIdentifier="OrderCellInd" customClass="OrderCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="4" rowHeight="171" reuseIdentifier="OrderCell" customClass="OrderCell">
             <rect key="frame" x="0.0" y="0.0" width="450" height="171"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4" id="5">
                 <rect key="frame" x="0.0" y="0.0" width="450" height="170"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="_" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
-                        <rect key="frame" x="20" y="12" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="_" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6" translatesAutoresizingMaskIntoConstraints="NO">
+                        <rect key="frame" x="20" y="12" width="112" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
+                        <constraints>
+                            <constraint id="38" firstItem="6" firstAttribute="width" constant="112"/>
+                        </constraints>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="13" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" text="_">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="13" translatesAutoresizingMaskIntoConstraints="NO" text="_">
                         <rect key="frame" x="299" y="8" width="131" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
+                        <constraints>
+                            <constraint id="39" firstItem="13" firstAttribute="width" constant="131"/>
+                        </constraints>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="22" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="22" translatesAutoresizingMaskIntoConstraints="NO">
                         <rect key="frame" x="324" y="140" width="106" height="30"/>
+                        <color key="backgroundColor" colorSpace="calibratedRGB" red="0.9882352941176471" green="0.31372549019607843" blue="0.3843137254901961" alpha="1"/>
                         <state key="normal" title="Завершить">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleColor" colorSpace="calibratedRGB" red="1" green="1" blue="1" alpha="1"/>
                         </state>
+                        <constraints>
+                            <constraint id="53" firstItem="22" firstAttribute="width" constant="106"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </button>
-                    <view contentMode="scaleToFill" id="25" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES">
+                    <view contentMode="scaleToFill" id="25" translatesAutoresizingMaskIntoConstraints="NO" horizontalCompressionResistancePriority="1" verticalHuggingPriority="249">
                         <rect key="frame" x="20" y="41" width="410" height="91"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </subviews>
+                <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>
+                <constraints>
+                    <constraint id="31" firstItem="5" firstAttribute="trailing" secondItem="25" secondAttribute="trailing" constant="20"/>
+                    <constraint id="35" firstItem="25" firstAttribute="leading" secondItem="5" secondAttribute="leading" constant="20"/>
+                    <constraint id="36" firstItem="6" firstAttribute="leading" secondItem="5" secondAttribute="leading" constant="20"/>
+                    <constraint id="37" firstItem="6" firstAttribute="top" secondItem="5" secondAttribute="top" constant="12"/>
+                    <constraint id="40" firstItem="13" firstAttribute="top" secondItem="5" secondAttribute="top" constant="8"/>
+                    <constraint id="41" firstItem="5" firstAttribute="trailing" secondItem="13" secondAttribute="trailing" constant="20"/>
+                    <constraint id="42" firstItem="25" firstAttribute="top" secondItem="6" secondAttribute="bottom" constant="8"/>
+                    <constraint id="47" firstItem="5" firstAttribute="trailing" secondItem="22" secondAttribute="trailing" constant="20"/>
+                    <constraint id="48" firstItem="22" firstAttribute="bottom" secondItem="5" secondAttribute="bottom"/>
+                    <constraint id="49" firstItem="22" firstAttribute="top" secondItem="25" secondAttribute="bottom" constant="8"/>
+                    <constraint id="50" firstItem="22" firstAttribute="top" secondItem="25" secondAttribute="bottom" constant="8"/>
+                </constraints>
             </tableViewCellContentView>
             <point key="canvasLocation" x="-7.5" y="-82"/>
             <connections>

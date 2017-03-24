@@ -12,6 +12,7 @@ namespace FoodPoint_Seller.Core.Services
     {
         Task<List<PayedOrder>> GetOrders();
         void DeletOrder(OrderItem deletOrder);
+        void DisconectSignalR();
 
         event EventHandler<PayedOrder> OnNewPayedOrder;
         event EventHandler<string> ChangeStatus;

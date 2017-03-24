@@ -19,6 +19,8 @@ using FoodPoint_Seller.Core.Models;
 using FoodPoint_Seller.Droid.Services;
 using Android.Media;
 using Android.Graphics;
+using System;
+using Android.Runtime;
 
 namespace FoodPoint_Seller.Droid.Activities
 {
@@ -34,10 +36,9 @@ namespace FoodPoint_Seller.Droid.Activities
     {
         public DrawerLayout DrawerLayout;
 
-        private static readonly int ButtonClickNotificationId = 1000;
+        private static  int ButtonClickNotificationId = 0;
 
         private IOrderController orderController;
-
         private IDialogService _dialogService;
 
 
@@ -67,22 +68,22 @@ namespace FoodPoint_Seller.Droid.Activities
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                
                 .SetAutoCancel(true)                    // Dismiss from the notif. area when clicked
-                .SetContentIntent(resultPendingIntent)  // Start 2nd activity when the intent is clicked.
+         //       .SetContentIntent(resultPendingIntent)  // Start 2nd activity when the intent is clicked.
                 .SetContentTitle(notification.title)      // Set its title
-                .SetNumber(1)                       // Display the count in the Content Info
+//                .SetNumber(10)                       // Display the count in the Content Info
                 .SetSound(RingtoneManager.GetDefaultUri(RingtoneType.Notification))
-                .SetSmallIcon(Resource.Drawable.ic_stat_name)
+                .SetSmallIcon(Resource.Drawable.logo)
                 .SetLargeIcon(BitmapFactory.DecodeResource(Resources, Resource.Drawable.logo))
                 .SetPriority(1)
                 .SetVisibility(5)
                 .SetVibrate(new long[] { 500, 500 })
-                .SetSmallIcon(Resource.Drawable.abc_ab_share_pack_mtrl_alpha)  // Display this icon
                 .SetContentText(notification.description); // The message to display.
 
             // Finally, publish the notification:
             NotificationManager notificationManager =
                 (NotificationManager)GetSystemService(Context.NotificationService);
-            notificationManager.Notify(ButtonClickNotificationId, builder.Build());
+
+            notificationManager.Notify(++ButtonClickNotificationId, builder.Build());
         }
 
         protected override void OnCreate(Bundle bundle)
@@ -91,21 +92,19 @@ namespace FoodPoint_Seller.Droid.Activities
 
             SetContentView(Resource.Layout.activity_main);
 
-            this.orderController = Mvx.IocConstruct<OrderController>();
-
-
-            this._dialogService = Mvx.Resolve<IDialogService>();
-
-
-            _dialogService.NotificateIt += _dialogService_NotificateIt;
+             this._dialogService = Mvx.Resolve<IDialogService>();
+             _dialogService.NotificateIt += _dialogService_NotificateIt;
 
             DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 
 
             if (bundle == null)
                 ViewModel.ShowMenu();
+
+
+            //Test3
+            /// Java.Lang.Thread.DefaultUncaughtExceptionHandler = new ExceptHandler();
         }
-    
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {

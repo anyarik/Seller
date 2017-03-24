@@ -100,5 +100,5 @@ namespace FoodPoint_Seller.Droid.Fragments
             set { base.ViewModel = value; }
         }
     }
-}
+}   
 

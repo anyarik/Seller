@@ -37,12 +37,12 @@ namespace FoodPoint_Seller.Touch.Views
 
             Add(loginButton);
 
-            var table = new TemplateTableViewController<OrderCell
-                                         , OrdersStatisticViewModel>
-                  (ViewModel
-                  , nameof(OrderStatisticValueConverter).Replace("ValueConverter", ""));
+            //var table = new TemplateTableViewController<OrderCell
+            //                             , OrdersStatisticViewModel>
+            //      (ViewModel
+            //      , nameof(OrderStatisticValueConverter).Replace("ValueConverter", ""));
 
-            View.AddSubview(table.View);
+            //View.AddSubview(table.View);
 
         }
     }

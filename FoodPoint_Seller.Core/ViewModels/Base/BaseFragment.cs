@@ -1,5 +1,6 @@
 ﻿using FoodPoint_Seller.Api.Controllers;
 using FoodPoint_Seller.Api.Models.DomainModels;
+using FoodPoint_Seller.Core.Extentions;
 using FoodPoint_Seller.Core.Services;
 using Meowtrix.ITask;
 using MvvmCross.Core.ViewModels;
@@ -14,27 +15,22 @@ namespace FoodPoint_Seller.Core.ViewModels.Base
 {
     public class BaseFragment:MvxViewModel
     {
-        private ISellerOrderService _sellerOrderService;
-        private ISellerAuthService _authService;
+        private readonly ISellerOrderService _sellerOrderService;
+        private readonly ISellerAuthService _authService;
 
         public INC<string> TextStatusSeller;
-        public INC<string> TextToolbarBtn = new NC<string>("", (e) =>
-        {
-        });
+        public INC<string> TextToolbarBtn = new NC<string>("");
 
         public BaseFragment(ISellerOrderService sellerOrderService, ISellerAuthService authService)
         {
             this._sellerOrderService = sellerOrderService;
             this._authService = authService;
-            this.TextStatusSeller =  new NC<string>(_sellerOrderService.CurentStatus, (e) =>
-            {
+            this.TextStatusSeller =  new NC<string>(_sellerOrderService.CurentStatus);
 
-            });
-
-            initFragment();
+            InitFragment();
         }
 
-        private async void initFragment()
+        private async void InitFragment()
         {
             _sellerOrderService.ChangeStatus += SellerOrderService_ChangeStatus;
             _sellerOrderService.ChangeExitText += _sellerOrderService_ChangeExitText;
@@ -48,23 +44,15 @@ namespace FoodPoint_Seller.Core.ViewModels.Base
             var curentSeller = seller as SellerAccountModel;
 
             var orders = await _sellerOrderService.GetOrders();
-            if (curentSeller.Busyness && orders.Count > 0)
-            {
+
+            if (curentSeller != null && (curentSeller.Busyness && !orders.IsNullOrEmpty()))
                 return "Возобновить прием заказов";
-            }
-            else if (curentSeller.Busyness)
-            {
+            else if (curentSeller != null && curentSeller.Busyness)
                 return "Возобносить прием заказов";
-            }
             else if (orders.Count > 0)
-            {
                 return "Остановить прием заказов";
-            }
             else 
-            {
                 return "Выйти";
-            }
-           
         }
 
         private void _sellerOrderService_ChangeExitText(object sender, string textButtonExit)
@@ -79,10 +67,10 @@ namespace FoodPoint_Seller.Core.ViewModels.Base
 
         public async void OnClickOffline()
         {
-            var order = await _sellerOrderService.GetOrders();
-            if (order.Count == 0)
+            var orders = await _sellerOrderService.GetOrders();
+            if (orders.IsNullOrEmpty())
             {
-                //this._orderController.HubDisconnect();
+                this._sellerOrderService.DisconectSignalR();
                 this._authService.Logout();
                 ShowViewModel<LoginViewModel>();
             }
@@ -92,7 +80,7 @@ namespace FoodPoint_Seller.Core.ViewModels.Base
                 var seller = await this._authService.GetProfile();
                 var curentSeller = seller as SellerAccountModel;
 
-                if (curentSeller.Busyness)
+                if (curentSeller != null && curentSeller.Busyness)
                     TextToolbarBtn.Value = "Возобновить прием заказов";
                 else
                     TextToolbarBtn.Value = "Остановить прием заказов";

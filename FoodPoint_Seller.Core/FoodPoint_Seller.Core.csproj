@@ -60,12 +60,12 @@
     <Compile Include="Util\InfoAccessToken.cs" />
     <Compile Include="Models\NotificaiosModel.cs" />
     <Compile Include="ViewModels\Base\BaseFragment.cs" />
+    <Compile Include="ViewModels\Base\MainViewModel.cs" />
     <Compile Include="ViewModels\Home\HomeViewModel.cs" />
     <Compile Include="ViewModels\Login\LoginOwnerViewModel.cs" />
     <Compile Include="ViewModels\OrderDialog\OrderDialogViewModel.cs" />
     <Compile Include="ViewModels\Base\Help\HelpAndFeedbackViewModel.cs" />
     <Compile Include="ViewModels\Login\LoginViewModel.cs" />
-    <Compile Include="ViewModels\Base\MainViewModel.cs" />
     <Compile Include="ViewModels\Menu\MenuViewModel.cs" />
     <Compile Include="ViewModels\Statistic\StatisticOwnerViewModel.cs" />
     <Compile Include="ViewModels\Statistic\StatisticCurrentSellerViewModel.cs" />

@@ -8,7 +8,7 @@ using MvvmCross.Binding.BindingContext;
 using CoreGraphics;
 using FoodPoint_Seller.Touch.Views.Home.AdditiveTable.AdditiveCell;
 
-namespace FoodPoint_Seller.Touch.Views.Home.ProductTables.ProductCell
+namespace FoodPoint_Seller.Touch.Views.Home
 {
     public partial class ProductCell : MvxTableViewCell
     {
@@ -22,9 +22,16 @@ namespace FoodPoint_Seller.Touch.Views.Home.ProductTables.ProductCell
         {
             this.DelayBind(() =>
             {
-                additiveTableView = new UITableView(new CGRect(0, 0, AdditiveView.Bounds.Width, AdditiveView.Bounds.Height));
+                AdditiveView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight;
+
+                additiveTableView = new UITableView(
+                    new CGRect( 0
+                              , 0
+                              , AdditiveView.Bounds.Width
+                              , AdditiveView.Bounds.Height));
                 AdditiveView.AddSubview(additiveTableView);
                 additiveTableView.RegisterClassForCellReuse(typeof(AdditiveCell), AdditiveCell.Key);
+
                 var source = new MvxSimpleTableViewSource(additiveTableView, AdditiveCell.Key, AdditiveCell.Key);
                 additiveTableView.Source = source;
 
@@ -45,8 +52,7 @@ namespace FoodPoint_Seller.Touch.Views.Home.ProductTables.ProductCell
         {
             base.LayoutSubviews();
             additiveTableView.EstimatedRowHeight = 50;
-            additiveTableView.RowHeight = 50;
-
+            additiveTableView.RowHeight = UITableView.AutomaticDimension;
         }
     }
 }

@@ -1,39 +1,26 @@
 ﻿using FoodPoint_Seller.Api.Controllers;
 using FoodPoint_Seller.Api.Models.ViewModels;
+using FoodPoint_Seller.Core.Extentions;
 using FoodPoint_Seller.Core.Models;
-using FoodPoint_Seller.Core.Services.Implementations;
 using Newtonsoft.Json;
 using Polly;
 //using Polly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FoodPoint_Seller.Core.Services.Implementations
 {
     public class SellerOrderService:ISellerOrderService
     {
-        private List<PayedOrder> _activeOrders = new List<PayedOrder>();
+
+        private readonly IOrderController _orderController;
+        private readonly ISellerAuthService _sellerAuthService;
+        private readonly IDialogService _dialogService;
         
         public event EventHandler<string> ChangeStatus;
         public event EventHandler<string> ChangeExitText;
-
-
-        private string _curentStatus = "";
-        public string CurentStatus {
-            get { return _curentStatus ?? ""; }
-            set {
-                _curentStatus = value;
-                ChangeStatus?.Invoke(null, _curentStatus);
-            }
-        }
-
-        private IOrderController _orderController;
-        private ISellerAuthService _sellerAuthService;
-        private IDialogService _dialogService;
-
         public event EventHandler<PayedOrder> onNewPayedOrder;
 
         event EventHandler<PayedOrder> ISellerOrderService.OnNewPayedOrder
@@ -47,7 +34,17 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                 this.onNewPayedOrder -= value;
             }
         }
-        
+
+        private string _curentStatus = "";
+        public string CurentStatus {
+            get { return _curentStatus ?? ""; }
+            set {
+                _curentStatus = value;
+                ChangeStatus?.Invoke(null, _curentStatus);
+            }
+        }
+        private List<PayedOrder> _activeOrders = new List<PayedOrder>();
+
         public SellerOrderService(IOrderController orderController
                                  , ISellerAuthService sellerAuthService
                                  , IDialogService dialogService)
@@ -74,29 +71,29 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                         (_) =>
                     {
                         orderInProcess.CloseOrderTimer.WaitTime.Value -= new TimeSpan(0, 0, 1);
-                        if (orderInProcess.CloseOrderTimer.WaitTime.Value <= TimeSpan.Zero)
+                        if (orderInProcess.CloseOrderTimer.WaitTime.Value > TimeSpan.Zero) return;
+                        try
                         {
-                            try
-                            {
-                                _dialogService.Notification(new NotificaiosModel($"Время приготовления заказа №{orderInProcess.Order.RowNumber} закончилось"
-                                                                                             , "")
-                                );
-                                orderInProcess.CloseOrderTimer.WaitTime.Value = TimeSpan.Zero;
-                                orderInProcess.StopTimer();
-                                orderInProcess.IsOrderFinished.Value = true;
-                            }
-                            catch (Exception exp)
-                            {
-                                var a = exp.Message;
-                            }
+                            _dialogService.Notification(new NotificaiosModel($"Время приготовления заказа №{orderInProcess.Order.RowNumber} закончилось"
+                                , "")
+                            );
+                            orderInProcess.CloseOrderTimer.WaitTime.Value = TimeSpan.Zero;
+                            orderInProcess.StopTimer();
+                            orderInProcess.IsOrderFinished.Value = true;
+                        }
+                        catch (Exception exp)
+                        {
+                            var a = exp.Message;
                         }
                     });
                 });
                 payedOrder.StartTimer();
 
+                payedOrder.Order.OrderedFood = payedOrder.Order.OrderedFood.OrderBy(f => f.ProductInfo.Name).ToList();
+
                 this.AddActiveOrder(payedOrder);
 
-                onNewPayedOrder.Invoke(null, payedOrder);
+                onNewPayedOrder?.Invoke(null, payedOrder);
             });
 
             this._orderController.OnChangeStatusSeller((_, status) =>
@@ -110,34 +107,28 @@ namespace FoodPoint_Seller.Core.Services.Implementations
             var item = this._activeOrders.Count > 0
                 ? this._activeOrders.FirstOrDefault((o) => o.Order.ID == payedOrder.Order.ID)
                 : null;
-            if (item == null)
-            {
-                _activeOrders.Add(payedOrder);
-                ChangeExitText.Invoke(null, "Остановить прием заказов");
-            }
+            if (item != null) return;
+
+            _activeOrders.Add(payedOrder);
+            ChangeExitText?.Invoke(null, "Остановить прием заказов");
         }
 
         public async Task<List<PayedOrder>> GetOrders()
         {
-            if (_activeOrders.Count.Equals(0))
+            if (_activeOrders.IsNullOrEmpty())
             {
                 await InitActiveOrder();
             }
-            var copyListOrders =  new List<PayedOrder>();
-            foreach (var item in _activeOrders)
-            {
-                copyListOrders.Add(item.Clone(item));
-            }
 
-            return copyListOrders;
+            return _activeOrders.Select(item => item.Clone(item)).ToList();
         }
 
         public void DeletOrder(OrderItem deletOrder)
         {
             _activeOrders.RemoveAll(o => o.Order.ID == deletOrder.ID);
 
-            if (_activeOrders.Count.Equals(0))
-                ChangeExitText.Invoke(null, "Выйти");
+            if (_activeOrders.IsNullOrEmpty())
+                ChangeExitText?.Invoke(null, "Выйти");
         }
 
         private async Task InitActiveOrder()
@@ -151,7 +142,6 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                                                     sleepDurationProvider: retry => TimeSpan.FromSeconds(10)
                                                 )
                                                 .ExecuteAsync(async () => await _orderController.GetActiveOrders(seller.ID, token));
-           // var recivedActiveOrdrers = await _orderController.GetActiveOrders(seller.ID, token);
 
             foreach (var item in recivedActiveOrdrers)
             {
@@ -162,30 +152,36 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                         (_) =>
                     {
                         orderInProcess.CloseOrderTimer.WaitTime.Value -= new TimeSpan(0, 0, 1);
-                        if (orderInProcess.CloseOrderTimer.WaitTime.Value <= TimeSpan.Zero)
-                        {
-                            try
-                            {
-                                _dialogService.Notification(
-                                    new NotificaiosModel($"Время приготовления заказа №{orderInProcess.Order.RowNumber} закончилось"
-                                                                                             , "")
-                                );
-                                orderInProcess.CloseOrderTimer.WaitTime.Value = TimeSpan.Zero;
-                                orderInProcess.StopTimer();
 
-                                orderInProcess.IsOrderFinished.Value = true;
-                            }
-                            catch (Exception exp)
-                            {
-                                var a = exp.Message;
-                            }
+                        if (orderInProcess.CloseOrderTimer.WaitTime.Value > TimeSpan.Zero) return;
+
+                        try
+                        {
+                            _dialogService.Notification(
+                                new NotificaiosModel($"Время приготовления заказа №{orderInProcess.Order.RowNumber} закончилось"
+                                    , "")
+                            );
+                            orderInProcess.CloseOrderTimer.WaitTime.Value = TimeSpan.Zero;
+                            orderInProcess.StopTimer();
+
+                            orderInProcess.IsOrderFinished.Value = true;
+                        }
+                        catch (Exception exp)
+                        {
+                            var a = exp.Message;
                         }
                     });
                 });
                 activeOrder.StartTimer();
+                activeOrder.Order.OrderedFood.OrderBy(f=>f.ProductInfo.Name).ToList();
 
                 this.AddActiveOrder(activeOrder);
             }
+        }
+
+        public void DisconectSignalR()
+        {
+            this._orderController.HubDisconnect();
         }
     }
 }

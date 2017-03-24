@@ -70,9 +70,7 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                 var isUpdate  = await this.UpdateProfile();
                
                 if (isUpdate)
-                {
-                    return _profileUser ;
-                }
+                   return _profileUser ;
             }
             return _profileUser;
         }

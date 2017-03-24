@@ -26,10 +26,11 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                 var user = new SellerAccountModel(username, password);
 
                 _tokenAuth = await Policy.Handle<Exception>(_ => true)
-                               .WaitAndRetryForeverAsync
-                               (
-                                   sleepDurationProvider: retry => TimeSpan.FromSeconds(10)
-                               )
+                               .WaitAndRetryAsync
+                                       (
+                                           3,
+                                           sleepDurationProvider: retry => TimeSpan.FromSeconds(5)
+                                       )
                                .ExecuteAsync(async () => await this._userController.AuthorizationSeller(user));
 
 
@@ -47,7 +48,7 @@ namespace FoodPoint_Seller.Core.Services.Implementations
                     return IsAuthenticated;
                 }
             }
-            catch (ArgumentException argex)
+            catch (Exception argex)
             {
                 ErrorMessage = argex.Message;
                 IsAuthenticated = false;

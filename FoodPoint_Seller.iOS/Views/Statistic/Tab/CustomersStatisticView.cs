@@ -30,8 +30,10 @@ namespace FoodPoint_Seller.Touch.Views
             loginButton.SetTitle("Кастомер", UIControlState.Normal);
             loginButton.BackgroundColor = UIColor.Black;
 
-            var startDate = new UILabel(new CGRect(100, 200, 100, 100));
-            startDate.BackgroundColor = UIColor.Black;
+            var startDate = new UILabel(new CGRect(100, 200, 100, 100))
+            {
+                BackgroundColor = UIColor.Black
+            };
 
             var set = this.CreateBindingSet<CustomersStatisticView, CustomersStatisticViewModel>();
 
@@ -41,11 +43,13 @@ namespace FoodPoint_Seller.Touch.Views
 
             set.Apply();
 
-            var table = new TemplateTableViewController< CustomerCell, CustomersStatisticViewModel>
-                                ( ViewModel
-                                , nameof(CustomerStatisticValueConverter).Replace("ValueConverter", ""));
+            var table = new TemplateTableViewController<CustomerCell, CustomersStatisticViewModel>
+            (ViewModel
+                , nameof(CustomerStatisticValueConverter).Replace("ValueConverter", ""))
+            {
+                View = {Frame = new CGRect(0, 50, View.Frame.Width, 300)}
+            };
 
-            table.View.Frame = new CGRect(0, 50, View.Frame.Width, 300);
 
             Add(loginButton);
             View.AddSubview(table.View);

@@ -28,14 +28,15 @@ namespace FoodPoint_Seller.Touch.Views
 
         #endregion
 
+        private UIDownPicker _picker;
         #region Public Methods
 
         /// <summary>
-        /// Called after the controller’s <see cref="P:UIKit.UIViewController.View"/> is loaded into memory.
+        /// Called after the controllerпїЅs <see cref="P:UIKit.UIViewController.View"/> is loaded into memory.
         /// </summary>
         /// <remarks>
         /// <para>
-        /// This method is called after <c>this</c> <see cref="T:UIKit.UIViewController"/>'s <see cref="P:UIKit.UIViewController.View"/> and its entire view hierarchy have been loaded into memory. This method is called whether the <see cref="T:UIKit.UIView"/> was loaded from a .xib file or programmatically.
+        /// This method is called after <c>this</c>пїЅ<see cref="T:UIKit.UIViewController"/>'s <see cref="P:UIKit.UIViewController.View"/> and its entire view hierarchy have been loaded into memory. This method is called whether the <see cref="T:UIKit.UIView"/> was loaded from a .xib file or programmatically.
         /// </para>
         /// </remarks>
         public override void ViewDidLoad()
@@ -59,30 +60,33 @@ namespace FoodPoint_Seller.Touch.Views
                                                 , SecureTextEntry = true };
 
             var loginButton = new UIButton(UIButtonType.RoundedRect);
-            loginButton.SetTitle("Войти", UIControlState.Normal);
+            loginButton.SetTitle("Р’РѕР№С‚Рё", UIControlState.Normal);
             loginButton.BackgroundColor = UIColor.FromRGB(252, 80, 98); ;
             loginButton.SetTitleColor(UIColor.White, UIControlState.Normal);
 
-            NSMutableArray array = new NSMutableArray() ;
-            array.Add(new NSString("Продавец"));
-            array.Add(new NSString("Управляющий"));
+            var array = new NSMutableArray() ;
+            array.Add(new NSString("РџСЂРѕРґР°РІРµС†"));
+            array.Add(new NSString("РЈРїСЂР°РІР»СЏСЋС‰РёР№"));
 
             //Add Data to our down picker outlet
-            UIDownPicker picker = new UIDownPicker(array)
+            this._picker = new UIDownPicker(array)
             {
                 BorderStyle = UITextBorderStyle.RoundedRect
             }; 
-            picker.Frame = this.View.Bounds;
-            picker.DownPicker.SetToolbarDoneButtonText("Выбрать");
-            picker.DownPicker.SetToolbarCancelButtonText("Закрыть");
+            _picker.Frame = this.View.Bounds;
+            _picker.DownPicker.SetToolbarDoneButtonText("Р’С‹Р±СЂР°С‚СЊ");
+            _picker.DownPicker.SetToolbarCancelButtonText("РћС‚РјРµРЅР°");
             //picker.DownPicker.SetArrowImage(UIImage.);
             //picker.DownPicker.SetToolbarStyle(UIBarStyle.Default);
-            picker.DownPicker.ShowArrowImage(true);
-            picker.DownPicker.SetPlaceholderWhileSelecting("Выберете роль...");
-            picker.DownPicker.SetPlaceholder("Выберете роль...");
-            picker.EditingDidEnd += Picker_EditingDidEnd;
+            _picker.DownPicker.ShowArrowImage(true);
+            _picker.DownPicker.SetPlaceholderWhileSelecting("Р’С‹Р±РµСЂРµС‚Рµ СЂРѕР»СЊ...");
+            _picker.DownPicker.SetPlaceholder("Р’С‹Р±РµСЂРµС‚Рµ СЂРѕР»СЊ...");
+            _picker.EditingDidEnd += Picker_EditingDidEnd;
+            //picker.DownPicker.//EditingEnded(picker.DownPicker.TextField); 
+            _picker.EditingDidEndOnExit += Picker_EditingDidEnd;
 
-          var set = this.CreateBindingSet<LoginView, LoginViewModel>();
+            var set = this.CreateBindingSet<LoginView, LoginViewModel>();
+            //set.Bind(picker.DownPicker).For().To(vm => vm.CurrentRole);
             set.Bind(textEmail).To(vm => vm.Username); 
             set.Bind(textPassword).To(vm => vm.Password);
             set.Bind(loginButton).To("Login");
@@ -98,7 +102,7 @@ namespace FoodPoint_Seller.Touch.Views
                 scrollView.WithSameWidth(View),
                 scrollView.WithSameHeight(View));
 
-            scrollView.Add(picker);
+            scrollView.Add(_picker);
             scrollView.Add(textEmail);
             scrollView.Add(textPassword);
             scrollView.Add(loginButton);
@@ -109,9 +113,28 @@ namespace FoodPoint_Seller.Touch.Views
             scrollView.AddConstraints(constraints);
         }
 
+        private void Picker_Ended(object sender, EventArgs e)
+        {
+        }
+
         private void Picker_EditingDidEnd(object sender, EventArgs e)
         {
-            ViewModel.CurrentRole.Value = ((UIDownPicker)sender).Text;
+            var senderPicker = ((UIDownPicker)sender);
+            if (senderPicker.DownPicker.SelectedIndex == -1)
+            {
+                senderPicker.DownPicker.SelectedIndex = 0;
+                ViewModel.CurrentRole.Value = "РџСЂРѕРґР°РІРµС†";
+            }
+            else
+            {
+                ViewModel.CurrentRole.Value = ((UIDownPicker)sender).DownPicker.TextField.Text;
+            }
+         
+            //if (true)
+            //{
+
+            //}
+            //var a = picker;
         }
         #endregion
     }

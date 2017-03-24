@@ -11,27 +11,27 @@ using UIKit;
 
 namespace FoodPoint_Seller.Touch.Views.Home
 {
-    [Register ("ProductCell")]
-    partial class ProductCell
+    [Register ("SmallOrderCell")]
+    partial class SmallOrderCell
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIView AdditiveView { get; set; }
+        UIKit.UILabel RowLbl { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel NameLbl { get; set; }
+        UIKit.UILabel TimerLbl { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
-            if (AdditiveView != null) {
-                AdditiveView.Dispose ();
-                AdditiveView = null;
+            if (RowLbl != null) {
+                RowLbl.Dispose ();
+                RowLbl = null;
             }
 
-            if (NameLbl != null) {
-                NameLbl.Dispose ();
-                NameLbl = null;
+            if (TimerLbl != null) {
+                TimerLbl.Dispose ();
+                TimerLbl = null;
             }
         }
     }

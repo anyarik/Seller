@@ -18,53 +18,42 @@ namespace FoodPoint_Seller.Core.ViewModels
     public class HomeViewModel : BaseFragment
     {
         //TODO Необходимо:
-        // Групировать товары
+        // Загрузки при отправлении  запросов
+        // Обновление информации при подключении к сигнаР
+        // Просмотр заказа в отдельном окне
         // Верстка
-        // Занятость продавца
 
         public INC<string> OpenOrderNumber = new NC<string>();
         public INC<bool> IsLoading = new NC<bool>();
 
-        private IOrderController _orderController;
-        private ISellerOrderService _sellerOrderService;
+        private readonly ISellerOrderService _sellerOrderService;
+        private readonly ISellerAuthService _authService;
 
-        private ISellerAuthService _authService;
-        private IDialogService _dialogService;
+        private readonly IDialogService _dialogService;
 
         /// <summary> 
         /// Список заказов, который получены и согласованы
         /// </summary>
         public ObservableCollection<PayedOrder> ListOrderItem = new ObservableCollection<PayedOrder>();
-        //(new ObservableCollection<PayedOrder>() { }, (e) =>
-        //{
-        //});
-
-        public INC<bool> IsClikedOrderDialogOpen = new NC<bool>(false, (e) =>
-        {
-        });
+        public INC<bool> IsClikedOrderDialogOpen = new NC<bool>(false);
 
         /// <summary>
         /// Список полученых текущих продуктов в пришедшем заказе
         /// </summary>
-        public INC<List<ProductForOrder>> ListCurentOrderProductItem = new NC<List<ProductForOrder>>(new List<ProductForOrder>(), (e) =>
-        {
-        });
+        public INC<List<ProductForOrder>> ListCurentOrderProductItem = new NC<List<ProductForOrder>>(new List<ProductForOrder>());
 
-        private MvxSubscriptionToken tokenClickOrder;
+        private MvxSubscriptionToken _tokenClickOrder;
 
-        public HomeViewModel(IOrderController orderController
-                           , ISellerAuthService authService
-                           , ISellerOrderService sellerOrderService
-                           , IDialogService dialogService) 
+        public HomeViewModel( ISellerAuthService authService
+                            , ISellerOrderService sellerOrderService
+                            , IDialogService dialogService) 
             : this(sellerOrderService, authService)
         {
-            this._orderController = orderController;
-
             this._authService = authService;
             this._sellerOrderService = sellerOrderService;
             this._dialogService = dialogService;
 
-            this.tokenClickOrder = MvvmCross.Platform.Mvx.GetSingleton<IMvxMessenger>()
+            this._tokenClickOrder = MvvmCross.Platform.Mvx.GetSingleton<IMvxMessenger>()
                                         .Subscribe<ClickOnFinishOrderMessage>(this.OnFinishOrder, MvxReference.Strong);
 
             this._sellerOrderService.OnNewPayedOrder += _sellerOrderService_OnNewPayedOrder;
@@ -73,20 +62,20 @@ namespace FoodPoint_Seller.Core.ViewModels
         public HomeViewModel(ISellerOrderService sellerOrderService,  ISellerAuthService authService) 
             : base(sellerOrderService, authService)
         {
-
+            
         }
 
         /// <summary>
         /// Метод, который говорит нам о том, что наша ViewModel отобразилась на экране
         /// </summary>
-        public async override void Start()
+        public override async void Start()
         {
-            List<PayedOrder> orders = new List<PayedOrder>();
+            var orders = new List<PayedOrder>();
 
-            if (this.ListOrderItem.Count == 0)
+            if (this.ListOrderItem.IsNullOrEmpty())
                 orders = await _sellerOrderService.GetOrders();
             
-            if (orders.Count != 0 )
+            if (!orders.IsNullOrEmpty())
             {
                 foreach (var item in orders)
                 {

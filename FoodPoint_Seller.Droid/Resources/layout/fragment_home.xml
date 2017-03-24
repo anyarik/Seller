@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroudPrimary"
-    android:descendantFocusability="beforeDescendants">
+    >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,19 +23,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/orders_list"
+                android:clickable="true"
                 android:divider="@android:color/transparent"
-                local:MvxBind="ItemsSource ListOrderItem; ItemClick OrderClick"
+                local:MvxBind="ItemsSource ListOrderItem;ItemClick OrderClick"
                 local:MvxItemTemplate="@layout/listitem_order" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/toolbar_actionbar"
+
             android:layout_toRightOf="@id/order_list_content">
             <Mvx.MvxListView
                 android:id="@+id/small_orders_list"
                 android:layout_width="110dp"
                 android:layout_height="match_parent"
+                android:clickable="true"
                 android:layout_alignParentEnd="true"
                 android:divider="@android:color/transparent"
                 local:MvxBind="ItemsSource ListOrderItem; Item OrderClick"

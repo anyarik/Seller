@@ -61,7 +61,7 @@
     <ConsolePause>false</ConsolePause>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>True</MtouchDebug>
     <MtouchSdkVersion>10.1</MtouchSdkVersion>
     <MtouchLink>None</MtouchLink>
@@ -144,11 +144,18 @@
     <Compile Include="Views\Home\ProductTable\ProductCell\ProductCell.designer.cs">
       <DependentUpon>ProductCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home\ProductTable\ProductTableView.cs" />
+    <Compile Include="Views\Home\SmallOrderTabel\SmallOrderCell.cs" />
+    <Compile Include="Views\Home\SmallOrderTabel\SmallOrderCell.designer.cs">
+      <DependentUpon>SmallOrderCell.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Login\OwnerLoginView.cs" />
     <Compile Include="Views\Login\LoginView.cs" />
     <Compile Include="Views\Base\MainView.cs" />
     <Compile Include="Views\Menu\MenuView.cs" />
+    <Compile Include="Views\OrderDialog\OrderDialogView.cs" />
+    <Compile Include="Views\OrderDialog\OrderDialogView.designer.cs">
+      <DependentUpon>OrderDialogView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Statistic\StatisticOwnerView.cs" />
     <Compile Include="Views\Statistic\StatisticCurrentSellerView.cs" />
     <Compile Include="Views\Statistic\Tab\Tables\Cells\OrderCell.cs" />
@@ -179,6 +186,8 @@
       <SubType>Designer</SubType>
     </InterfaceDefinition>
     <InterfaceDefinition Include="Views\Home\AdditiveTable\AdditiveCell\AdditiveCell.xib" />
+    <InterfaceDefinition Include="Views\OrderDialog\OrderDialogView.xib" />
+    <InterfaceDefinition Include="Views\Home\SmallOrderTabel\SmallOrderCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />

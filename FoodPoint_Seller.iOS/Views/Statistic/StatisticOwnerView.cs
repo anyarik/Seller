@@ -44,8 +44,11 @@ namespace FoodPoint_Seller.Touch.Views
             var controller = new UINavigationController();
             var screen = this.CreateViewControllerFor(viewModel) as UIViewController;
             // SetTitleAndTabBarItem(screen, title, imageName);
-            screen.Title = title;
-            controller.PushViewController(screen, false);
+            if (screen != null)
+            {
+                screen.Title = title;
+                controller.PushViewController(screen, false);
+            }
             return controller;
         }
 

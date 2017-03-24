@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using ModernHttpClient;
 
 namespace FoodPoint_Seller.Api.Services.Implementations
 {
@@ -22,9 +23,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
         {
             return await ProcessRequestAsync<T>(url, postData, headers, errorMessage);
         }
-
-
-
+                
         public static async Task<string> PostStatusAsync(string url, HttpContent postData
                         , List<KeyValuePair<string, IEnumerable<string>>> headers = null, string errorMessage = null)
         {
@@ -34,7 +33,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
         private static async Task<T> ProcessRequestAsync<T>(string url, HttpContent postData
                          , List<KeyValuePair<string, IEnumerable<string>>> headers, string errorMessage)
         {
-            using (var handler = new HttpClientHandler())
+            using (var handler = new NativeMessageHandler())
             {
                 //if (handler.SupportsAutomaticDecompression)
                 //    handler.AutomaticDecompression = DecompressionMethods.Deflate;
@@ -62,8 +61,15 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                         string data = "";
 
 
-                        var response = await httpClient.SendAsync(message);
-                        data = await response.Content.ReadAsStringAsync();
+                        try
+                        {
+                            var response = await httpClient.SendAsync(message);
+                            data = await response.Content.ReadAsStringAsync();
+                        }
+                        catch (Exception)
+                        {
+                             throw new Exception(errorMessage);  
+                        }
 
                        
                         if (!string.IsNullOrEmpty(data))
@@ -74,7 +80,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                             }
                             catch (Exception )
                             {
-                                return default(T);
+                                throw new Exception(errorMessage);
                             }
                         }
   
@@ -90,7 +96,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
         private static async Task<string> ProcessRequestStatusAsync(string url, HttpContent postData
                         , List<KeyValuePair<string, IEnumerable<string>>> headers = null, string errorMessage = null)
         {
-            using (var handler = new HttpClientHandler())
+            using (var handler = new NativeMessageHandler())
             {
                 //if (handler.SupportsAutomaticDecompression)
                 //    handler.AutomaticDecompression = DecompressionMethods.Deflate;
@@ -102,11 +108,7 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                         message.RequestUri = new Uri(url);
                         message.Method = postData == null ? HttpMethod.Get : HttpMethod.Post;
 
-                        if (url.StartsWith(AppData.Identity))
-                        {
-                            httpClient.DefaultRequestHeaders.Add("Authorization", "Basic bW9iaWxlOnNlY3JldA==");
-                        }
-
+        
                         if (headers != null)
                         {
                             foreach (KeyValuePair<string, IEnumerable<string>> header in headers)

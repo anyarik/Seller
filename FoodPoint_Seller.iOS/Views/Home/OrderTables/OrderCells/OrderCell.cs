@@ -5,13 +5,9 @@ using UIKit;
 using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
 using FoodPoint_Seller.Core.Models;
-using CoreAnimation;
-using FoodPoint_Seller.Touch.Views.Home;
-using FoodPoint_Seller.Touch.Views.Home.ProductTables.ProductCell;
-using System.Collections.Generic;
-using static FoodPoint_Seller.Touch.Views.Home.ProductTableView;
 
-namespace Collections.Touch
+
+namespace FoodPoint_Seller.Touch.Views.Home
 {
     public partial class OrderCell : MvxTableViewCell
     {
@@ -26,8 +22,14 @@ namespace Collections.Touch
 		{
             this.DelayBind(() => {
 
-                productTableView = new UITableView(new CGRect(0, 0, TestView.Bounds.Width, TestView.Bounds.Height));
+                productTableView = new UITableView(new CGRect( 0
+                                                             , 0
+                                                             , TestView.Bounds.Width
+                                                             , TestView.Bounds.Height));
                 TestView.AddSubview(productTableView);
+
+                TestView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight;
+
                 productTableView.RegisterClassForCellReuse(typeof(ProductCell), ProductCell.Key);
                 var source = new MvxSimpleTableViewSource(productTableView, ProductCell.Key, ProductCell.Key);
                 productTableView.Source = source;
@@ -35,7 +37,8 @@ namespace Collections.Touch
 
                 var set = this.CreateBindingSet<OrderCell, PayedOrder>();
                 set.Bind(RowLabel).To(order => order.Order.RowNumber);
-                set.Bind(Timerlbl).To(order => order.CloseOrderTimer.WaitTime).WithConversion("StringFormat", "mm\\:ss");
+                set.Bind(Timerlbl).To(order => order.CloseOrderTimer.WaitTime)
+                                                    .WithConversion("StringFormat", "mm\\:ss");
                 set.Bind(source).To(order => order.Order.OrderedFood);
 
                 set.Bind(OverOrderBtn).To("OnFinishOrder");
@@ -58,12 +61,13 @@ namespace Collections.Touch
         {
             base.LayoutSubviews();
 
-            productTableView.EstimatedRowHeight = 100;
-            productTableView.RowHeight = 100;
 
-            this.LayoutMargins = new UIEdgeInsets(10, 10, 10, 10);
-            //this.Layer.SublayerTransform. = new CATransform3D();
-           
+            productTableView.EstimatedRowHeight = 100;
+            productTableView.RowHeight = UITableView.AutomaticDimension;
+      
+
+
+
             this.ContentView.Layer.CornerRadius = 2;
             this.ContentView.Layer.BorderWidth = 1;
             this.ContentView.Layer.BorderColor = UIColor.Clear.CGColor;
@@ -77,5 +81,12 @@ namespace Collections.Touch
 
             // this.Layer.ShadowPath = new UIBezierPath( this.Bounds,  this.ContentView.Layer.CornerRadius);
         }
+        //public override void UpdateConstraints()
+        //{
+        //    this.productTableView.SetContentCompressionResistancePriority(750
+        //  , UILayoutConstraintAxis.Vertical);
+        //    this.TestView.SetContentCompressionResistancePriority(750
+        //        , UILayoutConstraintAxis.Vertical);
+        //}
     }
 }

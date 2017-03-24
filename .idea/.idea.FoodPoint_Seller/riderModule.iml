@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="RIDER_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$/../..">
+      <sourceFolder url="file://$MODULE_DIR$/../../FoodPoint_Seller.Api/FoodPoint_Seller.Api" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../FoodPoint_Seller.Core" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../FoodPoint_Seller.Droid" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../FoodPoint_Seller.iOS" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/../../FoodPoint_Seller.Api/FoodPoint_Seller.Api/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../FoodPoint_Seller.Api/FoodPoint_Seller.Api/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../FoodPoint_Seller.Core/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../FoodPoint_Seller.Core/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../FoodPoint_Seller.Droid/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../FoodPoint_Seller.Droid/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../FoodPoint_Seller.iOS/bin" />
+      <excludeFolder url="file://$MODULE_DIR$/../../FoodPoint_Seller.iOS/obj" />
+      <excludeFolder url="file://$MODULE_DIR$/../../packages" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

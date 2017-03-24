@@ -9,56 +9,47 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace Collections.Touch
+namespace FoodPoint_Seller.Touch.Views.Home
 {
     [Register ("OrderCell")]
     partial class OrderCell
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel RowLabel { get; set; }
-
-        [Outlet]
-        [GeneratedCode("iOS Designer", "1.0")]
-        UIKit.UILabel Timerlbl { get; set; }
-
-        [Outlet]
-        [GeneratedCode("iOS Designer", "1.0")]
         UIKit.UIButton OverOrderBtn { get; set; }
 
         [Outlet]
-        [GeneratedCode("iOS Designer", "1.0")]
-        UIKit.UITableView ProductTabel { get; set; }
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel RowLabel { get; set; }
 
         [Outlet]
-        [GeneratedCode("iOS Designer", "1.0")]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIView TestView { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel Timerlbl { get; set; }
 
         void ReleaseDesignerOutlets ()
         {
+            if (OverOrderBtn != null) {
+                OverOrderBtn.Dispose ();
+                OverOrderBtn = null;
+            }
+
             if (RowLabel != null) {
                 RowLabel.Dispose ();
                 RowLabel = null;
             }
-            if (Timerlbl != null)
-            {
-                Timerlbl.Dispose();
-                Timerlbl = null;
-            }
-            if (OverOrderBtn != null)
-            {
-                OverOrderBtn.Dispose();
-                OverOrderBtn = null;
-            }
-            if (ProductTabel != null)
-            {
-                ProductTabel.Dispose();
-                ProductTabel = null;
-            }
-            if (TestView != null)
-            {
-                TestView.Dispose();
+
+            if (TestView != null) {
+                TestView.Dispose ();
                 TestView = null;
+            }
+
+            if (Timerlbl != null) {
+                Timerlbl.Dispose ();
+                Timerlbl = null;
             }
         }
     }

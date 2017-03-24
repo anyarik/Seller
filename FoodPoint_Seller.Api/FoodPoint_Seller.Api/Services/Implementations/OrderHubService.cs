@@ -39,7 +39,6 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                 this.receiveOrder -= value;
             }
         }
-
         event EventHandler<bool> IOrderHubService.customerAgreedYAY
         {
             add
@@ -52,7 +51,6 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                 this.customerAgreedYAY -= value;
             }
         }
-
         event EventHandler<string> IOrderHubService.setStatusSeller
         {
             add
@@ -65,7 +63,6 @@ namespace FoodPoint_Seller.Api.Services.Implementations
                 this.setStatusSeller -= value;
             }
         }
-
         event EventHandler<string> IOrderHubService.gettingPurchasedOrders
         {
             add
@@ -92,17 +89,6 @@ namespace FoodPoint_Seller.Api.Services.Implementations
 
         private  void IntHubSubscriptions()
         {
-             _hub.On("OnСonnected", () => {
-
-            });
-
-            _hub.On("OnReconnected", () => {
-
-            });
-
-            _hub.On("OnDisconnected", () => {
-
-            });
 
             _hub.On<string, string, string>("RecieveOrder", (customer, order, time) =>
             {
@@ -160,21 +146,14 @@ namespace FoodPoint_Seller.Api.Services.Implementations
         {
             if (st.NewState == ConnectionState.Disconnected)
             {
-
-                isConnected = false;
                 setStatusSeller.Invoke(null, "offline");
                 connection.Stop();
            }
 
-            //If disconnected and we re-create connection successfully, re-subscribe to updates.
             if (!isConnected && st.OldState == ConnectionState.Connecting && st.NewState == ConnectionState.Connected)
             {
                 setStatusSeller.Invoke(null, "online");
-
-                //SubscribeToMachine(MachineStatusDetails.MachineId);
             }
-
-            //Messenger.Default.Send<ConnectionState>(st.NewState, UIMessageToken.ConnectionState);
         }
 
         private void Connection_Received(string obj)
@@ -202,18 +181,21 @@ namespace FoodPoint_Seller.Api.Services.Implementations
         private  void Connection_ConnectionSlow()
         {
             setStatusSeller.Invoke(null, "internet problem");
-            
         }
 
         private async void Connection_Closed()
         {
-            setStatusSeller.Invoke(null, "conecting...");
-            await Policy.Handle<Exception>(_ => true)
-                                        .WaitAndRetryForeverAsync
-                                        (
-                                            sleepDurationProvider: retry => TimeSpan.FromSeconds(10)
-                                        )
-                                        .ExecuteAsync(async () => await Connect());
+            if (isConnected)
+            {
+                setStatusSeller.Invoke(null, "conecting...");
+                await Policy.Handle<Exception>(_ => true)
+                                            .WaitAndRetryForeverAsync
+                                            (
+                                                sleepDurationProvider: retry => TimeSpan.FromSeconds(10)
+                                            )
+                                            .ExecuteAsync(async () => await Connect());
+            }
+
         }
 
         public async Task<bool> Connect()
@@ -243,7 +225,6 @@ namespace FoodPoint_Seller.Api.Services.Implementations
         public void CorrectOrder(string customerId, bool status, string corectOrder, string corectTime )
         {
             _hub.Invoke("CorrectOrder", customerId, status.ToString(), corectOrder, corectTime);
-
         }
     }
 }
